@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-01-2015 a las 17:29:05
+-- Tiempo de generación: 21-01-2015 a las 17:38:11
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -24,13 +24,20 @@ DELIMITER $$
 --
 -- Funciones
 --
-CREATE DEFINER=`root`@`localhost` FUNCTION `estado_simulacion`(xtipo INT, cantidad INT ,xensayo_id INT,xusuario_id INT, t_dependencia int) RETURNS int(11)
+CREATE DEFINER=`root`@`localhost` FUNCTION `estado_simulacion`(`xtipo` INT, `cantidad` INT, `xensayo_id` INT, `xusuario_id` INT, `t_dependencia` INT) RETURNS int(11)
 BEGIN
+
 DECLARE condicion INT DEFAULT (SELECT (CASE WHEN MAX(simulacion_id) IS NULL THEN 0 ELSE MAX(simulacion_id) END) condicion FROM (SELECT * FROM simulacion WHERE usuario_id=xusuario_id AND estado_sim=0) a);
+DECLARE xtiempo INTEGER;
+DECLARE xsegundos INTEGER;
       
 	IF (condicion = 0) THEN
 	
-	INSERT  INTO simulacion( estado_sim, num_intento, puntaje, punt_porcentual, ensayo_id, usuario_id, restante, respondida ) VALUES( 0, 0, 0, 0, xensayo_id, xusuario_id, 0, 0);
+	SET xtiempo = (SELECT tiempo FROM ensayo WHERE ensayo_id=xensayo_id);
+
+	SET xsegundos = xtiempo * 60;
+
+	INSERT INTO simulacion( estado_sim, num_intento, puntaje, punt_porcentual, ensayo_id, usuario_id, restante, respondida, fin_fecha) VALUES( 0, 0, 0, 0, xensayo_id, xusuario_id, 0, 0,FROM_UNIXTIME(UNIX_TIMESTAMP(now())+xsegundos));
 	
 	
 	SET condicion = (SELECT (CASE WHEN MAX(simulacion_id) IS NULL THEN 0 ELSE MAX(simulacion_id) END) condicion FROM (SELECT * FROM simulacion WHERE usuario_id=xusuario_id AND estado_sim=0) a);
@@ -45,11 +52,9 @@ DECLARE condicion INT DEFAULT (SELECT (CASE WHEN MAX(simulacion_id) IS NULL THEN
 		end if;
 	
 	END IF;
-	
-	
-	
+
 RETURN condicion;
-    END$$
+END$$
 
 DELIMITER ;
 
@@ -132,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `ensayo` (
 --
 
 INSERT INTO `ensayo` (`ensayo_id`, `nombre`, `tipo`, `t_dependencia`, `descripcion`, `tiempo`, `intento`, `cant_preg`, `porc_aprobacion`, `estado`, `curso_id`) VALUES
-(1, 'EnsA - Calidad', 2, '5', 'Ensayo Ãrea de conocimiento Calidad', 30, 3, 5, 80, 1, 1),
+(1, 'EnsA - Calidad', 2, '5', 'Ensayo Ãrea de conocimiento Calidad', 30, 2, 5, 80, 1, 1),
 (2, 'EnsG - PlanificaciÃ³n', 3, '2', 'Ensayo Grupo de Proceso PlanificaciÃ³n', 30, 2, 5, 90, 0, 2);
 
 -- --------------------------------------------------------
@@ -221,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `pregunta` (
   PRIMARY KEY (`pregunta_id`),
   KEY `grupo_pregunta_fk` (`grupo_id`),
   KEY `area_pregunta_fk` (`area_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=121 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=122 ;
 
 --
 -- Volcado de datos para la tabla `pregunta`
@@ -323,7 +328,8 @@ INSERT INTO `pregunta` (`pregunta_id`, `excel_id`, `pregunta_es`, `pregunta_us`,
 (117, 'CA-1', 'Â¿Cual de todos NO son factores y evaluaciones en el anÃ¡lisis cualitativo de riesgos?', 'Â¿Cual de todos NO son factores y evaluaciones en el anÃ¡lisis cualitativo de riesgos?', '0', '0', 'A', 'Un plazo de respuesta.', 'Las categorÃ­as de riesgos.', 'Tolerancia al riesgo por parte de la organizaciÃ³n asociados con las restricciones del proyecto en cuanto a costos.', 'Tolerancia al riesgo por parte de la organizaciÃ³n asociados con las restricciones del proyecto en cuanto al cronograma.', 'Option A in English', 'Option B in English', 'Option C in English', 'Option D in English', 'B, C y D son factores que pueden influir en la evaluaciÃ³n que se hace de un riesgo. A serÃ¡ mÃ¡s bien una consecuencia.', '0', '0', '0', '0', '0', '0', '0', '1', 1, 8, 2),
 (118, 'CA-1', 'El proceso control integrado de cambios, Â¿A quÃ© grupo de procesos de direcciÃ³n de proyectos pertenece?', 'El proceso control integrado de cambios, Â¿A quÃ© grupo de procesos de direcciÃ³n de proyectos pertenece?', '0', '0', 'B', 'Grupo de procesos de ejecuciÃ³n.', 'Grupo de procesos de monitoreo y control.', 'Grupo de procesos de planificaciÃ³n.', 'Grupo de procesos de iniciaciÃ³n.', 'Option A in English', 'Option B in English', 'Option C in English', 'Option D in English', 'AsÃ­ lo indican las guÃ­as del PMBOK.', '0', '0', '0', '0', '0', '0', '0', '1', 1, 1, 4),
 (119, 'CA-1', 'Â¿CuÃ¡l de las siguientes opciones NO es una entrada del proceso Determinar el presupuesto?', 'Â¿CuÃ¡l de las siguientes opciones NO es una entrada del proceso Determinar el presupuesto?', '0', '0', 'D', 'EstimaciÃ³n de costes de la actividad.', 'Activos de los proceso de la organizaciÃ³n.', 'Base de las Estimaciones.', 'Factores ambientales de la empresa.', 'Option A in English', 'Option B in English', 'Option C in English', 'Option D in English', 'SegÃºn las guÃ­as del PMBOK, A, B y C son entradas para el proceso Determinar el presupuesto.', '0', '0', '0', '0', '0', '0', '0', '1', 1, 4, 2),
-(120, 'CA-1', 'Â¿CuÃ¡l de las siguientes opciones es una entrada del proceso Realizar el aseguramiento de calidad?', 'Â¿CuÃ¡l de las siguientes opciones es una entrada del proceso Realizar el aseguramiento de calidad?', '0', '0', 'A', 'Plan para la direcciÃ³n del proyecto.', 'Acciones preventivas recomendadas.', 'Acciones correctivas recomendadas.', 'Entregables', 'Option A in English', 'Option B in English', 'Option C in English', 'Option D in English', 'SegÃºn las guÃ­as del PMBOK, sÃ³lo A es una entrada del proceso Realizar el aseguramiento de calidad.', '0', '0', '0', '0', '0', '0', '0', '1', 1, 5, 3);
+(120, 'CA-1', 'Â¿CuÃ¡l de las siguientes opciones es una entrada del proceso Realizar el aseguramiento de calidad?', 'Â¿CuÃ¡l de las siguientes opciones es una entrada del proceso Realizar el aseguramiento de calidad?', '0', '0', 'A', 'Plan para la direcciÃ³n del proyecto.', 'Acciones preventivas recomendadas.', 'Acciones correctivas recomendadas.', 'Entregables', 'Option A in English', 'Option B in English', 'Option C in English', 'Option D in English', 'SegÃºn las guÃ­as del PMBOK, sÃ³lo A es una entrada del proceso Realizar el aseguramiento de calidad.', '0', '0', '0', '0', '0', '0', '0', '1', 1, 5, 3),
+(121, 'W1', 'ss', 'ss', 'ATENOS (2).jpg', 'Error de Seguridad (2).png', 'A', 'aes', 'bes', 'ces', 'des', 'aus', 'bus', 'cus', 'dus', 'aa', 'bb', 'cc', 'dd', 'a', 'b', 'c', 'd', '1', 0, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -413,14 +419,14 @@ CREATE TABLE IF NOT EXISTS `simulacion` (
   PRIMARY KEY (`simulacion_id`),
   KEY `ensayo_simulacion_fk` (`ensayo_id`),
   KEY `usuario_simulacion_fk` (`usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `simulacion`
 --
 
 INSERT INTO `simulacion` (`simulacion_id`, `estado_sim`, `num_intento`, `puntaje`, `punt_porcentual`, `ensayo_id`, `usuario_id`, `restante`, `respondida`, `inicio_fecha`, `fin_fecha`) VALUES
-(1, 0, 0, 0, 0, 1, 1, 0, 0, '2015-01-20 10:36:39', '0000-00-00 00:00:00');
+(5, 0, 0, 0, 0, 1, 1, 0, 0, '2015-01-21 16:23:23', '2015-01-21 16:53:23');
 
 -- --------------------------------------------------------
 
@@ -450,21 +456,22 @@ CREATE TABLE IF NOT EXISTS `sim_resultado` (
   `simulacion_id` int(11) NOT NULL,
   `pregunta_id` int(11) NOT NULL,
   `estado` int(1) NOT NULL,
+  `ordalt` varchar(4) NOT NULL,
   PRIMARY KEY (`sim_resultado_id`),
   KEY `pregunta_sim_resultado_fk` (`pregunta_id`),
   KEY `simulacion_sim_resultado_fk` (`simulacion_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
 
 --
 -- Volcado de datos para la tabla `sim_resultado`
 --
 
-INSERT INTO `sim_resultado` (`sim_resultado_id`, `revision`, `respuesta`, `simulacion_id`, `pregunta_id`, `estado`) VALUES
-(1, '0', '0', 1, 120, 0),
-(2, '0', '0', 1, 58, 0),
-(3, '0', '0', 1, 33, 0),
-(4, '0', '0', 1, 56, 0),
-(5, '0', '0', 1, 65, 0);
+INSERT INTO `sim_resultado` (`sim_resultado_id`, `revision`, `respuesta`, `simulacion_id`, `pregunta_id`, `estado`, `ordalt`) VALUES
+(29, '0', '0', 5, 48, 0, ''),
+(30, '0', '0', 5, 15, 0, ''),
+(31, '0', '0', 5, 33, 0, ''),
+(32, '0', '0', 5, 17, 0, ''),
+(33, '0', '0', 5, 116, 0, '');
 
 -- --------------------------------------------------------
 
