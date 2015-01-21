@@ -1,0 +1,73 @@
+<?php
+class MD5Crypt {
+    function keyED($txt,$encrypt_key)
+    {
+            $encrypt_key = md5($encrypt_key);
+            $ctr=0;
+            $tmp = "";
+            for ($i=0;$i<strlen($txt);$i++){
+                    if ($ctr==strlen($encrypt_key)) $ctr=0;
+                    $tmp.= substr($txt,$i,1) ^ substr($encrypt_key,$ctr,1);
+                    $ctr++;
+            }
+            return $tmp;
+    }
+    function Encrypt($txt,$key)
+    {
+            srand((double)microtime()*1000000);
+            $encrypt_key = md5(rand(0,32000));
+            $ctr=0;
+            $tmp = "";
+            for ($i=0;$i<strlen($txt);$i++)
+            {
+            if ($ctr==strlen($encrypt_key)) $ctr=0;
+            $tmp.= substr($encrypt_key,$ctr,1) .
+            (substr($txt,$i,1) ^ substr($encrypt_key,$ctr,1));
+            $ctr++;
+            }
+            //return base64_encode(MD5Crypt::keyED($tmp,$key));
+            return base64_encode($this->keyED($tmp,$key));
+    }
+    function Decrypt($txt,$key)
+    {
+            $txt = $this->keyED(base64_decode($txt),$key);
+            //$txt = MD5Crypt::keyED(base64_decode($txt),$key);
+            $tmp = "";
+            for ($i=0;$i<strlen($txt);$i++){
+                    $md5 = substr($txt,$i,1);
+                    $i++;
+                    $tmp.= (substr($txt,$i,1) ^ $md5);
+            }
+            return $tmp;
+    }
+    function RandPass()
+    {
+            $randomPassword = "";
+            srand((double)microtime()*1000000);
+            for($i=0;$i<8;$i++)
+            {
+                    $randnumber = rand(48,120);
+
+                    while (($randnumber >= 58 && $randnumber <= 64) || ($randnumber >= 91 && $randnumber <= 96))
+                    {
+                            $randnumber = rand(48,120);
+                    }
+
+                    $randomPassword .= chr($randnumber);
+            }
+            return $randomPassword;
+    }
+    public static function getEncrypt($txt) {
+        $crypto=new MD5Crypt();
+        return $crypto->Encrypt($txt,'dmpcointem');
+    }
+    public static function getDecrypt($txt) {
+        $crypto=new MD5Crypt();
+        return $crypto->Decrypt($txt, 'dmpcointem');
+    }
+}
+
+//$a=new MD5Crypt();
+//echo $a->getEncrypt("python");
+//echo $a->getDecrypt("DidVdAQ+AGoFdgY5DmACMQdoDH0=");
+?>
