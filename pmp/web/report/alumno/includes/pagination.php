@@ -9,7 +9,7 @@ $conexion = mysql_connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD);
 
 mysql_select_db(DB_DATABASE, $conexion);
 
-$query_num_services =  mysql_query("select * from sim_resultado where simulacion_id=16", $conexion);
+$query_num_services =  mysql_query("select * from sim_resultado where simulacion_id=29", $conexion);
 $num_total_registros = mysql_num_rows($query_num_services);
 
 //Si hay registros
@@ -33,7 +33,7 @@ $num_total_registros = mysql_num_rows($query_num_services);
     $total_paginas = ceil($num_total_registros / $rowsPerPage);
 
                     
-    $query_services = mysql_query(" select * from sim_resultado sr, pregunta pr where pr.pregunta_id=sr.pregunta_id and sr.simulacion_id = 16 ORDER BY  sim_resultado_id asc LIMIT $offset, $rowsPerPage", $conexion);
+    $query_services = mysql_query(" select * from sim_resultado sr, pregunta pr where pr.pregunta_id=sr.pregunta_id and sr.simulacion_id = 29 ORDER BY  sim_resultado_id asc LIMIT $offset, $rowsPerPage", $conexion);
    while ($row_services = mysql_fetch_array($query_services)) {
                         //$service = new Service($row_services['service_id']);
         

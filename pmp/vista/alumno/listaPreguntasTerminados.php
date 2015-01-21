@@ -88,7 +88,8 @@ body {
                                 </tr>
                                 <tr>
                                     
-                                    <td width="20"> a) <input type="button" onclick="mostrar()" value="ver" >
+                                    <td width="20"> a) 
+                                        <!--<input type="button" onclick="mostrar()" value="ver" >-->
                                     </td>
                                     <td width="272">
                                         <font size="2" face="Verdana, Arial, Helvetica, sans-serif">

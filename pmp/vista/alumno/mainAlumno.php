@@ -43,7 +43,7 @@
 		<td>  
                 
 			<?php 
-         		if($cursos[$i]['intento']>$cursos[$i]['ensreal'] ){
+         		if($cursos[$i]['intento']>$cursos[$i]['ensreal']&&$simulacion[0]['estado_sim']==0  ){
          	?>
          		<button  type="button" class="editar" id="darexamen" onclick="javascript:showFormSimulator(<?php echo $cursos[$i]['tipo']?>, <?php echo $cursos[$i]['cant_preg']?>, <?php echo $cursos[$i]['ensayo_id']?>, <?php echo "1" ?>, <?php echo $cursos[$i]['t_dependencia']?>, <?php  echo $cursos[$i]['intento'] ?> )">Dar Examen </button> 
          	   <?php } else{ ?>

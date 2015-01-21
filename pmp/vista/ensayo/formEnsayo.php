@@ -60,7 +60,7 @@
                     <option value="100">100</option>
                     <option value="50">50</option>
                     <option value="20">20</option>
-                    <option value="20">10</option>
+                    <option value="10">10</option>
                     <option value="5" selected="selected">5</option>
                 </select>
                 
@@ -133,9 +133,8 @@
         if(dato==10){
             $("#tiempo").val(15);
         }
-        if(dato==5){
-            $("#tiempo").val(30);
-        }
+        
+      
     }
     </script>
 </html>

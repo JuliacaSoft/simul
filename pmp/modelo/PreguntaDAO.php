@@ -343,7 +343,7 @@ class PreguntaDAO {
     }
 
     public function reportarPreguntaSimulRevision($simulacion_id) {
-        $sql = "SELECT * FROM (SELECT sim_resultado_id, revision,respuesta, simulacion_id, pregunta_id, estado AS condicion FROM sim_resultado WHERE simulacion_id=? AND estado=1) a INNER JOIN pregunta USING(pregunta_id) ";
+        $sql = "SELECT * FROM (SELECT sim_resultado_id, revision,respuesta, simulacion_id, pregunta_id, estado AS condicion FROM sim_resultado WHERE simulacion_id=? AND revision=1) a INNER JOIN pregunta USING(pregunta_id) ";
 
 
         try {
@@ -377,7 +377,7 @@ class PreguntaDAO {
     }
 
     public function reportarCantidadRevision($simulacion_id) {
-        $sql = "SELECT COUNT(*) AS cantidadrev FROM (SELECT sim_resultado_id, revision,respuesta, simulacion_id, pregunta_id, estado AS condicion FROM sim_resultado WHERE simulacion_id=? AND estado=1) a INNER JOIN pregunta USING(pregunta_id)  ";
+        $sql = "SELECT COUNT(*) AS cantidadrev FROM (SELECT sim_resultado_id, revision,respuesta, simulacion_id, pregunta_id, estado AS condicion FROM sim_resultado WHERE simulacion_id=? AND revision=1) a INNER JOIN pregunta USING(pregunta_id)  ";
         try {
             $sqlQuery = new SqlQuery($sql);
             $sqlQuery->set($simulacion_id);
@@ -388,10 +388,26 @@ class PreguntaDAO {
         }
     }
 
-    public function listarCursosEnsayo() {
-        $sql = "SELECT e.ensayo_id, c.nombre AS curso, e.nombre,  e.tipo, e.t_dependencia, e.tiempo, e.intento, e.cant_preg, (select count(si.simulacion_id) from simulacion si where si.ensayo_id=e.ensayo_id ) as ensreal FROM ensayo e, curso c WHERE e.curso_id=c.curso_id  ";
+    public function ultimasimulacionUsuario($usuario_id) {
+        $sql = "select * from simulacion si where si.simulacion_id=(select max(simulacion_id) from simulacion where usuario_id=?)  ";
+
+
         try {
             $sqlQuery = new SqlQuery($sql);
+            $sqlQuery->setNumber($usuario_id);
+            $tabla = QueryExecutor::execute($sqlQuery);
+
+            return $tabla;
+        } catch (Exception $e) {
+            throw new Exception("Error :" . $e->getMessage());
+        }
+    }
+
+    public function listarCursosEnsayo($usuario_id) {
+        $sql = "SELECT e.ensayo_id, c.nombre AS curso, e.nombre,  e.tipo, e.t_dependencia, e.tiempo, e.intento, e.cant_preg, (select count(si.simulacion_id) from simulacion si where si.ensayo_id=e.ensayo_id and si.usuario_id=? ) as ensreal   FROM ensayo e, curso c WHERE e.curso_id=c.curso_id   ";
+        try {
+            $sqlQuery = new SqlQuery($sql);
+            $sqlQuery->set($usuario_id);
             $tabla = QueryExecutor::execute($sqlQuery);
             return $tabla;
         } catch (Exception $e) {
@@ -427,13 +443,14 @@ class PreguntaDAO {
         }
     }
 
-    public function actualizaSimulPregunta($simulacion_id, $pregunta_id, $respuesta, $estado, $ordenalternativas) {
-        $sql = " UPDATE sim_resultado  SET respuesta = ? , estado = ?, ordalt= ? WHERE simulacion_id = ? AND pregunta_id = ?  ";
+    public function actualizaSimulPregunta($simulacion_id, $pregunta_id, $respuesta, $estado, $ordenalternativas, $revision) {
+        $sql = " UPDATE sim_resultado  SET respuesta = ? , estado = ?, ordalt= ?, revision=? WHERE simulacion_id = ? AND pregunta_id = ?  ";
         try {
             $sqlQuery = new SqlQuery($sql);
             $sqlQuery->set($respuesta);
             $sqlQuery->set($estado);
             $sqlQuery->set($ordenalternativas);
+            $sqlQuery->set($revision);
             $sqlQuery->set($simulacion_id);
             $sqlQuery->set($pregunta_id);
             $resp = QueryExecutor::executeUpdate($sqlQuery);
@@ -467,7 +484,7 @@ class PreguntaDAO {
             throw new Exception("Error :" . $e->getMessage());
         }
     }
-    
+
     public function totalSimulacionContestadas($simulacion_id, $estado) {
         $sql = "select count(*) as totalCont from usuario us, simulacion si, sim_resultado sir  where us.usuario_id=si.usuario_id and si.simulacion_id = sir.simulacion_id and si.simulacion_id=? and sir.estado=? ";
         try {
@@ -481,14 +498,41 @@ class PreguntaDAO {
         }
     }
 
-    public function finSimulacion($simulacion_id, $resto, $contestado, $puntaje) {
-        $sql = "UPDATE simulacion SET estado_sim = 1,restante=? , respondida=?, puntaje=? WHERE simulacion_id = ?   ";
+    public function totalSimulacionContestadasRev($simulacion_id, $revision) {
+        $sql = "select count(*) as totalrev from usuario us, simulacion si, sim_resultado sir  where us.usuario_id=si.usuario_id and si.simulacion_id = sir.simulacion_id and si.simulacion_id=? and sir.revision=? ";
+        try {
+            $sqlQuery = new SqlQuery($sql);
+            $sqlQuery->set($simulacion_id);
+            $sqlQuery->set($revision);
+            $tabla = QueryExecutor::execute($sqlQuery);
+            return $tabla;
+        } catch (Exception $e) {
+            throw new Exception("Error :" . $e->getMessage());
+        }
+    }
+
+    public function totalSimulacionContestadasPerdidas($simulacion_id) {
+        $sql = "select count(*) as totalCont from usuario us, simulacion si, sim_resultado sir  where us.usuario_id=si.usuario_id and si.simulacion_id = sir.simulacion_id and si.simulacion_id=? and sir.revision=0 and sir.estado=1";
+        try {
+            $sqlQuery = new SqlQuery($sql);
+            $sqlQuery->set($simulacion_id);
+
+            $tabla = QueryExecutor::execute($sqlQuery);
+            return $tabla;
+        } catch (Exception $e) {
+            throw new Exception("Error :" . $e->getMessage());
+        }
+    }
+
+    public function finSimulacion($simulacion_id, $resto, $contestado, $puntaje, $porcentaje) {
+        $sql = "UPDATE simulacion SET estado_sim = 1,restante=? , respondida=?, puntaje=? , punt_porcentual=? WHERE simulacion_id = ?   ";
         try {
             $sqlQuery = new SqlQuery($sql);
             //$sqlQuery->set($estado_sim);   
             $sqlQuery->set($resto);
             $sqlQuery->set($contestado);
             $sqlQuery->set($puntaje);
+            $sqlQuery->set($porcentaje);
             $sqlQuery->set($simulacion_id);
 
             $resp = QueryExecutor::executeUpdate($sqlQuery);
@@ -501,54 +545,54 @@ class PreguntaDAO {
 
     public function puntaje($simulacion_id) {
         $sql = "select count(*) as puntaje from sim_resultado simr, pregunta pr where  simr.estado=2 and pr.respuesta = simr.respuesta and pr.pregunta_id=simr.pregunta_id and simr.simulacion_id=? ";
-        
-        $sql1="select a.respuesta as correcta, b.respuesta,ordalt from 
+
+        $sql1 = "select a.respuesta as correcta, b.respuesta,ordalt from 
        sim_resultado b, pregunta a where b.pregunta_id=a.pregunta_id AND simulacion_id=?";
 
 
-    //$sql = "SELECT nombre, cant_preg FROM ensayo";
-   // $sqlQuery=new SqlQuery($sql1);
-    //$respuesta=QueryExecutor::execute($sqlQuery);
+        //$sql = "SELECT nombre, cant_preg FROM ensayo";
+        // $sqlQuery=new SqlQuery($sql1);
+        //$respuesta=QueryExecutor::execute($sqlQuery);
 
-        
+
         try {
-            $tabla=0;
+            $tabla = 0;
             $sqlQuery1 = new SqlQuery($sql1);
             $sqlQuery1->set($simulacion_id);
             $tabla1 = QueryExecutor::execute($sqlQuery1);
-            $respuestanum=array();
-            
-            for ($i=0; $i<count($tabla1); $i++) { 
-                $alternativas=$tabla1[$i]['ordalt'];
-                $alt=str_split($alternativas);
+            $respuestanum = array();
+
+            for ($i = 0; $i < count($tabla1); $i++) {
+                $alternativas = $tabla1[$i]['ordalt'];
+                $alt = str_split($alternativas);
 
 
-                
-                    switch ($tabla1[$i]['respuesta']) {
-                        case 'A': $tabla1[$i]['respuesta']=1; break;
-                        case 'B': $tabla1[$i]['respuesta']=2; break;
-                        case 'C': $tabla1[$i]['respuesta']=3; break;
-                        case 'D': $tabla1[$i]['respuesta']=4; break;
-                    }
 
-                    //echo $tabla1[$i]['respuesta']."<BR>";
+                switch ($tabla1[$i]['respuesta']) {
+                    case 'A': $tabla1[$i]['respuesta'] = 1;
+                        break;
+                    case 'B': $tabla1[$i]['respuesta'] = 2;
+                        break;
+                    case 'C': $tabla1[$i]['respuesta'] = 3;
+                        break;
+                    case 'D': $tabla1[$i]['respuesta'] = 4;
+                        break;
+                }
 
+                //echo $tabla1[$i]['respuesta']."<BR>";
                 //for ($j=0; $j<count($alt); $j++) { 
-                    //echo "Array alternativas ".$alt[$j];
-                    if(!$tabla1[$i]['respuesta']==0){
-                        //echo "Array alternativas ".$alt[$tabla1[$i]['respuesta']-1]."<br>";
-
-                        //echo "respuesta correcta: ".$tabla1[$i]['correcta']."<br>";
-                        if($alt[$tabla1[$i]['respuesta']-1]==$tabla1[$i]['correcta']){
-                            $tabla++;
-                        }
+                //echo "Array alternativas ".$alt[$j];
+                if (!$tabla1[$i]['respuesta'] == 0) {
+                    //echo "Array alternativas ".$alt[$tabla1[$i]['respuesta']-1]."<br>";
+                    //echo "respuesta correcta: ".$tabla1[$i]['correcta']."<br>";
+                    if ($alt[$tabla1[$i]['respuesta'] - 1] == $tabla1[$i]['correcta']) {
+                        $tabla++;
                     }
-                    //if($alt[$tabla1[$i]['respuesta']]==$tabla1[$i]['respuesta']){
-                    //    $tabla++;
-                    //}
+                }
+                //if($alt[$tabla1[$i]['respuesta']]==$tabla1[$i]['respuesta']){
+                //    $tabla++;
                 //}
-
-                
+                //}
             }
             return $tabla;
         } catch (Exception $e) {
@@ -574,6 +618,18 @@ class PreguntaDAO {
         try {
             $sqlQuery = new SqlQuery($sql);
             $sqlQuery->set($ensayo_id);
+            $tabla = QueryExecutor::execute($sqlQuery);
+            return $tabla;
+        } catch (Exception $e) {
+            throw new Exception("Error :" . $e->getMessage());
+        }
+    }
+
+    public function validarAprobacion($simulacion_id) {
+        $sql = "select * from ensayo en , simulacion si where si.ensayo_id = en.ensayo_id and si.simulacion_id=?";
+        try {
+            $sqlQuery = new SqlQuery($sql);
+            $sqlQuery->set($simulacion_id);
             $tabla = QueryExecutor::execute($sqlQuery);
             return $tabla;
         } catch (Exception $e) {

@@ -40,7 +40,7 @@
 <form name="form" method="post" action="_proxy.php">
     
 <h1 align="center">Simulador Online PMP - Atenos</h1> 
-            
+<p><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><?php echo $intentos[0]['intento'] ?></p>        
 
 <br>  
 <table width="95%" border="0" align="center" cellpadding="3" cellspacing="0" bgcolor="#CCCCCC">
@@ -175,7 +175,8 @@
     
     </table>
 </form>
-    <div class="resultados">
+        <form name="timeForm">
+<div class="resultados">
     <table>
     <thead>
         <th>Resulstados</th>
@@ -183,7 +184,13 @@
     <tbody>
         <tr>
             <th>Tiempo</th>
-            <td> <input type="text"> </td>
+            <td> <input type="text" name="tiempo"> <?php 
+            echo $tiempofin;
+
+            $f=explode("-",$tiempofin);
+            echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
+
+            ?> </td>
         </tr>
          <tr>
             <th>Total Pregutas</th>
@@ -197,14 +204,24 @@
             <th>Por revisar</th>
               <td>  <?php echo $totalrev ?> </td>
         </tr>
+        <tr>
+            <th>En blanco</th>
+            <td><?php echo $perdidos ?> </td>
+        </tr>
          <tr>
             <th>Restantes</th>
             <td>  <?php echo $restante ?> </td>
         </tr>
         
+        
+        <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>">Finalizar Simulación</button> 
+        
     </tbody>
 </table>
 </div>
+</form>
+        
+   
     
 <?php 
     $cond=1;
@@ -216,7 +233,7 @@
      
      }else{
          
-         if($datos==0){
+         if($datos==1){
              ?>
              
              Final

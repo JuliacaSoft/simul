@@ -44,8 +44,6 @@
     
 <h1 align="center">Simulador Online PMP - Atenos</h1> 
 <p><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><?php echo $intentos[0]['intento'] ?></p> 
-            
-
 <br>  
 <table width="95%" border="0" align="center" cellpadding="3" cellspacing="0" bgcolor="#CCCCCC">
 <div>
@@ -189,7 +187,7 @@
    
         <tr><div align="center">
 
-            <td>r)<input type="radio" name="respuesta" value="r" />
+            <td>r)<input type="checkbox" name="revision" value="R" />
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
                 <?php  echo "Revision" ?> </font>
             </td>
@@ -254,10 +252,15 @@
             <th>Por revisar</th>
               <td>  <?php echo $totalrev ?> </td>
         </tr>
+        <tr>
+            <th>En blanco</th>
+            <td><?php echo $perdidos ?> </td>
+        </tr>
          <tr>
             <th>Restantes</th>
             <td>  <?php echo $restante ?> </td>
         </tr>
+        
         
         <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>">Finalizar Simulación</button> 
         
@@ -276,7 +279,7 @@
      }
      
      }else{
-         
+         echo '<h1>'.$datos.'</h1>';
          if($datos==0){
              ?>
              
