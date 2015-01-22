@@ -5,7 +5,8 @@ require_once "../modelo/PreguntaDAO.php";
 class AlumnoControlador {
 
     public $model;
-   
+    public $intentos;
+
     public function __construct() {
         require_once('Seguridad.php');
         s_pagina_validar();
@@ -13,13 +14,13 @@ class AlumnoControlador {
     }
 
     public function listarCursos() {
-        
+
         //Usuario Id Necesario por la funcion
-        
-        $usuario_id=$_SESSION['UserAct'][0]['usuario_id'];
+
+        $usuario_id = $_SESSION['UserAct'][0]['usuario_id'];
         $cursos = $this->model->listarCursosEnsayo($usuario_id);
         $simulacion = $this->model->ultimasimulacionUsuario($usuario_id);
-        
+
         require_once '../vista/alumno/mainAlumno.php';
     }
 
@@ -69,8 +70,8 @@ class AlumnoControlador {
     function listarPreguntas() {
         $simulacion_id = $_REQUEST['simulacion_id'];
         $pregunta = $this->model->reportarPreguntaSimulation($simulacion_id);
-        
-        $intentos = $this->model->mostrarCantidadIntento($pregunta[0]['ensayo_id']);
+
+
         $datos = 0;
 
         $rev = $this->model->totalSimulacionRes($simulacion_id);
@@ -87,6 +88,13 @@ class AlumnoControlador {
 
         $rev = $this->model->totalSimulacionContestadas($simulacion_id, 0);
         $restante = $rev[0]['totalCont'];
+
+
+        if ($restante != 0) {
+            $intentos = $this->model->mostrarCantidadIntento($pregunta[0]['ensayo_id']);
+        } else {
+            $ksk;
+        }
         $rev = $this->model->totalSimulacionContestadasPerdidas($simulacion_id);
         $perdidos = $rev[0]['totalCont'];
 
@@ -95,7 +103,13 @@ class AlumnoControlador {
     }
 
     function listarPreguntasRev() {
+        $opc = $_REQUEST['opc'];
         $simulacion_id = $_REQUEST['simulacion_id'];
+        if ($opc == 100) {
+            $this->model->actualizarRevision($simulacion_id);
+        }
+
+
         $pregunta = $this->model->reportarPreguntaSimulationRev($simulacion_id);
 
         $intentos = $this->model->mostrarCantidadIntento($pregunta[0]['ensayo_id']);
@@ -113,7 +127,7 @@ class AlumnoControlador {
         $totalrev = $rev[0]['totalrev'];
 
         $rev = $this->model->totalSimulacionContestadas($simulacion_id, 0);
-        $restante = $rev[0]['totalCont'];
+        $restante = 0;
 
         $rev = $this->model->totalSimulacionContestadasPerdidas($simulacion_id);
         $perdidos = $rev[0]['totalCont'];
@@ -157,7 +171,11 @@ class AlumnoControlador {
         $perdidos = $rev[0]['totalCont'];
 
         $pregunta = $this->model->reportarPreguntaSimulation($simulacion_id);
-        $intentos = $this->model->mostrarCantidadIntento($pregunta[0]['ensayo_id']);
+        if ($restante != 0) {
+            $intentos = $this->model->mostrarCantidadIntento($pregunta[0]['ensayo_id']);
+        } else {
+            $ksk;
+        }
         $rev = $this->model->reportarCantidadRevision($simulacion_id);
 
         $datos = $rev[0]['cantidadrev'];
@@ -184,15 +202,15 @@ class AlumnoControlador {
 
         if ($revision == "R") {
             if ($respuesta != "0") {
-                $this->model->actualizaSimulPreguntaRev($simulacion_id, $pregunta_id, $respuesta, 2, 2);
+                $this->model->actualizaSimulPreguntaRev($simulacion_id, $pregunta_id, $respuesta, 2, 1);
             } else {
-                $this->model->actualizaSimulPreguntaRev($simulacion_id, $pregunta_id, 0, 1, 2);
+                $this->model->actualizaSimulPreguntaRev($simulacion_id, $pregunta_id, 0, 1, 1);
             }
         } else {
             if ($respuesta != "0") {
                 $this->model->actualizaSimulPreguntaRev($simulacion_id, $pregunta_id, $respuesta, 2, 0);
             } else {
-                $this->model->actualizaSimulPreguntaRev($simulacion_id, $pregunta_id, 0, 1,  0);
+                $this->model->actualizaSimulPreguntaRev($simulacion_id, $pregunta_id, 0, 1, 0);
             }
         }
         $rev = $this->model->totalSimulacionRes($simulacion_id);
@@ -204,13 +222,26 @@ class AlumnoControlador {
         $rev = $this->model->totalSimulacionContestadasRev($simulacion_id, 1);
         $totalrev = $rev[0]['totalrev'];
 
+        $rev = $this->model->totalSimulacionContestadasRev($simulacion_id, 0);
+        $totalrev2 = $rev[0]['totalrev'];
+        $restante=0;
         $rev = $this->model->totalSimulacionContestadas($simulacion_id, 0);
-        $restante = $rev[0]['totalCont'];
+        $restante2 = $rev[0]['totalCont'];
         $rev = $this->model->totalSimulacionContestadasPerdidas($simulacion_id);
         $perdidos = $rev[0]['totalCont'];
 
+
         $pregunta = $this->model->reportarPreguntaSimulationRev($simulacion_id);
-        $intentos = $this->model->mostrarCantidadIntento($pregunta[0]['ensayo_id']);
+
+        if ($restante2 != 0) {
+            $intentos = $this->model->mostrarCantidadIntento($pregunta[0]['ensayo_id']);
+        }
+
+
+
+
+
+
         $rev = $this->model->reportarCantidadRevision($simulacion_id);
         $datos = $rev[0]['cantidadrev'];
 
@@ -227,15 +258,15 @@ class AlumnoControlador {
         $totalrest = $totals - $totalcon;
         $rev = $this->model->puntaje($simulacion_id);
         $puntaje = $rev;
-        
+
         $rev = $this->model->validarAprobacion($simulacion_id);
         $aprobacion = $rev[0]['porc_aprobacion'];
 
 //        regla de 3 simple
         $porcentaje = ($puntaje * 100) / $totals;
 
-        $pregunta = $this->model->finSimulacion($simulacion_id, $totalrest, $totalcon, $puntaje,$porcentaje );
-        
+        $pregunta = $this->model->finSimulacion($simulacion_id, $totalrest, $totalcon, $puntaje, $porcentaje);
+
         require_once '../vista/alumno/resultados.php';
     }
 

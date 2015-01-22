@@ -8,7 +8,7 @@ require_once "UsuarioTO.php";
 class TrabajadorDAO {
 
     public function buscarIdUsuario($id) {
-        $sql = "select * from usuario where usuario_id=?";
+        $sql = "select us.* ,ro.nombre as nombre_rol from usuario us, `role` ro where ro.role_id=us.role_id and usuario_id=?";
         try {
              $sqlQuery = new SqlQuery($sql);
             $sqlQuery->set($id);

@@ -15,7 +15,7 @@ class indexControlador {
             s_pagina_validar();
             $_SESSION['UserAct'] = $this->model->buscarIdUsuario($_SESSION['workerfsx']);
             $usuario = $_SESSION['UserAct'][0]['username'];
-            $cargo = $_SESSION['UserAct'][0]['role_id'];
+            $cargo = $_SESSION['UserAct'][0]['nombre_rol'];
             $nombre = $_SESSION['UserAct'][0]['nombre'];
             #$trabajador = $this->model->listarTrabajarorTwo();            
             require_once '../vista/user/indexFrame.php';           

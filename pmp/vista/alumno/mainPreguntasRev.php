@@ -245,7 +245,7 @@
 ?>    
     
     
-    <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasRev&simulacion_id='+<?php echo $simulacion_id ?>">Ver Revisiones</button> 
+    <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasRev&simulacion_id='+<?php echo $simulacion_id ?>+'&opc='+<?php echo 100 ?>">Ver Revisiones</button> 
     
     
     

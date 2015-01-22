@@ -328,7 +328,7 @@ class PreguntaDAO {
     }
 
     public function reportarPreguntaSimulationRev($simulacion_id) {
-        $sql = "SELECT * FROM (SELECT sim_resultado.sim_resultado_id, revision,respuesta, sim_resultado.simulacion_id, pregunta_id, estado AS condicion , ensayo_id FROM sim_resultado , simulacion WHERE simulacion.simulacion_id=sim_resultado.simulacion_id and  sim_resultado.simulacion_id=? AND revision=1) a INNER JOIN pregunta USING(pregunta_id);";
+        $sql = "SELECT * FROM (SELECT sim_resultado.sim_resultado_id, revision,respuesta, sim_resultado.simulacion_id, pregunta_id, estado AS condicion , ensayo_id FROM sim_resultado , simulacion WHERE simulacion.simulacion_id=sim_resultado.simulacion_id and  sim_resultado.simulacion_id=? AND estado=0) a INNER JOIN pregunta USING(pregunta_id);";
 
 
         try {
@@ -370,9 +370,7 @@ class PreguntaDAO {
 
     public function ultimasimulacionUsuario($usuario_id) {
         $sql = "select * from simulacion si where si.simulacion_id=(select max(simulacion_id) from simulacion where usuario_id=?)  ";
-
-
-        try {
+         try {
             $sqlQuery = new SqlQuery($sql);
             $sqlQuery->setNumber($usuario_id);
             $tabla = QueryExecutor::execute($sqlQuery);
@@ -450,6 +448,18 @@ class PreguntaDAO {
             $sqlQuery->set($revision);
             $sqlQuery->set($simulacion_id);
             $sqlQuery->set($pregunta_id);
+            $resp = QueryExecutor::executeUpdate($sqlQuery);
+            return $resp;
+        } catch (Exception $e) {
+            return $resp = $e->getMessage();
+            //throw new Exception("Error :".$e->getMessage());
+        }
+    }
+    public function actualizarRevision($simulacion_id) {
+        $sql = " UPDATE sim_resultado set estado=0 where revision=1 and simulacion_id=? ";
+        try {
+            $sqlQuery = new SqlQuery($sql);
+            $sqlQuery->set($simulacion_id);
             $resp = QueryExecutor::executeUpdate($sqlQuery);
             return $resp;
         } catch (Exception $e) {
