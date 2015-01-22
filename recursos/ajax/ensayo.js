@@ -10,12 +10,12 @@ function showFormEnsayo(){
             }           
          });   
 }
-function showFormEditEnsayo(idaensayo){   
-   // alert(idussuario);
+function showFormEditEnsayo(idaensayo, tipo){   
+    //alert(tipo);
         $.ajax({
             url: "_proxy.php",
             type: "GET",
-            data:"controlador=Ensayo&accion=formEditEnsayo&ensayoid="+idaensayo,
+            data:"controlador=Ensayo&accion=formEditEnsayo&ensayoid="+idaensayo+"&tipo="+tipo,
             success: function(r){                 
                 $("#table").html("");
                 $("#table").html(r);

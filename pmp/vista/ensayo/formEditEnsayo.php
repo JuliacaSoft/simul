@@ -43,11 +43,40 @@
                     <span class="small"></span>
                 </label>
                 
-                <!--caso 1-->
-                <select name="t_dependencia" id="t_dependencia">                                 
+                
+                <select name="t_dependencia" id="t_dependencia">  
+                    <?php
+                    if($Tipo==1){
+                       
+                  ?>
+                    
+                    <option value="A" <?php if("A"==$u->getT_dependencia()) echo 'selected="selected"'; ?> >Area de Conocimiento</option>
+                    <option value="G" <?php if("G"==$u->getT_dependencia()) echo 'selected="selected"'; ?>>Grupo de Procesos</option>
+                    <?php } ?>
+                    
+                  <?php
+                    if($Tipo==2){
+                        foreach ($depend as $ar){
+                  ?>
+                    
+                    <option value="<?php echo $ar->getArea_id() ?>"   <?php if($ar->getArea_id()==$u->getT_dependencia()) echo 'selected="selected"'; ?> ><?php echo $ar->getNombre() ?></option>
+                    
+                    <?php }} ?>
+                    
+                    <?php
+                    if($Tipo==3){
+                        foreach ($depend as $gr){
+                  ?>
+                    
+                    <option value="<?php echo $gr->getGrupo_id() ?>" <?php if($gr->getGrupo_id()==$u->getT_dependencia()) echo 'selected="selected"'; ?> ><?php echo $gr->getNombre() ?></option>
+                    <?php }} ?>
+                    
+                    
+                    
+                    
                 </select>
                 <div class="spacer"></div>
-
+                
 
                 <label>Cantidad Preguntas
                     <span class="small">Seleccione Cantidad Preguntas</span>

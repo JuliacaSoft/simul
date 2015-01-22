@@ -9,7 +9,7 @@ require_once "../util/sql/QueryExecutor.php";
 class EnsayoDAO {
 
     public function listarEnsayo() {
-        $sql = "SELECT * FROM ensayo INNER JOIN (SELECT curso_id, nombre as nomcurso FROM curso) a USING(curso_id)";
+        $sql = "select *, case en.tipo when 2 then (select a.nombre from area a where a.area_id=en.t_dependencia  ) when 3 then (select g.nombre from grupo g where g.grupo_id=en.t_dependencia) when 1 then (case en.t_dependencia when 'A' then 'Area de Conocimienco' when 'G' then 'Grupo de Proceso' end)   end as nombre_dependencia , cu.nombre nomcurso, case en.tipo when 2 then 'Area de Conocimiento' when 3 then 'Grupo de Procesos' when 1 then 'GLobal'  end as tipo_nombre from ensayo en , curso cu where en.curso_id=cu.curso_id";
         
         try {
             $sqlQuery=new SqlQuery($sql);
@@ -156,9 +156,8 @@ class EnsayoDAO {
         //throw new Exception("Error :".$e->getMessage());
         }
     }    
-    
     public function buscarIdEnsayo($id) {
-        $sql = "select * from ensayo where ensayo_id = ? ";
+        $sql = "select * from ensayo where ensayo_id = ?";
         try {
             $sqlQuery=new SqlQuery($sql);
             $sqlQuery->set($id);
@@ -175,14 +174,74 @@ class EnsayoDAO {
                 $ensayoTO->setPorc_aprobacion($tabla[$a]['porc_aprobacion']);
                 $ensayoTO->setEstado($tabla[$a]['estado']);
                 $ensayoTO->setCurso_id($tabla[$a]['curso_id']);
-                $ensayoTO->setEnsayo_id($tabla[$a]['ensayo_id']);                
+                $ensayoTO->setEnsayo_id($tabla[$a]['ensayo_id']);     
+                $ensayoTO->setT_dependencia($tabla[$a]['t_dependencia']);
+                
                 $list[$a]=$ensayoTO;
             }
             return $list;
             }catch (Exception $e) {
             throw new Exception("Error :".$e->getMessage());
         }
-    }    
+    }
+    
+    public function buscarIdEnsayoArea($id) {
+        $sql = "select e.*, a.nombre as area_nombre, a.area_id from ensayo e, area a where e.t_dependencia=a.area_id and ensayo_id=? ";
+        try {
+            $sqlQuery=new SqlQuery($sql);
+            $sqlQuery->set($id);
+            $tabla = QueryExecutor::execute($sqlQuery);
+            $list=array();
+            for ($a = 0; $a < count($tabla); $a++) {
+                $ensayoTO = new EnsayoTO();
+                $ensayoTO->setNombre($tabla[$a]['nombre']);
+                $ensayoTO->setDescripcion($tabla[$a]['descripcion']);
+                $ensayoTO->setTipo($tabla[$a]['tipo']);
+                $ensayoTO->setTiempo($tabla[$a]['tiempo']);
+                $ensayoTO->setIntento($tabla[$a]['intento']);
+                $ensayoTO->setCant_preg($tabla[$a]['cant_preg']);
+                $ensayoTO->setPorc_aprobacion($tabla[$a]['porc_aprobacion']);
+                $ensayoTO->setEstado($tabla[$a]['estado']);
+                $ensayoTO->setCurso_id($tabla[$a]['curso_id']);
+                $ensayoTO->setEnsayo_id($tabla[$a]['ensayo_id']);     
+                 $ensayoTO->setT_dependencia($tabla[$a]['t_dependencia']);
+                $ensayoTO->setDependencia_nombre($tabla[$a]['area_nombre']);
+                $list[$a]=$ensayoTO;
+            }
+            return $list;
+            }catch (Exception $e) {
+            throw new Exception("Error :".$e->getMessage());
+        }
+    }
+    public function buscarIdEnsayoGrupo($id) {
+        $sql = "select e.*, g.nombre as grupo_nombre, g.grupo_id from ensayo e, grupo g where e.t_dependencia=g.grupo_id and ensayo_id = ?";
+        try {
+            $sqlQuery=new SqlQuery($sql);
+            $sqlQuery->set($id);
+            $tabla = QueryExecutor::execute($sqlQuery);
+            $list=array();
+            for ($a = 0; $a < count($tabla); $a++) {
+                $ensayoTO = new EnsayoTO();
+                $ensayoTO->setNombre($tabla[$a]['nombre']);
+                $ensayoTO->setDescripcion($tabla[$a]['descripcion']);
+                $ensayoTO->setTipo($tabla[$a]['tipo']);
+                $ensayoTO->setTiempo($tabla[$a]['tiempo']);
+                $ensayoTO->setIntento($tabla[$a]['intento']);
+                $ensayoTO->setCant_preg($tabla[$a]['cant_preg']);
+                $ensayoTO->setPorc_aprobacion($tabla[$a]['porc_aprobacion']);
+                $ensayoTO->setEstado($tabla[$a]['estado']);
+                $ensayoTO->setCurso_id($tabla[$a]['curso_id']);
+                $ensayoTO->setEnsayo_id($tabla[$a]['ensayo_id']);  
+                $ensayoTO->setT_dependencia($tabla[$a]['t_dependencia']);
+                $ensayoTO->setDependencia_nombre($tabla[$a]['grupo_nombre']);
+                
+                $list[$a]=$ensayoTO;
+            }
+            return $list;
+            }catch (Exception $e) {
+            throw new Exception("Error :".$e->getMessage());
+        }
+    }
     public function buscarDatosEnsayo($datos) {
         $sql = "SELECT * FROM ensayo WHERE UPPER(CONCAT(nombre,' ', descripcion)) LIKE UPPER(?)";
         try {

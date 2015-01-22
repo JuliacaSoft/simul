@@ -9,13 +9,23 @@ public $nombre;
 public $descripcion;
 public $tipo;
 public $t_dependencia;
+public $dependencia_nombre;
 public $tiempo;
 public $intento;
 public $cant_preg;
 public $porc_aprobacion;
 public $estado;
 public $curso_id;
+ 
+public function getDependencia_nombre() {
+    return $this->dependencia_nombre;
+}
 
+public function setDependencia_nombre($dependencia_nombre) {
+    $this->dependencia_nombre = $dependencia_nombre;
+}
+
+ 
 public function getEnsayo_id() {
     return $this->ensayo_id;
 }

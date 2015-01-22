@@ -65,8 +65,8 @@
 		<td><?php  echo ++$i;?></td>
                 
 		<td><?php  echo $item['nombre'] ?></td>
-		<td><?php  echo $item['tipo'] ?></td>
-                <td><?php  echo $item['t_dependencia'] ?></td>
+		<td><?php  echo $item['tipo_nombre'] ?></td>
+                <td><?php  echo $item['nombre_dependencia'] ?></td>
                 <td><?php  echo $item['cant_preg'] ?></td>
                 <td><?php  echo $item['porc_aprobacion'] ?> %</td>
                 <td><?php  echo $item['intento'] ?></td>
@@ -74,7 +74,7 @@
                 <td><?php  echo $item['nomcurso'] ?></td>
 		<td>  
                 
-                        <button type="button" class="editar" onclick="javascript:showFormEditEnsayo(<?php echo $item['ensayo_id'] ?>)">Editar</button>
+                        <button type="button" class="editar" onclick="javascript:showFormEditEnsayo(<?php echo $item['ensayo_id'] ?>,<?php  echo $item['tipo'] ?>)">Editar</button>
                         <button type="button" class="eliminar"  onclick="location.href='_proxy.php?controlador=Ensayo&accion=eliminar&ensayoid=<?php echo $item['ensayo_id']?>'" >Eliminar</button>
                         
                 </td>
