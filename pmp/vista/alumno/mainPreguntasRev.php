@@ -40,6 +40,7 @@
 <form name="form" method="post" action="_proxy.php">
     
 <h1 align="center">Simulador Online PMP - Atenos</h1> 
+
 <p><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><?php echo $intentos[0]['intento'] ?></p>        
 
 <br>  
@@ -63,7 +64,7 @@
         </td>
     </tr>
     <tr>
-        <td width="20">a) <input name="respuesta" type="radio" disabled value="1" checked="checked" />
+        <td width="20">a) <input name="respuesta" type="radio" disabled value="1" />
         </td>
         <td width="272">
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
@@ -122,7 +123,8 @@
         </td>
     </tr>
     <tr>
-        <td width="20">a) <input name="respuesta" type="radio" value="a" checked="checked" />
+        <td width="20">a)<input name="respuesta" type="radio" value="A"/>
+
         </td>
         <td width="272">
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
@@ -130,20 +132,20 @@
         </td>
     </tr>
     <tr>
-        <td>b)<input type="radio" name="respuesta" value="b" /></td>
+        <td>b)<input type="radio" name="respuesta" value="B" /></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $pregunta[$i]['opcion_bus'] ?>
             </font>
         </td>
     </tr>
     <tr> 
-        <td>c)<input type="radio" name="respuesta" value="c" /></td>
+        <td>c)<input type="radio" name="respuesta" value="C" /></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $pregunta[$i]['opcion_cus'] ?> </font>
     </td>
     </tr>
     <tr>
-        <td>d)<input type="radio" name="respuesta" value="d" /></td>
+        <td>d)<input type="radio" name="respuesta" value="D" /></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php  echo $pregunta[$i]['opcion_dus'] ?> </font>
         </td>
@@ -156,26 +158,27 @@
    
         <tr><div align="center">
 
-            <td>r)<input type="radio" name="respuesta" value="r" />
+            <td>r)<input type="checkbox" name="revision" value="R" />
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
                 <?php  echo "Revision" ?> </font>
             </td>
                            
         <td>
-                <input type=hidden name="pregunta_id" value="<?php echo $pregunta[$i]['pregunta_id'] ?>"/>
-                <input type=hidden name="simulacion_id" value="<?php echo $pregunta[$i]['simulacion_id'] ?>"/>
+                <input type="hidden" name="pregunta_id" value="<?php echo $pregunta[$i]['pregunta_id'] ?>"/>
+                <input type="hidden" name="simulacion_id" value="<?php echo $pregunta[$i]['simulacion_id'] ?>"/>
                 <input type="hidden" name="controlador" id="controlador" value="Alumno" />
-                <input type="hidden" name="accion" id="accion" value="cambiarCondicionPregunta" />
+                <input type="hidden" name="accion" id="accion" value="cambiarCondicionPreguntaRevis" />
             <input type="submit" name="Submit" value="Siguiente" />
             
           
         </td>
     </tr>
     
-    
+    </div>
     </table>
 </form>
-        <form name="timeForm">
+
+<form name="timeForm">
 <div class="resultados">
     <table>
     <thead>
@@ -233,10 +236,10 @@
      
      }else{
          
-         if($datos==1){
+         if($datos==0){
              ?>
              
-             Final
+             <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>">Finalizar Simulación</button> 
     <?php
          }else{
 ?>    
@@ -253,3 +256,60 @@
          }?>    
 </body>
 </html>
+
+<script language="javascript" type="text/javascript">
+
+function getTime() {
+    
+
+    now = new Date();
+    y2k = new Date("<?php echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8)?>");
+    days = (y2k - now) / 1000 / 60 / 60 / 24;
+    daysRound = Math.floor(days);
+    hours = (y2k - now) / 1000 / 60 / 60 - (24 * daysRound);
+    hoursRound = Math.floor(hours);
+    minutes = (y2k - now) / 1000 /60 - (24 * 60 * daysRound) - (60 * hoursRound);
+    minutesRound = Math.floor(minutes);
+    seconds = (y2k - now) / 1000 - (24 * 60 * 60 * daysRound) - (60 * 60 * hoursRound) - (60 * minutesRound);
+    secondsRound = Math.round(seconds);
+    sec = (secondsRound == 1) ? " sec." : " secs.";
+    min = (minutesRound == 1) ? " min." : " mins, ";
+    hr = (hoursRound == 1) ? " hr" : " hrs, ";
+    dy = (daysRound == 1)  ? " day" : " days, ";
+
+
+    document.timeForm.tiempo.value =hoursRound + hr + minutesRound + min + secondsRound + sec;
+    
+    if(secondsRound==1 && minutesRound==0 && hoursRound==0){
+        alert("El tiempo de su examen a finalizado");
+        //document.write("<meta http-equiv='refresh' content='1; url=_proxy.php?controlador=Alumno&accion=listarPreguntasRev&simulacion_id='+<?php echo $simulacion_id ?>'>");
+        location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>;
+        return;
+    }
+    newtime = window.setTimeout("getTime();", 1000);
+}
+window.onload=getTime;
+//  End -->
+</script>
+
+<?php 
+function mesLetrasNum($m){
+    switch($m){
+        case 01: $mes="Jan"; break;
+        case 02: $mes="Feb"; break;
+        case 03: $mes="Mar"; break;
+        case 04: $mes="Apr"; break;
+        case 05: $mes="May"; break;
+        case 06: $mes="Jun"; break;
+        case 07: $mes="Jul"; break;
+        case 08: $mes="Aug"; break;
+        case 09: $mes="Sep"; break;
+        case 10: $mes="Oct"; break;
+        case 11: $mes="Nov"; break;
+        case 12: $mes="Dec"; break;                 
+    }
+    return $mes;
+
+}
+
+ ?>

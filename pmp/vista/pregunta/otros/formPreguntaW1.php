@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <?php
 header('Content-Type: text/html; charset=UTF-8'); 
+
 ?>
 <html>
     <head>
-        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Formulario de registro de Preguntas</title>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/forms.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
-        <link rel="stylesheet" href="../web/recursosg/css/upload/bootstrap.min.css"/>
-        <!-- Generic page styles -->
-        <!-- <link rel="stylesheet" href="../web/recursosg/css/upload/style.css"/>-->
-        <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-        <link rel="stylesheet" href="../web/recursosg/css/upload/jquery.fileupload.css"/>
-
     </head>
     <body>
 
@@ -23,7 +17,15 @@ header('Content-Type: text/html; charset=UTF-8');
             <div class="spacer"></div>
             <div class="spacer"></div>
             <div class="spacer"></div>
-  
+            <!--
+            <form action="uploader.php" method="POST" enctype="multipart/form-data">
+                <label for="imagen">Imagen:
+                    <span class="small"></span>
+                </label>
+                    <input type="file" name="imagen_es" id="imagen_es" />
+                    <input type="submit" name="subir" value="Subir"/>
+            </form>
+            -->
             <div class="spacer"></div>
             <form id="form" name="formInsert" method="post" action="_proxy.php">
                 <h1>Formulario de registro de Preguntas</h1>
@@ -49,53 +51,13 @@ header('Content-Type: text/html; charset=UTF-8');
                 <label>Imagen Español
                     <span class="small"></span>
                 </label>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <span class="btn btn-success fileinput-button">
-                            <i class="glyphicon glyphicon-plus"></i>
-                                <span>Seleccionar Archivo...</span>
-                            <input id="fileupload" type="file" name="files[]" multiple>
-                            </span>
-                        </div>
-                        <div id="progress" class="progress col-md-3">
-                            <div class="progress-bar progress-bar-success"></div>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="imagen_es" id="imagen_es"  />
-                            <div class="spacer"></div> 
-                        </div> 
-                    </div>
-                
-              <!--  <label>Imagen Español
-                    <span class="small"></span>
-                </label>
-                            <span>
-                            <input id="fileupload" type="file" name="files[]" multiple>
-                            </span>
-                            <input type="text" name="imagen_es" id="imagen_es"  />
-                            <div class="spacer"></div> 
-                        
-                  --> 
+                <input type="text" name="imagen_es" id="imagen_es"  />
                 <label>Imagen Inglés
                     <span class="small"></span>
                 </label>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <span class="btn btn-success fileinput-button">
-                            <i class="glyphicon glyphicon-plus"></i>
-                            <span>Seleccionar Archivo...</span>
-                            <input id="fileuploadus" type="file" name="files[]" multiple>
-                            </span>
-                        </div>
-                        <div id="progressus" class="progress col-md-3">
-                            <div class="progress-bar progress-bar-success"></div>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" name="imagen_us" id="imagen_us" />
-                            <div class="spacer"></div>
-                        </div>
-                    </div>    
-
+                <input type="text" name="imagen_us" id="imagen_us" />
+                <div class="spacer"></div>
+                
                 <label>Respuesta
                     <span class="small">Seleccione Rpta Correcta</span>
                 </label>
@@ -196,8 +158,9 @@ header('Content-Type: text/html; charset=UTF-8');
                 </label>
                 <input type="text" name="nivel_dificultad" id="nivel_dificultad" />
                 <div class="spacer"></div>
-
-                              
+                                
+                
+                
                 <label>Area de Conocimiento
                     <span class="small">Seleccione</span>
                 </label>
@@ -229,7 +192,6 @@ header('Content-Type: text/html; charset=UTF-8');
                 </select>
                 
                 <div class="spacer"></div> 
-
                 <label>Estado
                     <span class="small">Seleccione un estado</span>
                 </label>
@@ -247,63 +209,7 @@ header('Content-Type: text/html; charset=UTF-8');
             
             
             
+            
         </div>
     </body>
 </html>
-
-<script src="../web/recursosg/js/upload/jquery.min.js"></script>
-<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-<script src="../web/recursosg/js/upload/jquery.ui.widget.js"></script>
-<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<script src="../web/recursosg/js/upload/jquery.iframe-transport.js"></script>
-<!-- The basic File Upload plugin -->
-<script src="../web/recursosg/js/upload/jquery.fileupload.js"></script>
-<!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
-<script src="../web/recursosg/js/upload/bootstrap.min.js"></script>
-
-<script>
-$(function () {
-    'use strict';
-    // Change this to the location of your server-side upload handler:
-    var url = 'file/';
-
-    $('#fileupload').fileupload({
-        url: url,
-        dataType: 'json',
-        done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                //$('<p/>').text(file.name).appendTo('#files');
-                $('#imagen_es').val(file.name);
-            });
-        },
-        progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .progress-bar').css(
-                'width',
-                progress + '%'
-            );
-        }
-    }).prop('disabled', !$.support.fileInput)
-        .parent().addClass($.support.fileInput ? undefined : 'disabled');
-
-
-    $('#fileuploadus').fileupload({
-        url: url,
-        dataType: 'json',
-        done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                //$('<p/>').text(file.name).appendTo('#files');
-                $('#imagen_us').val(file.name);
-            });
-        },
-        progressall: function (e, data) {
-            var progress2 = parseInt(data.loaded / data.total * 100, 10);
-            $('#progressus .progress-bar').css(
-                'width',
-                progress2 + '%'
-            );
-        }
-    }).prop('disabled', !$.support.fileInput)
-        .parent().addClass($.support.fileInput ? undefined : 'disabled');
-});
-</script>

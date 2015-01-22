@@ -94,7 +94,9 @@ class AlumnoControlador {
 
     function listarPreguntasRev() {
         $simulacion_id = $_REQUEST['simulacion_id'];
-        $pregunta = $this->model->reportarPreguntaSimulRevision($simulacion_id);
+        $pregunta = $this->model->reportarPreguntaSimulationRev($simulacion_id);
+
+        $intentos = $this->model->mostrarCantidadIntento($pregunta[0]['ensayo_id']);
         $datos = 0;
 
         $rev = $this->model->totalSimulacionRes($simulacion_id);
@@ -173,11 +175,23 @@ class AlumnoControlador {
 
         $simulacion_id = $_REQUEST['simulacion_id'];
         $pregunta_id = $_REQUEST['pregunta_id'];
-        $respuesta = $_REQUEST['respuesta'];
-        if ($respuesta == "r") {
-            $this->model->actualizaSimulPregunta($simulacion_id, $pregunta_id, "0", 1);
+        $respuesta = isset($_REQUEST['respuesta']) ? $_REQUEST['respuesta'] : "0";
+        //$plantilla = $_REQUEST['plantilla'];
+        $revision = isset($_REQUEST['revision']) ? $_REQUEST['revision'] : "0";
+
+
+        if ($revision == "R") {
+            if ($respuesta != "0") {
+                $this->model->actualizaSimulPreguntaRev($simulacion_id, $pregunta_id, $respuesta, 2, 2);
+            } else {
+                $this->model->actualizaSimulPreguntaRev($simulacion_id, $pregunta_id, 0, 1, 2);
+            }
         } else {
-            $this->model->actualizaSimulPregunta($simulacion_id, $pregunta_id, $respuesta, 2);
+            if ($respuesta != "0") {
+                $this->model->actualizaSimulPreguntaRev($simulacion_id, $pregunta_id, $respuesta, 2, 0);
+            } else {
+                $this->model->actualizaSimulPreguntaRev($simulacion_id, $pregunta_id, 0, 1,  0);
+            }
         }
         $rev = $this->model->totalSimulacionRes($simulacion_id);
         $totals = $rev[0]['totalSim'];
@@ -190,12 +204,11 @@ class AlumnoControlador {
 
         $rev = $this->model->totalSimulacionContestadas($simulacion_id, 0);
         $restante = $rev[0]['totalCont'];
-        
         $rev = $this->model->totalSimulacionContestadasPerdidas($simulacion_id);
         $perdidos = $rev[0]['totalCont'];
 
-        $pregunta = $this->model->reportarPreguntaSimulRevision($simulacion_id);
-
+        $pregunta = $this->model->reportarPreguntaSimulationRev($simulacion_id);
+        $intentos = $this->model->mostrarCantidadIntento($pregunta[0]['ensayo_id']);
         $rev = $this->model->reportarCantidadRevision($simulacion_id);
         $datos = $rev[0]['cantidadrev'];
 

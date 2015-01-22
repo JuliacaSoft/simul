@@ -27,14 +27,14 @@
 <?php
 
  
- $cond=0;
+ $condi=0;
 
   if(count($pregunta)!=0){
                 
             
  for ($i = 0; $i < count($pregunta); $i++) {
  
-     if($cond==0){
+     if($condi==0){
  
      
 ?>
@@ -271,7 +271,7 @@
     
     
 <?php 
-    $cond=1;
+    $condi=1;
     break;
         }    
 
@@ -300,22 +300,33 @@
 <script language="javascript" type="text/javascript">
 
 function getTime() {
-now = new Date();
-y2k = new Date("<?php echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8)?>");
-days = (y2k - now) / 1000 / 60 / 60 / 24;
-daysRound = Math.floor(days);
-hours = (y2k - now) / 1000 / 60 / 60 - (24 * daysRound);
-hoursRound = Math.floor(hours);
-minutes = (y2k - now) / 1000 /60 - (24 * 60 * daysRound) - (60 * hoursRound);
-minutesRound = Math.floor(minutes);
-seconds = (y2k - now) / 1000 - (24 * 60 * 60 * daysRound) - (60 * 60 * hoursRound) - (60 * minutesRound);
-secondsRound = Math.round(seconds);
-sec = (secondsRound == 1) ? " sec." : " secs.";
-min = (minutesRound == 1) ? " min." : " mins, ";
-hr = (hoursRound == 1) ? " hora" : " horas, ";
-dy = (daysRound == 1)  ? " day" : " days, "
-document.timeForm.tiempo.value =hoursRound + hr + minutesRound + min + secondsRound + sec;
-newtime = window.setTimeout("getTime();", 1000);
+    
+
+    now = new Date();
+    y2k = new Date("<?php echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8)?>");
+    days = (y2k - now) / 1000 / 60 / 60 / 24;
+    daysRound = Math.floor(days);
+    hours = (y2k - now) / 1000 / 60 / 60 - (24 * daysRound);
+    hoursRound = Math.floor(hours);
+    minutes = (y2k - now) / 1000 /60 - (24 * 60 * daysRound) - (60 * hoursRound);
+    minutesRound = Math.floor(minutes);
+    seconds = (y2k - now) / 1000 - (24 * 60 * 60 * daysRound) - (60 * 60 * hoursRound) - (60 * minutesRound);
+    secondsRound = Math.round(seconds);
+    sec = (secondsRound == 1) ? " sec." : " secs.";
+    min = (minutesRound == 1) ? " min." : " mins, ";
+    hr = (hoursRound == 1) ? " hr" : " hrs, ";
+    dy = (daysRound == 1)  ? " day" : " days, ";
+
+
+    document.timeForm.tiempo.value =hoursRound + hr + minutesRound + min + secondsRound + sec;
+    
+    if(secondsRound==1 && minutesRound==0 && hoursRound==0){
+        alert("El tiempo de su examen a finalizado");
+        //document.write("<meta http-equiv='refresh' content='1; url=_proxy.php?controlador=Alumno&accion=listarPreguntasRev&simulacion_id='+<?php echo $simulacion_id ?>'>");
+        location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>;
+        return;
+    }
+    newtime = window.setTimeout("getTime();", 1000);
 }
 window.onload=getTime;
 //  End -->

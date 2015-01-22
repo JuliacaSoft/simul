@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-
+header('Content-Type: text/html; charset=UTF-8'); 
 
 ?>
 <html>
@@ -9,6 +9,11 @@
         <title>Formulario de registro de Preguntas</title>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/forms.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
+        <link rel="stylesheet" href="../web/recursosg/css/upload/bootstrap.min.css"/>
+        <!-- Generic page styles -->
+        <!-- <link rel="stylesheet" href="../web/recursosg/css/upload/style.css"/>-->
+        <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+        <link rel="stylesheet" href="../web/recursosg/css/upload/jquery.fileupload.css"/>
     </head>
     <body>
 
@@ -37,16 +42,47 @@
                 <textarea name="pregunta_us" id="pregunta_us" rows="5" cols="40" required="required"><?php echo $pre->getPregunta_us() ?></textarea>
                 <div class="spacer"></div>
                 
-                <label>Imagen Es
-                    <span class="small">Coloque URL imagen</span>
+                <label>Imagen Español
+                    <span class="small"></span>
                 </label>
-                <input type="text" name="imagen_es" id="imagen_es" value="<?php echo $pre->getImagen_es() ?>"/>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="btn btn-success fileinput-button">
+                            <i class="glyphicon glyphicon-plus"></i>
+                                <span>Seleccionar Archivo...</span>
+                            <input id="fileupload" type="file" name="files[]" multiple>
+                            </span>
+                        </div>
+                        <div id="progress" class="progress col-md-3">
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="imagen_es" id="imagen_es" value="<?php echo $pre->getImagen_es() ?>"/>
+                            <div class="spacer"></div> 
+                        </div> 
+                    </div>
+                
+                
                                 
-                <label>Imagen Us
-                    <span class="small">Coloque URL imagen</span>
+                <label>Imagen Inglés
+                    <span class="small"></span>
                 </label>
-                <input type="text" name="imagen_us" id="imagen_us" value="<?php echo $pre->getImagen_us() ?>"/>
-                <div class="spacer"></div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="btn btn-success fileinput-button">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>Seleccionar Archivo...</span>
+                            <input id="fileuploadus" type="file" name="files[]" multiple>
+                            </span>
+                        </div>
+                        <div id="progressus" class="progress col-md-3">
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="imagen_us" id="imagen_us" value="<?php echo $pre->getImagen_us() ?>"/>
+                            <div class="spacer"></div>
+                        </div>
+                    </div>
                 
                 <label>Respuesta
                     <span class="small">Coloque Respuesta</span>
@@ -178,7 +214,7 @@
                     <option value="<?php echo $item->getGrupo_id()?>" <?php if($item->getGrupo_id()==$pre->getGrupo_id()) echo 'selected="selected"'; ?> > <?php echo $item->getNombre()?> </option>
                 <?php } ?>     
                 </select>
-            
+                <div class="spacer"></div> 
                 
                 <label>Estado
                     <span class="small">Seleccione un estado</span>
@@ -204,3 +240,60 @@
         </div>
     </body>
 </html>
+
+<script src="../web/recursosg/js/upload/jquery.min.js"></script>
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="../web/recursosg/js/upload/jquery.ui.widget.js"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="../web/recursosg/js/upload/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="../web/recursosg/js/upload/jquery.fileupload.js"></script>
+<!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+<script src="../web/recursosg/js/upload/bootstrap.min.js"></script>
+
+<script>
+$(function () {
+    'use strict';
+    // Change this to the location of your server-side upload handler:
+    var url = 'file/';
+
+    $('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                //$('<p/>').text(file.name).appendTo('#files');
+                $('#imagen_es').val(file.name);
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+
+    $('#fileuploadus').fileupload({
+        url: url,
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                //$('<p/>').text(file.name).appendTo('#files');
+                $('#imagen_us').val(file.name);
+            });
+        },
+        progressall: function (e, data) {
+            var progress2 = parseInt(data.loaded / data.total * 100, 10);
+            $('#progressus .progress-bar').css(
+                'width',
+                progress2 + '%'
+            );
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
+</script>

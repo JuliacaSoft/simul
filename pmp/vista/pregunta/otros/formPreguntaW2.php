@@ -9,11 +9,11 @@ header('Content-Type: text/html; charset=UTF-8');
         <title>Formulario de registro de Preguntas</title>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/forms.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
-        <link rel="stylesheet" href="../web/recursosg/css/upload/bootstrap.min.css"/>
+        <!--<link rel="stylesheet" href="../web/recursosg/css/upload/bootstrap.min.css"/>-->
         <!-- Generic page styles -->
         <!-- <link rel="stylesheet" href="../web/recursosg/css/upload/style.css"/>-->
         <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-        <link rel="stylesheet" href="../web/recursosg/css/upload/jquery.fileupload.css"/>
+       <!-- <link rel="stylesheet" href="../web/recursosg/css/upload/jquery.fileupload.css"/>-->
 
     </head>
     <body>
@@ -53,7 +53,7 @@ header('Content-Type: text/html; charset=UTF-8');
                         <div class="col-md-3">
                             <span class="btn btn-success fileinput-button">
                             <i class="glyphicon glyphicon-plus"></i>
-                                <span>Seleccionar Archivo...</span>
+                          <!--<span>Seleccionar Archivo...</span>-->
                             <input id="fileupload" type="file" name="files[]" multiple>
                             </span>
                         </div>
@@ -83,7 +83,7 @@ header('Content-Type: text/html; charset=UTF-8');
                         <div class="col-md-3">
                             <span class="btn btn-success fileinput-button">
                             <i class="glyphicon glyphicon-plus"></i>
-                            <span>Seleccionar Archivo...</span>
+                            <!--<span>Seleccionar Archivo...</span>-->
                             <input id="fileuploadus" type="file" name="files[]" multiple>
                             </span>
                         </div>
@@ -203,14 +203,21 @@ header('Content-Type: text/html; charset=UTF-8');
                 </label>
                 <select  name="area_id" id="area_id">
                     <option value="0">-</option>
-                <?php
-                $i=0;
-                foreach($area as $item )
-                {
-                ?>                    
-                    <option value="<?php echo $item->getArea_id()?>"><?php echo $item->getNombre()?> </option>
-                    
-                <?php } ?>     
+                    <?php
+                    require_once "../../util/sql/SqlQuery.php";
+                    require_once "../../util/sql/QueryExecutor.php";
+
+                        $sql_a = "SELECT * FROM area";
+                        $sql_g = "SELECT * FROM grupo";
+                        $sqlQuery_a=new SqlQuery($sql_a);
+                        $sqlQuery_g=new SqlQuery($sql_g);
+                        $area=QueryExecutor::execute($sqlQuery_a);
+                        $grupo=QueryExecutor::execute($sqlQuery_g);
+
+                    for($i=0;$i<count($area);$i++){
+                    ?>                    
+                        <option value="<?php echo $area[$i]['area_id'];?>"><?php echo $area[$i]['nombre'];?> </option>
+                    <?php } ?>     
                 </select>
 
                 <label>Grupo de Procesos
@@ -218,16 +225,13 @@ header('Content-Type: text/html; charset=UTF-8');
                 </label>
                 <select  name="grupo_id" id="grupo_id">
                     <option value="0">-</option>
-                <?php
-                $i=0;
-                foreach($grupo as $item )
-                {
+                <?php 
+                for($i=0;$i<count($grupo);$i++){
                 ?>
-                    <option value="<?php echo $item->getGrupo_id()?>"><?php echo $item->getNombre()?> </option>
+                    <option value="<?php echo $grupo[$i]['grupo_id'];?>"><?php echo $grupo[$i]['nombre'];?> </option>
                     
                 <?php } ?>     
                 </select>
-                
                 <div class="spacer"></div> 
 
                 <label>Estado

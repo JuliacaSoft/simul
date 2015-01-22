@@ -48,7 +48,7 @@
             <button type="submit">Buscar</button>
             <div class="spacer" style="text-align: match-parent;">
                 
-                <button type="button" onclick="javascript:showFormPreguntax()">Nuevo</button>
+                <button type="button" onclick="javascript:showFormPregunta()">Nuevo</button>
                 <button type="button" onclick="location.href='_proxy.php?controlador=Pregunta&accion=listarTwoU'">Listar</button>   
             </div>
         </form>
@@ -101,7 +101,7 @@
     function showFormPreguntax(){    
      
         $.ajax({
-            url: "pregunta/formPregunta.php",
+            url: "../vista/pregunta/formPregunta.php",
             success: function(r){                 
                 $("#table").html("");
                 $("#table").html(r);

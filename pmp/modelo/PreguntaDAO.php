@@ -327,6 +327,20 @@ class PreguntaDAO {
         }
     }
 
+    public function reportarPreguntaSimulationRev($simulacion_id) {
+        $sql = "SELECT * FROM (SELECT sim_resultado.sim_resultado_id, revision,respuesta, sim_resultado.simulacion_id, pregunta_id, estado AS condicion , ensayo_id FROM sim_resultado , simulacion WHERE simulacion.simulacion_id=sim_resultado.simulacion_id and  sim_resultado.simulacion_id=? AND revision=1) a INNER JOIN pregunta USING(pregunta_id);";
+
+
+        try {
+            $sqlQuery = new SqlQuery($sql);
+            $sqlQuery->setNumber($simulacion_id);
+            $tabla = QueryExecutor::execute($sqlQuery);
+            return $tabla;
+        } catch (Exception $e) {
+            throw new Exception("Error :" . $e->getMessage());
+        }
+    }
+
     public function reportarPregungtasSimulationRev($simulacion_id) {
         $sql = "select  *  from sim_resultado sir, simulacion si, pregunta pr where si.simulacion_id=sir.simulacion_id and pr.pregunta_id=sir.pregunta_id and  si.simulacion_id=? ";
 
@@ -336,40 +350,6 @@ class PreguntaDAO {
             $sqlQuery->setNumber($simulacion_id);
             $tabla = QueryExecutor::execute($sqlQuery);
 
-            return $tabla;
-        } catch (Exception $e) {
-            throw new Exception("Error :" . $e->getMessage());
-        }
-    }
-
-    public function reportarPreguntaSimulRevision($simulacion_id) {
-        $sql = "SELECT * FROM (SELECT sim_resultado_id, revision,respuesta, simulacion_id, pregunta_id, estado AS condicion FROM sim_resultado WHERE simulacion_id=? AND revision=1) a INNER JOIN pregunta USING(pregunta_id) ";
-
-
-        try {
-            $sqlQuery = new SqlQuery($sql);
-            $sqlQuery->setNumber($simulacion_id);
-            $tabla = QueryExecutor::execute($sqlQuery);
-            /* $list=array();
-              for ($a = 0; $a < count($tabla); $a++) {
-              $preguntaTO = new PreguntaTO();
-
-              $preguntaTO->setPregunta_es($tabla[$a]['pregunta_es']);
-              $preguntaTO->setPregunta_us($tabla[$a]['pregunta_us']);
-
-              $preguntaTO->setOpcion_aes($tabla[$a]['opcion_aes']);
-              $preguntaTO->setOpcion_bes($tabla[$a]['opcion_bes']);
-              $preguntaTO->setOpcion_ces($tabla[$a]['opcion_ces']);
-              $preguntaTO->setOpcion_des($tabla[$a]['opcion_des']);
-              $preguntaTO->setOpcion_aus($tabla[$a]['opcion_aus']);
-              $preguntaTO->setOpcion_bus($tabla[$a]['opcion_bus']);
-              $preguntaTO->setOpcion_cus($tabla[$a]['opcion_cus']);
-              $preguntaTO->setOpcion_dus($tabla[$a]['opcion_dus']);
-              //$preguntaTO->setGrupo_id($tabla[$a]['grupo_id']);
-              //$preguntaTO->setArea_id($tabla[$a]['area_id']);
-              $preguntaTO->setPregunta_id($tabla[$a]['pregunta_id']);
-              $list[$a]=$preguntaTO;
-              } */
             return $tabla;
         } catch (Exception $e) {
             throw new Exception("Error :" . $e->getMessage());
@@ -450,6 +430,23 @@ class PreguntaDAO {
             $sqlQuery->set($respuesta);
             $sqlQuery->set($estado);
             $sqlQuery->set($ordenalternativas);
+            $sqlQuery->set($revision);
+            $sqlQuery->set($simulacion_id);
+            $sqlQuery->set($pregunta_id);
+            $resp = QueryExecutor::executeUpdate($sqlQuery);
+            return $resp;
+        } catch (Exception $e) {
+            return $resp = $e->getMessage();
+            //throw new Exception("Error :".$e->getMessage());
+        }
+    }
+
+    public function actualizaSimulPreguntaRev($simulacion_id, $pregunta_id, $respuesta, $estado,  $revision) {
+        $sql = " UPDATE sim_resultado  SET respuesta = ? , estado = ?, revision=? WHERE simulacion_id = ? AND pregunta_id = ?  ";
+        try {
+            $sqlQuery = new SqlQuery($sql);
+            $sqlQuery->set($respuesta);
+            $sqlQuery->set($estado);
             $sqlQuery->set($revision);
             $sqlQuery->set($simulacion_id);
             $sqlQuery->set($pregunta_id);
