@@ -340,6 +340,17 @@ class PreguntaDAO {
             throw new Exception("Error :" . $e->getMessage());
         }
     }
+    public function reportarPreguntaSimulationRev2($simulacion_id) {
+        $sql = "select  *  from sim_resultado sir, simulacion si, pregunta pr where si.simulacion_id=sir.simulacion_id and pr.pregunta_id=sir.pregunta_id  and sir.revision=1 and si.simulacion_id=? ;";
+         try {
+            $sqlQuery = new SqlQuery($sql);
+            $sqlQuery->setNumber($simulacion_id);
+            $tabla = QueryExecutor::execute($sqlQuery);
+            return $tabla;
+        } catch (Exception $e) {
+            throw new Exception("Error :" . $e->getMessage());
+        }
+    }
 
     public function reportarPregungtasSimulationRev($simulacion_id) {
         $sql = "select  *  from sim_resultado sir, simulacion si, pregunta pr where si.simulacion_id=sir.simulacion_id and pr.pregunta_id=sir.pregunta_id and  si.simulacion_id=? ";
@@ -382,7 +393,7 @@ class PreguntaDAO {
     }
 
     public function listarCursosEnsayo($usuario_id) {
-        $sql = "SELECT e.ensayo_id, c.nombre AS curso, e.nombre,  e.tipo, e.t_dependencia, e.tiempo, e.intento, e.cant_preg, (select count(si.simulacion_id) from simulacion si where si.ensayo_id=e.ensayo_id and si.usuario_id=? ) as ensreal   FROM ensayo e, curso c WHERE e.curso_id=c.curso_id   ";
+        $sql = "SELECT e.ensayo_id, c.nombre AS curso, e.nombre,  e.tipo, e.t_dependencia, e.tiempo, e.intento, e.cant_preg, (select count(si.simulacion_id) from simulacion si where si.estado_sim=1 and si.ensayo_id=e.ensayo_id and si.usuario_id=? ) as ensreal  FROM ensayo e, curso c WHERE e.curso_id=c.curso_id   ";
         try {
             $sqlQuery = new SqlQuery($sql);
             $sqlQuery->set($usuario_id);

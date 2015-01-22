@@ -29,7 +29,7 @@
  
  $condi=0;
 
-  if(count($pregunta)!=0){
+  if(count($pregunta)!=0 ){
                 
             
  for ($i = 0; $i < count($pregunta); $i++) {
@@ -279,15 +279,15 @@
      }
      
      }else{
-         echo '<h1>'.$datos.'</h1>';
-         if($datos==0){
+         echo '<h1>'.count($pregunta2).'</h1>';
+         if(count($pregunta2)!=0){
              ?>
-             
-             <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>">Finalizar Simulación</button> 
+           <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasRev&simulacion_id='+<?php echo $simulacion_id ?>+'&opc='+<?php echo 100 ?>">Ver Revisiones</button>   
+            
     <?php
          }else{
-?>    
-         <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasRev&simulacion_id='+<?php echo $simulacion_id ?>+'&opc='+<?php echo 100 ?>">Ver Revisiones</button> 
+?>       <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>">Finalizar Simulación</button> 
+         
      <?php 
      
          } 
