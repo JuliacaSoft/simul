@@ -41,12 +41,11 @@
                     <option value="2">Área de Conocimiento</option>
                     <option value="3">Grupo de Procesos</option>
                 </select>  
-                
+                       
                 <label>Tipo Dependencia
                     <span class="small"></span>
                 </label>
-                
-                <!--caso 1-->
+
                 <select name="t_dependencia" id="t_dependencia">                                 
                 </select>
                 <div class="spacer"></div>
