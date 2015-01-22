@@ -3,9 +3,23 @@
 require_once "TrabajadorTO.php";
 require_once "../util/sql/SqlQuery.php";
 require_once "../util/sql/QueryExecutor.php";
+require_once "UsuarioTO.php";
 
 class TrabajadorDAO {
 
+    public function buscarIdUsuario($id) {
+        $sql = "select * from usuario where usuario_id=?";
+        try {
+             $sqlQuery = new SqlQuery($sql);
+            $sqlQuery->set($id);
+            $tabla = QueryExecutor::execute($sqlQuery);
+            return $tabla;
+            }catch (Exception $e) {
+            throw new Exception("Error :".$e->getMessage());
+        }
+       
+    }   
+    
     public function listarTrabajador() {
         $sql = "Select * from trabajador";
         try {

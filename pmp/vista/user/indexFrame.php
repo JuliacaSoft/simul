@@ -30,9 +30,9 @@
         </article>
         <footer>
 
-            <nav>Usuario: xxxx</nav>
-            <nav>Cargo: xxxx</nav>
-            <nav>Nombres: XXXXX
+            <nav> Usuario: <?php echo $usuario ; ?></nav>
+            <nav>Cargo: <?php echo $cargo ; ?></nav>
+            <nav>Nombres: <?php echo $nombre ; ?> </nav>
             </nav>
         </footer>
     </body>

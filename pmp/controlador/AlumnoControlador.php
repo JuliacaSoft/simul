@@ -5,7 +5,7 @@ require_once "../modelo/PreguntaDAO.php";
 class AlumnoControlador {
 
     public $model;
-
+   
     public function __construct() {
         require_once('Seguridad.php');
         s_pagina_validar();
@@ -15,8 +15,10 @@ class AlumnoControlador {
     public function listarCursos() {
         
         //Usuario Id Necesario por la funcion
-        $cursos = $this->model->listarCursosEnsayo(1);
-        $simulacion = $this->model->ultimasimulacionUsuario(1);
+        
+        $usuario_id=$_SESSION['UserAct'][0]['usuario_id'];
+        $cursos = $this->model->listarCursosEnsayo($usuario_id);
+        $simulacion = $this->model->ultimasimulacionUsuario($usuario_id);
         
         require_once '../vista/alumno/mainAlumno.php';
     }
