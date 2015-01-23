@@ -9,18 +9,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>MVC - Modelo, Vista, Controlador - Jourmoly</title>
             
-        <script type="text/javascript" src="../../recursos/js/jquery.js"></script>        
+        <script type="text/javascript" src="../../recursos/js/jquery-1.9.1.min.js"></script>        
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/forms.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/> 
         
-        <link type="text/css" href="../../web/report/alumno/css/styles.css" rel="stylesheet" />
-       
+        
+        <script type="text/javascript" src="../../recursos/js/bootstrap.min.js"></script>  
+        <link type="text/css" href="../../recursos/css/bootstrap.css" rel="stylesheet" />
+       <link type="text/css" href="../../recursos/css/styles.css" rel="stylesheet" />
+
 </head>
         
 <body>  
 
     
-    <div id="central">
+ <div id="" class="myform">
 
 
 
@@ -38,13 +41,26 @@
  
      
 ?>
-    
-    
-<form name="form" method="post" action="_proxy.php">
-    
 <h1 align="center">Simulador Online PMP - Atenos</h1> 
-<p><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><?php echo $intentos[0]['intento'] ?></p> 
-<br>  
+ 
+<div class="row"><!--Div tiempo-->
+    <div class="col-md-3">
+    	<form name="timeForm">
+        Tiempo:  <input type="text" name="tiempo" class="form-control" readonly="readonly"> 
+        <?php //echo $tiempofin;
+            $f=explode("-",$tiempofin);
+            //echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
+        ?>
+        </form>
+    </div>
+    <div class="col-md-9">
+    	<p align="center"><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><?php echo $intentos[0]['intento'] ?></p> 
+    </div>
+</div><!--Fin div tiempo-->
+
+<div class="row"><!--Inicio div preguntas-->
+<div class="col-md-9 col-md-push-3"> <!--inicio columna preguntas-->
+<form name="form" method="post" action="_proxy.php">
 <table width="95%" border="0" align="center" cellpadding="3" cellspacing="0" bgcolor="#CCCCCC">
 <div>
     <tr>
@@ -94,7 +110,7 @@
 
 
     <tr>
-        <td width="20">a)<input name="respuesta" type="radio" disabled value="1"/>
+        <td width="20">a)<input name="respuesta" type="radio" disabled value="1" />
         </td>
         <td width="272">
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
@@ -152,7 +168,7 @@
         </td>
     </tr>
     <tr>
-        <td width="20">a)<input name="respuesta" type="radio" value="A"/>
+        <td width="20">a)<input name="respuesta" type="radio" value="A" class="css-checkbox"/>
         </td>
         <td width="272">
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
@@ -181,7 +197,36 @@
    
     </div>
  </table>
- 
+</div><!--Fin de la columna preguntas-->
+
+<div class="col-md-3 col-md-pull-9"><!--Inicio columna resultados-->
+<ul class="list-group">
+  <li class="list-group-item">
+    <span class="badge"><?php echo $totals ?></span>
+    Total Pregutas
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $totalcon ?></span>
+    Respondidas
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $totalrev ?></span>
+    Por revisar
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $restante ?></span>
+    Restantes
+  </li>
+</ul>
+<p align="center"><button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>" class="btn btn-danger">Finalizar Simulación</button> </p>
+</div><!--Fin columna resultados-->
+</div><!--Fin div row preguntas-->
+
+<div class="row"><!--Div botonos finales-->
+    <div  class="col-md-3">
+    </div>
+
+	<div class="col-md-9">
  <table width="50%" border="0" align="center" cellpadding="3" cellspacing="" >
    
         <tr><div align="center">
@@ -211,7 +256,7 @@
                 <input type="hidden" name="simulacion_id" value="<?php echo $pregunta[$i]['simulacion_id'] ?>"/>
                 <input type="hidden" name="controlador" id="controlador" value="Alumno" />
                 <input type="hidden" name="accion" id="accion" value="cambiarCondicionPregunta" />
-                <input type="submit" name="Submit" value="Siguiente" />
+                <input type="submit" name="Submit" value="Siguiente" class="btn btn-primary"/>
             
             
             
@@ -222,53 +267,10 @@
     
     </table>
 </form>
-<form name="timeForm">
-<div class="resultados">
-    <table>
-    <thead>
-        <th>Resulstados</th>
-    </thead>
-    <tbody>
-        <tr>
-            <th>Tiempo</th>
-            <td> <input type="text" name="tiempo"> <?php 
-            echo $tiempofin;
 
-            $f=explode("-",$tiempofin);
-            echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
 
-            ?> </td>
-        </tr>
-         <tr>
-            <th>Total Pregutas</th>
-            <td>  <?php echo $totals ?> </td>
-        </tr>
-         <tr>
-            <th>Respondidas</th>
-           <td>  <?php echo $totalcon ?> </td>
-        </tr>
-         <tr>
-            <th>Por revisar</th>
-              <td>  <?php echo $totalrev ?> </td>
-        </tr>
-        <tr>
-            <th>En blanco</th>
-            <td><?php echo $perdidos ?> </td>
-        </tr>
-         <tr>
-            <th>Restantes</th>
-            <td>  <?php echo $restante ?> </td>
-        </tr>
-        
-        
-        <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>">Finalizar Simulación</button> 
-        
-    </tbody>
-</table>
-</div>
-</form>
-    
-    
+
+
 <?php 
     $condi=1;
     break;
@@ -291,7 +293,9 @@
          } 
         
          }?>    
-   </div>    
+   </div>  
+</div><!--Fin div botones finales-->
+</div>  
 </body>
 </html>
 
