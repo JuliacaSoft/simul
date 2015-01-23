@@ -99,7 +99,7 @@ header('Content-Type: text/html; charset=UTF-8');
                 <label>Respuesta
                     <span class="small">Seleccione Rpta Correcta</span>
                 </label>
-                <select name="respuesta" id="respuesta">
+                <select name="respuesta" id="respuesta" required="required">
                     <option value="0"></option>
                     <option value="A">A</option>
                     <option value="B">B</option>
@@ -201,7 +201,7 @@ header('Content-Type: text/html; charset=UTF-8');
                 <label>Area de Conocimiento
                     <span class="small">Seleccione</span>
                 </label>
-                <select  name="area_id" id="area_id">
+                <select  name="area_id" id="area_id" required="required">
                     <option value="0">-</option>
                 <?php
                 $i=0;
@@ -216,7 +216,7 @@ header('Content-Type: text/html; charset=UTF-8');
                 <label>Grupo de Procesos
                     <span class="small">Seleccione</span>
                 </label>
-                <select  name="grupo_id" id="grupo_id">
+                <select  name="grupo_id" id="grupo_id" required="required">
                     <option value="0">-</option>
                 <?php
                 $i=0;
@@ -233,7 +233,7 @@ header('Content-Type: text/html; charset=UTF-8');
                 <label>Estado
                     <span class="small">Seleccione un estado</span>
                 </label>
-                <select name="estado" id="estado">
+                <select name="estado" id="estado" required="required">
                     <option value="1">Activo </option>
                     <option value="0">Desactivo</option>
                 </select>                              

@@ -94,30 +94,29 @@
 
 
     <tr>
-        <td width="20">a) <input name="respuesta" type="radio" disabled value="1" />
+        <td width="20">a)<input name="respuesta" type="radio" disabled value="1"/>
         </td>
         <td width="272">
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-                <?php echo $pregunta[$i]['opcion_aes']?></font>
+            <?php echo $alternativas_sort_es[0]?></font>
         </td>
     </tr>
     <tr>
         <td>b)<input type="radio" name="respuesta" disabled value="2" /></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $pregunta[$i]['opcion_bes'] ?>
-            </font>
+            <?php echo $alternativas_sort_es[1]?></font>
         </td>
     </tr>
     <tr> 
         <td>c)<input type="radio" name="respuesta" disabled value="3" /></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $pregunta[$i]['opcion_ces']?> </font>
+            <?php echo $alternativas_sort_es[2]?> </font>
     </td>
     </tr>
     <tr>
         <td>d)<input type="radio" name="respuesta" disabled value="4" /></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $pregunta[$i]['opcion_des']?> </font>
+            <?php echo $alternativas_sort_es[3]?> </font>
         </td>
     </tr>
 
@@ -279,15 +278,14 @@
      }
      
      }else{
-         echo '<h1>'.$datos.'</h1>';
-         if($datos==0){
+         echo '<h1> Main'.count($pregunta2).'</h1>';
+         if(count($pregunta2)!=0){
              ?>
-             
-             <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>">Finalizar Simulación</button> 
+             <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasRev&simulacion_id='+<?php echo $simulacion_id ?>+'&opc='+<?php echo 100 ?>">Ver Revisiones</button>   
     <?php
          }else{
 ?>    
-         <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasRev&simulacion_id='+<?php echo $simulacion_id ?>+'&opc='+<?php echo 100 ?>">Ver Revisiones</button> 
+         <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>">Finalizar Simulación</button> 
      <?php 
      
          } 

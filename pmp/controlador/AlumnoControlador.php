@@ -71,7 +71,7 @@ class AlumnoControlador {
         $simulacion_id = $_REQUEST['simulacion_id'];
         $pregunta = $this->model->reportarPreguntaSimulation($simulacion_id);
 
-
+        $pregunta2=$this->model->reportarPreguntaSimulationRev2($simulacion_id);
         $datos = 0;
 
         $rev = $this->model->totalSimulacionRes($simulacion_id);
@@ -114,7 +114,7 @@ class AlumnoControlador {
 
         $intentos = $this->model->mostrarCantidadIntento($pregunta[0]['ensayo_id']);
         $datos = 0;
-
+        $pregunta2=$this->model->reportarPreguntaSimulationRev2($simulacion_id);
         $rev = $this->model->totalSimulacionRes($simulacion_id);
         $totals = $rev[0]['totalSim'];
         $rev = $this->model->tiempoSimulacion($simulacion_id);
@@ -141,7 +141,7 @@ class AlumnoControlador {
         $respuesta = isset($_REQUEST['respuesta']) ? $_REQUEST['respuesta'] : "0";
         $plantilla = $_REQUEST['plantilla'];
         $revision = isset($_REQUEST['revision']) ? $_REQUEST['revision'] : "0";
-
+        $pregunta2=$this->model->reportarPreguntaSimulationRev2($simulacion_id);
 
         if ($revision == "R") {
             if ($respuesta != "0") {
@@ -232,7 +232,8 @@ class AlumnoControlador {
 
 
         $pregunta = $this->model->reportarPreguntaSimulationRev($simulacion_id);
-
+        $pregunta2=$this->model->reportarPreguntaSimulationRev2($simulacion_id);
+        
         if ($restante2 != 0) {
             $intentos = $this->model->mostrarCantidadIntento($pregunta[0]['ensayo_id']);
         }
