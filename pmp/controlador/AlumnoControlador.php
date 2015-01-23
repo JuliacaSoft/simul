@@ -118,6 +118,7 @@ class AlumnoControlador {
         $pregunta2=$this->model->reportarPreguntaSimulationRev2($simulacion_id);
         $rev = $this->model->totalSimulacionRes($simulacion_id);
         $totals = $rev[0]['totalSim'];
+
         $rev = $this->model->tiempoSimulacion($simulacion_id);
         $tiempofin = $rev[0]['tiempofin'];
 
@@ -159,7 +160,8 @@ class AlumnoControlador {
         }
         $rev = $this->model->totalSimulacionRes($simulacion_id);
         $totals = $rev[0]['totalSim'];
-
+        $rev = $this->model->tiempoSimulacion($simulacion_id);
+        $tiempofin = $rev[0]['tiempofin'];
         $rev = $this->model->totalSimulacionContestadas($simulacion_id, 2);
         $totalcon = $rev[0]['totalCont'];
 
@@ -216,6 +218,8 @@ class AlumnoControlador {
         }
         $rev = $this->model->totalSimulacionRes($simulacion_id);
         $totals = $rev[0]['totalSim'];
+        $rev = $this->model->tiempoSimulacion($simulacion_id);
+        $tiempofin = $rev[0]['tiempofin'];
 
         $rev = $this->model->totalSimulacionContestadas($simulacion_id, 2);
         $totalcon = $rev[0]['totalCont'];

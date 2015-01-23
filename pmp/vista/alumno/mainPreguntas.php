@@ -226,7 +226,7 @@
 <div class="col-md-6 col-md-offset-4">
 <table border="0" align="center" cellpadding="3" cellspacing="3" width="100%">
         <tr>
-            <td>r)<input type="checkbox" name="revision" value="r" />
+            <td>r)<input type="checkbox" name="revision" value="R" />
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
                 <?php  echo "Revision" ?> </font>
             </td>
