@@ -655,6 +655,29 @@ class PreguntaDAO {
         }
     }
 
+    public function verificarTiempoCurso(){  //metodo para cambiar el estado de las simulaciones a 1 si su tiempo se a terminado
+        $sql = "SELECT simulacion_id, IF(now()>fin_fecha,'terminado','proceso') AS estadotiempo FROM ensayo e, curso c, simulacion s  
+        WHERE e.curso_id=c.curso_id  AND e.ensayo_id=s.ensayo_id";
+        try {
+            $sqlQuery = new SqlQuery($sql);
+            $tabla = QueryExecutor::execute($sqlQuery);
+
+            for ($i = 0; $i < count($tabla); $i++) {
+                if($tabla[$i]['estadotiempo']=="terminado"){
+                    $simulacion_id=$tabla[$i]['simulacion_id'];
+                    $sql2 = "UPDATE simulacion SET estado_sim = 1 WHERE simulacion_id = ?  ";
+                    $sqlQuery2 = new SqlQuery($sql2);
+                    $sqlQuery2->set($simulacion_id);
+                    $resp = QueryExecutor::executeUpdate($sqlQuery2);
+                }
+            }
+ 
+        } catch (Exception $e) {
+            throw new Exception("Error :" . $e->getMessage());
+        }
+
+    }
+
 }
 
 ?>

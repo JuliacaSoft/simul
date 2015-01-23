@@ -3,50 +3,53 @@
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>MVC - Modelo, Vista, Controlador - Jourmoly</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>MVC - Modelo, Vista, Controlador - Jourmoly</title>
             
         <script type="text/javascript" src="../../recursos/js/jquery.js"></script>        
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/forms.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/> 
         
-        <link type="text/css" href="../../web/report/alumno/css/styles.css" rel="stylesheet" />
-       
+        
+        <script type="text/javascript" src="../../recursos/js/bootstrap.min.js"></script>  
+        <link type="text/css" href="../../recursos/css/bootstrap.css" rel="stylesheet" />
+       <link type="text/css" href="../../web/report/alumno/css/styles.css" rel="stylesheet" />
 </head>
         
-<body>  
+<body style="background: none repeat scroll 0 0 #F6F6F6;">  
 
     
-    <div id="central">
+<div id="central">
 
 
 
 <?php
 
  
- $condi=0;
+ $cond=0;
 
-  if(count($pregunta)!=0 ){
+  if(count($pregunta)!=0){
                 
             
  for ($i = 0; $i < count($pregunta); $i++) {
  
-     if($condi==0){
+     if($cond==0){
  
      
 ?>
     
-    
+
 <form name="form" method="post" action="_proxy.php">
     
 <h1 align="center">Simulador Online PMP - Atenos</h1> 
 <p><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><?php echo $intentos[0]['intento'] ?></p> 
-<br>  
-<table width="95%" border="0" align="center" cellpadding="3" cellspacing="0" bgcolor="#CCCCCC">
-<div>
+<hr>  
+<div class="row">
+<div class="col-md-9 col-md-push-3" >
+<table width="95%" border="0" align="center" cellpadding="3" cellspacing="0" style="background-color:#CCCCCC">
     <tr>
         <td colspan="2" bgcolor="#3b5998">
             <div align="center">
@@ -94,29 +97,30 @@
 
 
     <tr>
-        <td width="20">a)<input name="respuesta" type="radio" disabled value="1"/>
+        <td width="20">a) <input name="respuesta" type="radio" disabled value="1" />
         </td>
         <td width="272">
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $alternativas_sort_es[0]?></font>
+                <?php echo $pregunta[$i]['opcion_aes']?></font>
         </td>
     </tr>
     <tr>
         <td>b)<input type="radio" name="respuesta" disabled value="2" /></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $alternativas_sort_es[1]?></font>
+            <?php echo $pregunta[$i]['opcion_bes'] ?>
+            </font>
         </td>
     </tr>
     <tr> 
         <td>c)<input type="radio" name="respuesta" disabled value="3" /></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $alternativas_sort_es[2]?> </font>
+            <?php echo $pregunta[$i]['opcion_ces']?> </font>
     </td>
     </tr>
     <tr>
         <td>d)<input type="radio" name="respuesta" disabled value="4" /></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $alternativas_sort_es[3]?> </font>
+            <?php echo $pregunta[$i]['opcion_des']?> </font>
         </td>
     </tr>
 
@@ -129,11 +133,8 @@
             </div>
         </td>
     </tr>
-</div>
+  
     
-    
-    
-<div>
     <tr>
         <td colspan="2" bgcolor="#3b5998">
             <div align="center">
@@ -179,14 +180,53 @@
         </td>
     </tr>
    
-    </div>
  </table>
- 
- <table width="50%" border="0" align="center" cellpadding="3" cellspacing="" >
-   
-        <tr><div align="center">
+</form>
+</div>
 
-            <td>r)<input type="checkbox" name="revision" value="R" />
+
+<div class="col-md-3 col-md-pull-9">
+<div class="row">
+<div class="col-md-11 col-md-offset-1">
+<h3>Resultados:</h3>
+
+<form name="timeForm" role="form" class="form-inline"> 
+<div class="form-group text-center">
+    <label>Tiempo: </label><input name="tiempo" type="text" class="form-control" readonly="readonly" style="font-size:14"> 
+    <?php 
+            //echo $tiempofin;
+            $f=explode("-",$tiempofin);
+            //echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
+    ?> 
+</div>
+<br />
+<ul class="list-group">
+  <li class="list-group-item">
+    <span class="badge"><?php echo $totals ?></span>
+    Total Pregutas
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $totalcon ?></span>
+    Respondidas
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $totalrev ?></span>
+    Por revisar
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $restante ?></span>
+    Restantes
+  </li>
+</ul>
+</div></div>
+</div>
+
+
+<div class="row">
+<div class="col-md-6 col-md-offset-4">
+<table border="0" align="center" cellpadding="3" cellspacing="3" width="100%">
+        <tr>
+            <td>r)<input type="checkbox" name="revision" value="r" />
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
                 <?php  echo "Revision" ?> </font>
             </td>
@@ -211,66 +251,24 @@
                 <input type="hidden" name="simulacion_id" value="<?php echo $pregunta[$i]['simulacion_id'] ?>"/>
                 <input type="hidden" name="controlador" id="controlador" value="Alumno" />
                 <input type="hidden" name="accion" id="accion" value="cambiarCondicionPregunta" />
-                <input type="submit" name="Submit" value="Siguiente" />
+                <input type="submit" name="Submit" value="Siguiente" class="btn btn-primary"/>
             
             
             
           
+        </td>
+        <td>
+            <button class="btn btn-primary" type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>">Finalizar Simulación</button> 
         </td>
     </tr>
     
     
     </table>
 </form>
-<form name="timeForm">
-<div class="resultados">
-    <table>
-    <thead>
-        <th>Resulstados</th>
-    </thead>
-    <tbody>
-        <tr>
-            <th>Tiempo</th>
-            <td> <input type="text" name="tiempo"> <?php 
-            echo $tiempofin;
-
-            $f=explode("-",$tiempofin);
-            echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
-
-            ?> </td>
-        </tr>
-         <tr>
-            <th>Total Pregutas</th>
-            <td>  <?php echo $totals ?> </td>
-        </tr>
-         <tr>
-            <th>Respondidas</th>
-           <td>  <?php echo $totalcon ?> </td>
-        </tr>
-         <tr>
-            <th>Por revisar</th>
-              <td>  <?php echo $totalrev ?> </td>
-        </tr>
-        <tr>
-            <th>En blanco</th>
-            <td><?php echo $perdidos ?> </td>
-        </tr>
-         <tr>
-            <th>Restantes</th>
-            <td>  <?php echo $restante ?> </td>
-        </tr>
-        
-        
-        <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>">Finalizar Simulación</button> 
-        
-    </tbody>
-</table>
-</div>
-</form>
-    
+ </div>     
     
 <?php 
-    $condi=1;
+    $cond=1;
     break;
         }    
 
@@ -278,9 +276,11 @@
      }
      
      }else{
-         echo '<h1> Main'.count($pregunta2).'</h1>';
+         
+         echo '<h1> MainRev'.count($pregunta2).'</h1>';
          if(count($pregunta2)!=0){
              ?>
+             
              <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasRev&simulacion_id='+<?php echo $simulacion_id ?>+'&opc='+<?php echo 100 ?>">Ver Revisiones</button>   
     <?php
          }else{
@@ -291,15 +291,17 @@
          } 
         
          }?>    
-   </div>    
+  
+</div>
+</div>
+
+</div>   
 </body>
 </html>
 
 <script language="javascript" type="text/javascript">
 
 function getTime() {
-    
-
     now = new Date();
     y2k = new Date("<?php echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8)?>");
     days = (y2k - now) / 1000 / 60 / 60 / 24;
@@ -312,12 +314,9 @@ function getTime() {
     secondsRound = Math.round(seconds);
     sec = (secondsRound == 1) ? " sec." : " secs.";
     min = (minutesRound == 1) ? " min." : " mins, ";
-    hr = (hoursRound == 1) ? " hr" : " hrs, ";
-    dy = (daysRound == 1)  ? " day" : " days, ";
-
-
+    hr = (hoursRound == 1) ? " hr." : " hrs, ";
+    dy = (daysRound == 1)  ? " day" : " days, "
     document.timeForm.tiempo.value =hoursRound + hr + minutesRound + min + secondsRound + sec;
-    
     if(secondsRound==1 && minutesRound==0 && hoursRound==0){
         alert("El tiempo de su examen a finalizado");
         //document.write("<meta http-equiv='refresh' content='1; url=_proxy.php?controlador=Alumno&accion=listarPreguntasRev&simulacion_id='+<?php echo $simulacion_id ?>'>");

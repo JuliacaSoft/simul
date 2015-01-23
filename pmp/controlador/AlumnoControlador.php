@@ -22,6 +22,7 @@ class AlumnoControlador {
         $simulacion = $this->model->ultimasimulacionUsuario($usuario_id);
 
         require_once '../vista/alumno/mainAlumno.php';
+        $estadoTiempo=$this->model->verificarTiempoCurso(); //metodo para verificar examnes con tiempo terminado
     }
 
     public function listarCursosTerminados() {
@@ -267,7 +268,7 @@ class AlumnoControlador {
         $porcentaje = ($puntaje * 100) / $totals;
 
         $pregunta = $this->model->finSimulacion($simulacion_id, $totalrest, $totalcon, $puntaje, $porcentaje);
-
+        
         require_once '../vista/alumno/resultados.php';
     }
 
