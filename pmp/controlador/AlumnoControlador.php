@@ -111,7 +111,7 @@ class AlumnoControlador {
 
 
         $pregunta = $this->model->reportarPreguntaSimulationRev($simulacion_id);
-
+       
         $intentos = $this->model->mostrarCantidadIntento($pregunta[0]['ensayo_id']);
         $datos = 0;
         $pregunta2=$this->model->reportarPreguntaSimulationRev2($simulacion_id);
@@ -198,7 +198,7 @@ class AlumnoControlador {
         $respuesta = isset($_REQUEST['respuesta']) ? $_REQUEST['respuesta'] : "0";
         //$plantilla = $_REQUEST['plantilla'];
         $revision = isset($_REQUEST['revision']) ? $_REQUEST['revision'] : "0";
-
+        
 
         if ($revision == "R") {
             if ($respuesta != "0") {

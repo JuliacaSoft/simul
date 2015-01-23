@@ -41,7 +41,7 @@
 		<td><?php  echo $cursos[$i]['cant_preg'] ?></td>
 		<td><?php  echo $cursos[$i]['intento'] ?></td>
 		<td>  
-                
+                    
 			<?php 
          		//if($cursos[$i]['intento']>$cursos[$i]['ensreal']or$simulacion[0]['estado_sim']==0  ){
 				if($cursos[$i]['intento']>$cursos[$i]['ensreal']){
