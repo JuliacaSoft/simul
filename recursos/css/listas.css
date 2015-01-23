@@ -1,0 +1,105 @@
+/* 
+    Document   : listas
+    Created on : 21/05/2013, 11:26:35 AM
+    Author     : USUARIO
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#table{
+    width:99.95%;
+    font-family: 'trebuchet MS', 'Lucida sans', Arial;
+    border-bottom: solid 2px #133783;
+    border-left: solid 2px #133783;
+    border-right: solid 2px #133783;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius:5px;
+    border-spacing: 0;
+}
+
+#thead{
+    text-align: left;
+}
+#table th{
+    padding: 10px;
+    background-color: #3b5998;
+    color: #eee;
+    font-size: 12px;
+    border-top: solid 1px white;  
+}
+#table tr{
+    padding: 10px;
+    background: white;
+    color: #3b5998;
+    font-size: 11px;
+}
+#table tr:hover{
+    padding: 10px;
+    background: #d2d3d4;
+    color: #133783;
+    font-size: 11px;
+    cursor: pointer;
+}
+#table td{
+    padding: 10px;
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+
+tfoot th{
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background: #111111;
+}
+
+#table button{
+    clear:both;
+    width:170px;
+    height:31px;
+    background: #2b91af url(../img/icons/buscar.png) no-repeat;
+    text-align:center;
+    line-height:31px;
+    color:#FFFFFF;
+    font-size:11px;
+    font-weight:bold;
+    border-radius: 15px;
+    border: solid 0.5px white;
+}
+
+#table button:hover{
+    clear:both;
+    width:170px;
+    height:31px;
+    background: #111111 url(../img/icons/buscar.png) no-repeat;
+    text-align:center;
+    line-height:31px;
+    color:#FFFFFF;
+    font-size:11px;
+    font-weight:bold;
+    border-radius: 15px;
+    border: solid 0.5px white;
+    cursor: pointer;
+}
+#table button.editar{
+    width: 90px;
+    background: #2b91af url(../img/icons/editar.png) no-repeat;
+}
+#table spaneditar{
+    width: 90px;
+    background: #2b91af url(../img/icons/editar.png) no-repeat;
+}
+
+#table button.editar:hover{
+    width: 90px;
+    background: #111111 url(../img/icons/editar.png) no-repeat;
+}
+
+#table button.eliminar{
+    width: 90px;
+    background: #2b91af url(../img/icons/eliminar.png) no-repeat;
+}
+
+#table button.eliminar:hover{
+    width: 90px;
+    background: #111111 url(../img/icons/eliminar.png) no-repeat;
+}
