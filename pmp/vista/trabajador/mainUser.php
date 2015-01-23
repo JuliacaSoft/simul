@@ -9,6 +9,7 @@
 	<title>MVC - Modelo, Vista, Controlador - Jourmoly</title>
             
         <script type="text/javascript" src="../../recursos/js/jquery.js"></script>
+        <script type="text/javascript" src="../../recursos/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../../recursos/ajax/usuario.js"></script>
 
 
@@ -16,6 +17,9 @@
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/> 
         <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" />
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/bootstrap-dialog.min.css"></link>
+        <script type="text/javascript" src="../../recursos/js/bootstrap-dialog.min.js"></script>
 	<script type="text/javascript">
 
             $(function() {
@@ -84,7 +88,7 @@
 	<?php
 	}
 	?>
-        
+        <button type="button" class="btn btn-primary">Mi boton</button>
 <script language="JavaScript"> 
 function pregunta(){ 
     if (confirm('¿Estas seguro de Eliminar el Registro?')){ 
@@ -92,6 +96,33 @@ function pregunta(){
     }
     return false;
 } 
+
+
+</script>
+<script type="text/javascript">
+ $('button').on('click',function(){
+      
+        BootstrapDialog.show({
+            message: '<h3>Esta seguro que quiere elimninar! </h3>',
+            buttons: [   
+             {
+                
+                label: 'Aceptar',
+                cssClass: 'btn-primary',
+                icon:'glyphicon glyphicon-ok',
+            }, {
+                label: 'Cancelar',
+                cssClass:'btn-danger',
+                icon: 'glyphicon glyphicon-ban-circle',
+                action: function(dialogItself){
+                    dialogItself.close();
+                }
+            }]
+        });
+
+      });
+
+
 </script>
         
 </table>

@@ -182,7 +182,7 @@ class PreguntaDAO {
     }
 
     public function buscarDatosPregunta($datos) {
-        $sql = "SELECT * FROM pregunta INNER JOIN (SELECT area_id, nombre FROM AREA) a USING(area_id) INNER JOIN (SELECT grupo_id,  nombre AS proceso FROM grupo) b USING (grupo_id) WHERE UPPER(CONCAT(pregunta_es,' ', excel_id)) LIKE UPPER('%" . $datos . "%')";
+        $sql = "SELECT * FROM pregunta INNER JOIN (SELECT area_id, nombre FROM area) a USING(area_id) INNER JOIN (SELECT grupo_id,  nombre AS proceso FROM grupo) b USING (grupo_id) WHERE UPPER(CONCAT(pregunta_es,' ', excel_id)) LIKE UPPER('%" . $datos . "%')";
         try {
             $sqlQuery = new SqlQuery($sql);
             return QueryExecutor::execute($sqlQuery);
