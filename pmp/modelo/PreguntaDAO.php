@@ -352,8 +352,10 @@ class PreguntaDAO {
         }
     }
 
-    public function reportarPregungtasSimulationRev($simulacion_id) {
-        $sql = "select  *  from sim_resultado sir, simulacion si, pregunta pr where si.simulacion_id=sir.simulacion_id and pr.pregunta_id=sir.pregunta_id and  si.simulacion_id=? ";
+    public function reportarPregungtasSimulationRev($simulacion_id,$ini) {
+        $sql = "select  sir.simulacion_id,sir.respuesta as marcado,ordalt,revision,pregunta_es,pregunta_us,pr.respuesta,opcion_aes,opcion_bes,opcion_ces,opcion_des,opcion_aus,opcion_bus,opcion_cus,opcion_dus 
+        from sim_resultado sir, simulacion si, pregunta pr 
+        where si.simulacion_id=sir.simulacion_id and pr.pregunta_id=sir.pregunta_id and  si.simulacion_id=? limit $ini,1";
 
 
         try {

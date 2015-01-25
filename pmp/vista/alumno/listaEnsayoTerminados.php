@@ -25,6 +25,7 @@
                 <th>Tiempo</th>
                 <th>Cant. Pregunta</th>
                 <th>Cant. Intento</th>
+                <th>Simulacion</th>
                 <th>Opciones</th>
 
         </tr>
@@ -40,7 +41,7 @@
 		<td><?php  echo $cursos[$i]['tiempo'] ?> Min.</td>
 		<td><?php  echo $cursos[$i]['cant_preg'] ?></td>
 		<td><?php  echo $cursos[$i]['intento'] ?></td>
-                <td><?php  echo $cursos[$i]['simulacion_id'] ?></td>
+        <td><?php  echo $cursos[$i]['simulacion_id'] ?></td>
 		<td>  
                 
                     <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasTer&simulacion_id='+<?php  echo $cursos[$i]['simulacion_id'] ?>">Ver Examen </button>               

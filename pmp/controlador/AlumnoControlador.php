@@ -27,7 +27,7 @@ class AlumnoControlador {
 
     public function listarCursosTerminados() {
 
-        $cursos = $this->model->listarCursosEnsayoTerminado(1);
+        $cursos = $this->model->listarCursosEnsayoTerminado(4);
         require_once '../vista/alumno/listaEnsayoTerminados.php';
     }
 
@@ -63,8 +63,22 @@ class AlumnoControlador {
 
     function listarPreguntasTer() {
         $simulacion_id = $_REQUEST['simulacion_id'];
-        $pregunta = $this->model->reportarPregungtasSimulationRev($simulacion_id);
-        $datos = 0;
+        $ini = isset($_REQUEST['ini'])?$_REQUEST['ini']:0;
+        $pregunta = $this->model->reportarPregungtasSimulationRev($simulacion_id,$ini);
+        //$datos = 0;
+
+        // para mostrar el resumen
+        $rev = $this->model->totalSimulacionRes($simulacion_id);
+        $totals = $rev[0]['totalSim'];
+
+        $rev = $this->model->totalSimulacionContestadas($simulacion_id, 2);
+        $totalcon = $rev[0]['totalCont'];
+
+        $rev = $this->model->totalSimulacionContestadasRev($simulacion_id, 1);
+        $totalrev = $rev[0]['totalrev'];
+
+        $rev = $this->model->totalSimulacionContestadas($simulacion_id, 0);
+        $restante = $rev[0]['totalCont'];
         require_once '../vista/alumno/listaPreguntasTerminados.php';
     }
 
