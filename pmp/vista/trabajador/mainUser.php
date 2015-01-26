@@ -19,6 +19,8 @@
         <link rel="stylesheet" type="text/css" href="../../recursos/css/bootstrap.min.css"></link>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/bootstrap-dialog.min.css"></link>
         <script type="text/javascript" src="../../recursos/js/bootstrap-dialog.min.js"></script>
+
+
 	<script type="text/javascript">
 
             $(function() {
@@ -102,6 +104,7 @@ function pregunta(){
 <script type="text/javascript">
     function eliminar(id_usuario){
           BootstrapDialog.show({
+            title: '¡Información!',
             message: '<h4>¿Esta seguro que desea eliminar?</h4>',
             buttons: [   
              {

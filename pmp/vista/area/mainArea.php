@@ -9,18 +9,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>MVC - Modelo, Vista, Controlador</title>
             
+        <script type="text/javascript" src="../../recursos/js/jquery.js"></script>
+        <script type="text/javascript" src="../../recursos/ajax/area.js"></script>
+        <script type="text/javascript" src="../../recursos/js/jquery.autocomplete.js"></script> 
+
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/>    
         <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" />
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/bootstrap.min.css"></link>
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/bootstrap-dialog.min.css"></link>
-        <script type="text/javascript" src="../../recursos/js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="../../recursos/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../../recursos/js/bootstrap-dialog.min.js"></script>
-        
-        <script type="text/javascript" src="../../recursos/ajax/area.js"></script>
-        
-        <script type="text/javascript" src="../../recursos/js/jquery.autocomplete.js"></script>
+
         <script type="text/javascript">
 
             $(function() {

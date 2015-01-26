@@ -9,13 +9,15 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>MVC - Modelo, Vista, Controlador</title>
             
+        
         <script type="text/javascript" src="../../recursos/js/jquery.js"></script>
         <script type="text/javascript" src="../../recursos/ajax/grupo.js"></script>
-        
-        <script type="text/javascript" src="../../recursos/js/jquery.autocomplete.js"></script>        
+        <script type="text/javascript" src="../../recursos/js/jquery.autocomplete.js"></script> 
+
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/> 
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" />
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/>    
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" />        
+
 	<script type="text/javascript">
 
             $(function() {
@@ -78,7 +80,8 @@
 		<td>  
                 
                         <button type="button" class="editar" onclick="javascript:showFormEditGrupo(<?php echo $item->getGrupo_id()?>)">Editar</button>
-                        <button type="button" class="eliminar"  onclick="location.href='_proxy.php?controlador=Grupo&accion=eliminar&grupoid=<?php echo $item->getGrupo_id()?>'" >Eliminar</button>
+                        <button class="eliminar" onclick="eliminar(<?php echo $item->getGrupo_id()?>)" >Eliminar</button>
+                        <!-- <button type="button" class="eliminar"  onclick="location.href='_proxy.php?controlador=Grupo&accion=eliminar&grupoid=<?php echo $item->getGrupo_id()?>'" >Eliminar</button> -->
                         
                 </td>
 		
@@ -87,6 +90,37 @@
 	<?php
 	}
 	?>
+
+</script>
+<script type="text/javascript">
+    function eliminar(id_grupo){
+          BootstrapDialog.show({
+            title: '¡Información!',
+            message: '<h4>¿Esta seguro que desea eliminar?</h4>',
+            buttons: [   
+             {
+                
+                label: 'Aceptar',
+                cssClass: 'btn-primary',
+                icon:'glyphicon glyphicon-ok',
+                action:function(dialogItself){
+                    location.href='_proxy.php?controlador=Grupo&accion=eliminar&grupoid='+id_grupo;
+                    dialogItself.close();
+                }
+            }, {
+                label: 'Cancelar',
+                cssClass:'btn-danger',
+                icon: 'glyphicon glyphicon-ban-circle',
+                action: function(dialogItself){
+                    dialogItself.close();
+                }
+            }]
+        });
+
+    }
+
+</script>
+        
 </table>
 </body>
 </html>

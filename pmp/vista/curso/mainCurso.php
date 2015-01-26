@@ -11,9 +11,12 @@
             
         <script type="text/javascript" src="../../recursos/js/jquery.js"></script>
         <script type="text/javascript" src="../../recursos/ajax/curso.js"></script>
+        <script type="text/javascript" src="../../recursos/js/jquery.autocomplete.js"></script> 
+
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/>          
-        
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/>    
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" />
+
 </head>
 <body>
 
