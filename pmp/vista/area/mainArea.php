@@ -9,13 +9,18 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>MVC - Modelo, Vista, Controlador</title>
             
-        <script type="text/javascript" src="../../recursos/js/jquery.js"></script>
-        <script type="text/javascript" src="../../recursos/ajax/area.js"></script>
-        
-        <script type="text/javascript" src="../../recursos/js/jquery.autocomplete.js"></script> 
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/>    
         <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" />
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/bootstrap-dialog.min.css"></link>
+        <script type="text/javascript" src="../../recursos/js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="../../recursos/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../../recursos/js/bootstrap-dialog.min.js"></script>
+        
+        <script type="text/javascript" src="../../recursos/ajax/area.js"></script>
+        
+        <script type="text/javascript" src="../../recursos/js/jquery.autocomplete.js"></script>
         <script type="text/javascript">
 
             $(function() {
@@ -77,7 +82,8 @@
 		<td>  
                 
                         <button type="button" class="editar" onclick="javascript:showFormEditArea(<?php echo $item->getArea_id()?>)">Editar</button>
-                        <button type="button" class="eliminar"  onclick="location.href='_proxy.php?controlador=Area&accion=eliminar&areaid=<?php echo $item->getArea_id()?>'" >Eliminar</button>
+                        <button type="button" class="eliminar"  onclick="eliminar(<?php echo $item->getArea_id()?>)" >Eliminar</button>
+                        <!-- <button type="button" class="eliminar"  onclick="location.href='_proxy.php?controlador=Area&accion=eliminar&areaid=<?php echo $item->getArea_id()?>'" >Eliminar</button> -->
                         
                 </td>
 		
@@ -86,6 +92,34 @@
 	<?php
 	}
 	?>
+
+<script type="text/javascript">
+    function eliminar(idArea){
+          BootstrapDialog.show({
+            message: '<h3>Esta seguro que quiere elimninar el Area! </h3>',
+            buttons: [   
+             {
+                
+                label: 'Aceptar',
+                cssClass: 'btn-primary',
+                icon:'glyphicon glyphicon-ok',
+                action:function(dialogItself){
+                    location.href='_proxy.php?controlador=Area&accion=eliminar&areaid='+idArea;
+                    dialogItself.close();
+                }
+            }, {
+                label: 'Cancelar',
+                cssClass:'btn-danger',
+                icon: 'glyphicon glyphicon-ban-circle',
+                action: function(dialogItself){
+                    dialogItself.close();
+                }
+            }]
+        });
+        
+    }
+  </script>
+
 </table>
 </body>
 </html>

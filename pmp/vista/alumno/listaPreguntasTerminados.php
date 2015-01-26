@@ -65,7 +65,8 @@ for ($i = 0; $i < count($pregunta); $i++) {
         //foreach ($plantilla as $c => $v) {
         //    echo "$c: $v<br>";
         //}
-   
+    $alt = str_split($pregunta[$i]['ordalt']);        
+    if(!$pregunta[$i]['estado']==0){
         $plantilla=array();
         $plantilla = str_split($pregunta[$i]['ordalt']);
         $alt = str_split($pregunta[$i]['ordalt']);
@@ -77,19 +78,20 @@ for ($i = 0; $i < count($pregunta); $i++) {
                 case 'D': $plantilla[$x] = 3; break;
             }
         }
-
+    }
 
         $alternativas_es=array($pregunta[$i]['opcion_aes'],$pregunta[$i]['opcion_bes'],$pregunta[$i]['opcion_ces'],$pregunta[$i]['opcion_des']);
         $alternativas_us=array($pregunta[$i]['opcion_aus'],$pregunta[$i]['opcion_bus'],$pregunta[$i]['opcion_cus'],$pregunta[$i]['opcion_dus']);
         
         $alternativas_sort_es=array();
         $alternativas_sort_us=array();
-        
+     
+    if(!$pregunta[$i]['estado']==0){     // tienen RESPUESTA o estén en estado REVISIÓN  
         for($j=0;$j<count($alternativas_es);$j++){
             $alternativas_sort_es[$j]=$alternativas_es[$plantilla[$j]];
             $alternativas_sort_us[$j]=$alternativas_us[$plantilla[$j]];
         }
-
+    
         //foreach ($alternativas_sort_es as $clave => $valor) {
         //    echo "$clave: $valor<br>";
         //}
@@ -118,8 +120,38 @@ for ($i = 0; $i < count($pregunta); $i++) {
             }
             
         }
+    }else{   // No tienen RESPUESTA y están en ESTADO CERO "0"  
+        for($j=0;$j<count($alternativas_es);$j++){
+            $alternativas_sort_es[$j]=$alternativas_es[$j];
+            $alternativas_sort_us[$j]=$alternativas_us[$j];
+        }
+
+        for($x=0;$x<count($alt);$x++){ //convertir las letras a numeros
+            // switch ($pregunta[$i]['marcado']) {
+            //     case 'A': $pregunta[$i]['marcado'] = 1; break;
+            //     case 'B': $pregunta[$i]['marcado'] = 2; break;
+            //     case 'C': $pregunta[$i]['marcado'] = 3; break;
+            //     case 'D': $pregunta[$i]['marcado'] = 4; break;
+            // }
+      
+
+            if($alt[$x]==$pregunta[$i]['respuesta']){
+                $ide=$x+1;
+            }else{
+                switch ($pregunta[$i]['respuesta']) {
+                    case 'A': $pregunta[$i]['respuesta'] = 1; break;
+                    case 'B': $pregunta[$i]['respuesta'] = 2; break;
+                    case 'C': $pregunta[$i]['respuesta'] = 3; break;
+                    case 'D': $pregunta[$i]['respuesta'] = 4; break;
+                }
+                $ide=$pregunta[$i]['respuesta'];
+            }
+        }   
+    }
          //echo "p real ".$alt[$pregunta[$i]['marcado']-1]."<br>";
          //echo "ide ".$ide."<br>";
+    
+
         
         
     ?>
@@ -184,28 +216,28 @@ for ($i = 0; $i < count($pregunta); $i++) {
             </div>
         </td>
     </tr>
-    <tr>
-        <td width="20">a)<input name="respuesta" type="radio" value="A" <?=($pregunta[$i]['marcado']=="1")?"checked":""?>/>
+    <tr <?=($pregunta[$i]['marcado']=="1")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> <?=($ide==1)?" class='alert alert-success'":""?>>
+        <td width="20">a)<input name="respuesta" type="radio" value="1" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
         </td>
         <td width="272">
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
                 <?php echo $alternativas_sort_us[0] ?></font>
         </td>
     </tr>
-    <tr>
+    <tr <?=($pregunta[$i]['marcado']=="2")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> <?=($ide==2)?" class='alert alert-success'":""?>>
         <td>b)<input type="radio" name="respuesta" value="B" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_us[1] ?>
             </font>
         </td>
     </tr>
-    <tr> 
+    <tr <?=($pregunta[$i]['marcado']=="3")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> <?=($ide==3)?" class='alert alert-success'":""?>> 
         <td>c)<input type="radio" name="respuesta" value="C" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_us[2] ?> </font>
     </td>
     </tr>
-    <tr>
+    <tr <?=($pregunta[$i]['marcado']=="4")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> <?=($ide==4)?" class='alert alert-success'":""?>>
         <td>d)<input type="radio" name="respuesta" value="D" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php  echo $alternativas_sort_us[3] ?> </font>
@@ -241,22 +273,19 @@ for ($i = 0; $i < count($pregunta); $i++) {
 
 <div class="row"><!--Div botonos finales-->
 
-	<div class="col-md-9 col-md-push-4">
-        r)<input type="checkbox" name="revision" value="R" /><?php  echo "Revision" ?>
-            <?php 
-                $salida="";
+    <div class="col-md-9 col-md-push-4">
+    <?php 
+        if($pregunta[$i]['revision']==1 && $pregunta[$i]['marcado']==0){
+            echo "Ud. Dejo esta pregunta en revisión sin respuesta...";
+        }
+        if($pregunta[$i]['estado']==0){
+            echo "Ud. no marcó ninguna respuesta...";
+        }
 
-                for($x=0;$x<count($plantilla);$x++){
-                    switch ($plantilla[$x]) {
-                        case 0: $plantilla[$x]='A'; break;
-                        case 1: $plantilla[$x]='B'; break;
-                        case 2: $plantilla[$x]='C'; break;
-                        case 3: $plantilla[$x]='D'; break;
-                    }
+    ?>
 
-                    $salida=$salida.$plantilla[$x];
-                }
-            ?>            
+    <?php  echo "<br>Aqui sacar comentario...." ?>
+          
 </form>
    
    </div>  

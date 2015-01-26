@@ -8,11 +8,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>MVC - Modelo, Vista, Controlador - Jourmoly</title>
             
-        <script type="text/javascript" src="../../recursos/js/jquery.js"></script>
+        <script type="text/javascript" src="../../recursos/js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="../../recursos/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../../recursos/ajax/usuario.js"></script>
-
-
+        
 	<script type="text/javascript" src="../../recursos/js/jquery.autocomplete.js"></script>        
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/> 
@@ -25,7 +24,7 @@
             $(function() {
             $("#datos").focus();
                 $('#datos').autocomplete("_proxy.php?controlador=Usuario&accion=formBuscarUserAuto", {
-                    width: "700px",
+                    width: "500px",
                     minChars: 2
                 }).result(function(event,data) {        	
                 });   
@@ -79,7 +78,8 @@
 		<td>  
                 
                         <button type="button" class="editar" onclick="javascript:showFormEditUser(<?php echo $item->getUsuario_id()?>)">Editar</button>
-                        <button type="button" class="eliminar"  onclick="pregunta()">Eliminar</button>
+                        <button class="eliminar" onclick="eliminar(<?php echo $item->getUsuario_id()?>)" >Eliminar</button>
+                        <!-- <button type="button" class="eliminar"  onclick="pregunta()">Eliminar</button> -->
                         
                 </td>
 		
@@ -88,7 +88,7 @@
 	<?php
 	}
 	?>
-        <button type="button" class="btn btn-primary">Mi boton</button>
+
 <script language="JavaScript"> 
 function pregunta(){ 
     if (confirm('¿Estas seguro de Eliminar el Registro?')){ 
@@ -100,16 +100,19 @@ function pregunta(){
 
 </script>
 <script type="text/javascript">
- $('button').on('click',function(){
-      
-        BootstrapDialog.show({
-            message: '<h3>Esta seguro que quiere elimninar! </h3>',
+    function eliminar(id_usuario){
+          BootstrapDialog.show({
+            message: '<h4>¿Esta seguro que desea eliminar?</h4>',
             buttons: [   
              {
                 
                 label: 'Aceptar',
                 cssClass: 'btn-primary',
                 icon:'glyphicon glyphicon-ok',
+                action:function(dialogItself){
+                    location.href='_proxy.php?controlador=Usuario&accion=eliminar&usuarioid='+id_usuario;
+                    dialogItself.close();
+                }
             }, {
                 label: 'Cancelar',
                 cssClass:'btn-danger',
@@ -120,8 +123,7 @@ function pregunta(){
             }]
         });
 
-      });
-
+    }
 
 </script>
         

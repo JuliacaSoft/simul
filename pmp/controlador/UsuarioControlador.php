@@ -25,6 +25,12 @@ class UsuarioControlador {
             $usuario = $this->model->listarUsuarioTwo();  
             require_once '../vista/trabajador/mainUser.php';           
     }
+    function listarTwoU2(){   
+        require_once('Seguridad.php');
+        s_pagina_validar();
+            $usuario = $this->model->listarUsuarioTwo();  
+            require_once '../vista/trabajador/prueba.php';           
+    }
     function formUser(){     
             $roles = $this->model->listarRoles();  
             require_once '../vista/trabajador/formUser.php';           

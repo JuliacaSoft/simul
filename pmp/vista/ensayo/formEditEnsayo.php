@@ -84,7 +84,7 @@
                 <select  name="cant_preg" id="cant_preg" onchange="cambiartiempo();"  > 
                     <option value="200" <?php if($u->getCant_preg()=="200") echo 'selected="selected"'; ?> >200</option>
                     <option value="100" <?php if($u->getCant_preg()=="100") echo 'selected="selected"'; ?> >100</option>
-                    <option value="500" <?php if($u->getCant_preg()=="50") echo 'selected="selected"'; ?> >50</option>
+                    <option value="50" <?php if($u->getCant_preg()=="50") echo 'selected="selected"'; ?> >50</option>
                     <option value="20" <?php if($u->getCant_preg()=="20") echo 'selected="selected"'; ?> >20</option>
                     <option value="10" <?php if($u->getCant_preg()=="10") echo 'selected="selected"'; ?> >10</option>
                     <option value="5" <?php if($u->getCant_preg()=="5") echo 'selected="selected"'; ?> >5</option>
