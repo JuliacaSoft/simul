@@ -17,6 +17,12 @@ body {
 	margin-top:0%;
 	margin: 0px auto;
 }
+#central .header{
+    border-bottom: solid 3px #ff0000;
+}
+#central div div .barra-preguntas{
+    border-left: solid 3px #ff0000;
+}
 
 .service_category {
     background-color: #D0D3D8;

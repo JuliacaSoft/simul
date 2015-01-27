@@ -43,12 +43,15 @@
  
      
 ?>
-<h2 align="center">Simulador Online PMP - Atenos</h2> 
+      <div class="header">
+          <h2 align="center">Simulador Online PMP - Atenos</h2> 
 <h5 align="center"><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><strong><?php echo $intentos[0]['intento'] ?></strong></h5>
 
+      </div>
 
 <div class="row"><!--Inicio div preguntas-->
-<div class="col-md-9 col-md-push-3"> <!--inicio columna preguntas-->
+<div class="col-md-9 col-md-push-3 "> <!--inicio columna preguntas-->
+    <div class="barra-preguntas">
 <form name="form" method="post" action="_proxy.php">
 <table width="95%" border="0" align="center" cellpadding="3" cellspacing="0" bgcolor="#CCCCCC">
 <div>
@@ -288,6 +291,7 @@
     
     </table>
 </form>
+</div>
 </div><!--Fin de la columna preguntas-->
 
 
