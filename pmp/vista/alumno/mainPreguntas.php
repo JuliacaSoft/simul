@@ -17,8 +17,7 @@
         <script type="text/javascript" src="../../recursos/js/bootstrap.min.js"></script>  
         <link type="text/css" href="../../recursos/css/bootstrap.css" rel="stylesheet" />
         <link type="text/css" href="../../recursos/css/styles.css" rel="stylesheet" />
-        <link rel="stylesheet" href="../../recursos/css/stylecheck.css"/> 
-        <link rel="stylesheet" href="../../recursos/css/stylecheckbutton.css"/>
+        
         
 
 </head>
@@ -26,8 +25,8 @@
 <body>  
 
     
- <div id="" class="myform">
- <!-- <div id="central"> -->
+ <!--<div id="" class="myform">-->
+  <div id="central"> 
 
 
 <?php
