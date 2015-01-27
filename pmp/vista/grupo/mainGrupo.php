@@ -9,6 +9,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>MVC - Modelo, Vista, Controlador</title>
             
+        <link href="../../../recursos/confir/css/page.css" rel="stylesheet"/>
+        <link href="../../../recursos/confir/alert/css/alert.css" rel="stylesheet"/> <!-- Estilo al popup-->
+        <link href="../../../recursos/confir/alert/themes/default/theme.css" rel="stylesheet"/> <!-- No sale popup-->
+        <script src="../../../recursos/confir/js/jqueryS.js"></script> 
+        <!--<script src="js/jquery-ui.js"></script>-->
+        <script src="../../../recursos/confir/alert/js/alert.js"></script>
+        <script src="../../../recursos/confir/js/page.js"></script>
         
         <script type="text/javascript" src="../../recursos/js/jquery.js"></script>
         <script type="text/javascript" src="../../recursos/ajax/grupo.js"></script>
@@ -16,8 +23,8 @@
 
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/>    
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" />        
-
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" />
+        
 	<script type="text/javascript">
 
             $(function() {
@@ -33,7 +40,7 @@
         
 </head>
 <body>
-
+    
     <div class="myformBusqueda" id="stylizedBusqueda">
                
         <form id="form" name="form" method="get" action="_proxy.php">
@@ -87,11 +94,26 @@
 		
            
 	</tr>
+        
+                
 	<?php
 	}
 	?>
+</table>
+</body>
+    
+<div id="page">
 
-</script>
+                <button onclick="eliminargrupo(1)" class="button blue">Eliminar</button>
+                <button onclick="eliminargrupo(2)" class="button blue">Boton</button>
+                <a href="#demo-callback_confirm" class="button blue">Ver</a>
+                <button href="#demo-callback_confirm" class="button blue">Ver</button>
+       
+</div>
+    
+</html>  
+
+
 <script type="text/javascript">
     function eliminar(id_grupo){
           BootstrapDialog.show({
@@ -120,7 +142,26 @@
     }
 
 </script>
+<script>
+    function eliminargrupo(dato){
+        if(dato==1){
+               // $.alert.open({ content: 'Lorem ipsum dolor sit amet' }); 
+            $.alert.open('confirm', 'Lorem ipsum dolor sit amet?', function(button) {
+                        if (button == 'yes')
+                            $.alert.open('You pressed the "Yes" button.');
+                        else if (button == 'no')
+                            $.alert.open('You pressed the "No" button.');
+                        else
+                            $.alert.open('Alert was canceled.');
+                    });
+
+        }if (dato==2){
+            alert("I am an alert box!");
+
+        }
+         
+    }
+    
+</script>
         
-</table>
-</body>
-</html>
+

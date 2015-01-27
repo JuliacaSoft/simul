@@ -33,7 +33,8 @@ if(count($pregunta)!=0){
          
 for ($i = 0; $i < count($pregunta); $i++) {   
 ?>
-<h1 align="center">Simulador Online PMP - Atenos</h1> 
+<h2 align="center">Simulador Online PMP - Atenos</h2>
+</br> 
 
 <div class="row"><!--Inicio div preguntas-->
 <div class="col-md-9 col-md-push-3"> <!--inicio columna preguntas-->

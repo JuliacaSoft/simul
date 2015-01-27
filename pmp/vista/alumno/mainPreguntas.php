@@ -24,7 +24,7 @@
 
     
  <div id="" class="myform">
-
+ <!-- <div id="central"> -->
 
 
 <?php
@@ -41,22 +41,39 @@
  
      
 ?>
-<h1 align="center">Simulador Online PMP - Atenos</h1> 
+<h2 align="center">Simulador Online PMP - Atenos</h2> 
  
 <div class="row"><!--Div tiempo-->
     <div class="col-md-3">
-    	<form name="timeForm">
-        Tiempo:  <input type="text" name="tiempo" class="form-control" readonly="readonly"> 
+        <form name="timeForm" role="form" class="form-inline"> 
+        <div class="form-group text-center">
+            <label>Tiempo: </label> <input name="tiempo" type="text" class="form-control" readonly="readonly" style="font-size:14"> 
+            <?php 
+                //echo $tiempofin;
+                $f=explode("-",$tiempofin);
+                //echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
+            ?> 
+        </div>
+        </form>
+    </div>
+
+    <!-- <div class="col-md-1">
+        <label>Tiempo: </label>
+    </div>
+    <div class="col-md-2">
+    	<form name="timeForm" role="form" class="form-inline">
+        <input type="text" name="tiempo" class="form-control" readonly="readonly"> 
         <?php //echo $tiempofin;
-            $f=explode("-",$tiempofin);
+            $f//=explode("-",$tiempofin);
             //echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
         ?>
         </form>
-    </div>
+    </div> -->
     <div class="col-md-9">
-    	<p align="center"><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><?php echo $intentos[0]['intento'] ?></p> 
+    	<h5 align="center"><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><strong><?php echo $intentos[0]['intento'] ?></strong></h5> 
     </div>
 </div><!--Fin div tiempo-->
+
 
 <div class="row"><!--Inicio div preguntas-->
 <div class="col-md-9 col-md-push-3"> <!--inicio columna preguntas-->
@@ -77,6 +94,8 @@
             <div align="center">
                 <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
                 <strong> <?php echo $pregunta[$i]['pregunta_es'] ?> </strong></font>
+                <br />
+                <br />
             </div>
         </td>
     </tr>
@@ -136,18 +155,22 @@
         </td>
     </tr>
 
+    
+</div>
+
+<div>
     <tr>
         <td colspan="2" bgcolor="#FFFFFF">
             <div align="center">
                 <font color="#FFFFFF" size="2" face="Verdana, Arial, Helvetica, sans-serif">
-                English Questions
+                .
+                <br />
                 </font> 
             </div>
         </td>
     </tr>
-</div>
-    
-    
+
+</div>    
     
 <div>
     <tr>
@@ -164,6 +187,8 @@
             <div align="center">
                 <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
                 <strong> <?php echo $pregunta[$i]['pregunta_us']?> </strong></font>
+                <br />
+                <br />
             </div>
         </td>
     </tr>
@@ -192,6 +217,8 @@
         <td>d)<input type="radio" name="respuesta" value="D" /></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php  echo $alternativas_sort_us[3] ?> </font>
+            <br />
+            <br />
         </td>
     </tr>
    
@@ -283,7 +310,7 @@
          echo '<h1> Main'.count($pregunta2).'</h1>';
          if(count($pregunta2)!=0){
              ?>
-             <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasRev&simulacion_id='+<?php echo $simulacion_id ?>+'&opc='+<?php echo 100 ?>">Ver Revisiones</button>   
+             <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasRevision&simulacion_id='+<?php echo $simulacion_id ?>+'&opc='+<?php echo 100 ?>">Ver Revisiones</button>   
     <?php
          }else{
 ?>    
@@ -314,10 +341,10 @@ function getTime() {
     minutesRound = Math.floor(minutes);
     seconds = (y2k - now) / 1000 - (24 * 60 * 60 * daysRound) - (60 * 60 * hoursRound) - (60 * minutesRound);
     secondsRound = Math.round(seconds);
-    sec = (secondsRound == 1) ? " sec." : " secs.";
-    min = (minutesRound == 1) ? " min." : " mins, ";
-    hr = (hoursRound == 1) ? " hr" : " hrs, ";
-    dy = (daysRound == 1)  ? " day" : " days, ";
+    sec = (secondsRound == 1) ? " sec. " : " secs.";
+    min = (minutesRound == 1) ? " min. " : " mins, ";
+    hr = (hoursRound == 1) ? " hr. " : " hrs, ";
+    dy = (daysRound == 1)  ? " day" : " day,";
 
 
     document.timeForm.tiempo.value =hoursRound + hr + minutesRound + min + secondsRound + sec;

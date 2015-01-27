@@ -19,6 +19,7 @@
                     <li><a href="_proxy.php?controlador=Usuario&accion=listarTwoU" target="content"><img src="../../recursos/img/icons/t9.png" />Usuario</a></li>
                      <li><a href="_proxy.php?controlador=Area&accion=listarTwoU" target="content"><img src="../../recursos/img/icons/t9.png" />Area</a></li>
                     <li><a href="_proxy.php?controlador=Grupo&accion=listarTwoU" target="content"><img src="../../recursos/img/icons/t9.png" />Grupo</a></li>
+                    <li><a href="../vista/grupo/sample.php" target="content"><img src="../../recursos/img/icons/t9.png" />Grupo De</a></li>
                     <li><a href="../web/cargamas/index.php" target="content"><img src="../../recursos/img/icons/t9.png" />Carga Masiva</a></li>
                     <!--<li><a href="_proxy.php?controlador=Index&accion=cargamasiva" target="content"><img src="../../recursos/img/icons/t9.png" />Carga masiva Ant</a></li>-->
                     <li><a href="_proxy.php?controlador=Pregunta&accion=listarTwoU" target="content"><img src="../../recursos/img/icons/t9.png" />Pregunta</a></li>

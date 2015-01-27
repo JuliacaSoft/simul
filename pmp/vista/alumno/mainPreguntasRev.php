@@ -3,47 +3,80 @@
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>MVC - Modelo, Vista, Controlador - Jourmoly</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>MVC - Modelo, Vista, Controlador - Jourmoly</title>
             
-        <script type="text/javascript" src="../../recursos/js/jquery.js"></script>        
+        <script type="text/javascript" src="../../recursos/js/jquery-1.9.1.min.js"></script>        
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/forms.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/>       
         
+        
+        <script type="text/javascript" src="../../recursos/js/bootstrap.min.js"></script>  
+        <link type="text/css" href="../../recursos/css/bootstrap.css" rel="stylesheet" />
+       <link type="text/css" href="../../recursos/css/styles.css" rel="stylesheet" />
+
 </head>
         
-<body>  
+<body> 
 
-    
-    <div id="central">
+ <div id="" class="myform">
+ <!-- <div id="central"> -->
+
+
 <?php
 
  
- $cond=0;
+ $condi=0;
 
   if(count($pregunta)!=0){
                 
             
  for ($i = 0; $i < count($pregunta); $i++) {
  
-     if($cond==0){
+     if($condi==0){
  
      
-
 ?>
-    
- 
-    
+<h2 align="center">Simulador Online PMP - Atenos</h2> 
+
+<div class="row"><!--Div tiempo-->
+    <div class="col-md-3">
+        <form name="timeForm" role="form" class="form-inline"> 
+        <div class="form-group text-center">
+            <label>Tiempo: </label> <input name="tiempo" type="text" class="form-control" readonly="readonly" style="font-size:14"> 
+            <?php 
+                //echo $tiempofin;
+                $f=explode("-",$tiempofin);
+                //echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
+            ?> 
+        </div>
+        </form>
+    </div>
+
+    <!-- <div class="col-md-1">
+        <label>Tiempo: </label>
+    </div>
+    <div class="col-md-2">
+        <form name="timeForm" role="form" class="form-inline">
+        <input type="text" name="tiempo" class="form-control" readonly="readonly"> 
+        <?php //echo $tiempofin;
+            $f//=explode("-",$tiempofin);
+            //echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
+        ?>
+        </form>
+    </div> -->
+    <div class="col-md-9">
+        <h5 align="center"><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><strong><?php echo $intentos[0]['intento'] ?></strong></h5> 
+    </div>
+</div><!--Fin div tiempo-->
+
+
+<div class="row"><!--Inicio div preguntas-->
+<div class="col-md-9 col-md-push-3"> <!--inicio columna preguntas-->
 <form name="form" method="post" action="_proxy.php">
-    
-<h1 align="center">Simulador Online PMP - Atenos</h1> 
-
-<p><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><?php echo $intentos[0]['intento'] ?></p>        
-
-<br>  
 <table width="95%" border="0" align="center" cellpadding="3" cellspacing="0" bgcolor="#CCCCCC">
 <div>
     <tr>
@@ -60,49 +93,121 @@
             <div align="center">
                 <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
                 <strong> <?php echo $pregunta[$i]['pregunta_es'] ?> </strong></font>
+                <br />
+                <br />
             </div>
         </td>
     </tr>
-    <tr>
-        <td width="20">a) <input name="respuesta" type="radio" disabled value="1" />
+
+    <?php //desordenar aleatorialmente las alternativas
+        //$plantilla=range(0,3);
+        //shuffle($plantilla);
+        //foreach ($plantilla as $c => $v) {
+        //    echo "$c: $v<br>";
+        //}
+    
+        $plantilla=array();
+        $plantilla = str_split($pregunta[$i]['ordalt']);
+        $alt = str_split($pregunta[$i]['ordalt']);
+        for($x=0;$x<count($plantilla);$x++){ //convertir las letras a numeros
+            switch ($plantilla[$x]) {
+                case 'A': $plantilla[$x] = 0; break;
+                case 'B': $plantilla[$x] = 1; break;
+                case 'C': $plantilla[$x] = 2; break;
+                case 'D': $plantilla[$x] = 3; break;
+            }
+        }
+    
+
+        $alternativas_es=array($pregunta[$i]['opcion_aes'],$pregunta[$i]['opcion_bes'],$pregunta[$i]['opcion_ces'],$pregunta[$i]['opcion_des']);
+        $alternativas_us=array($pregunta[$i]['opcion_aus'],$pregunta[$i]['opcion_bus'],$pregunta[$i]['opcion_cus'],$pregunta[$i]['opcion_dus']);
+        
+        $alternativas_sort_es=array();
+        $alternativas_sort_us=array();
+    
+    //if(!$pregunta[$i]['estado']==0){     // tienen RESPUESTA o estén en estado REVISIÓN    
+        for($j=0;$j<count($alternativas_es);$j++){
+            $alternativas_sort_es[$j]=$alternativas_es[$plantilla[$j]];
+            $alternativas_sort_us[$j]=$alternativas_us[$plantilla[$j]];
+        }
+
+        //foreach ($alternativas_sort_es as $clave => $valor) {
+        //    echo "$clave: $valor<br>";
+        //}
+        //echo "p marcado ".$pregunta[$i]['marcado']."<br>";
+        //echo "p respuesta ".$pregunta[$i]['respuesta']."<br>";
+
+        for($x=0;$x<count($alt);$x++){ //convertir las letras a numeros
+            switch ($pregunta[$i]['marcado']) {
+                case 'A': $pregunta[$i]['marcado'] = 1; break;
+                case 'B': $pregunta[$i]['marcado'] = 2; break;
+                case 'C': $pregunta[$i]['marcado'] = 3; break;
+                case 'D': $pregunta[$i]['marcado'] = 4; break;
+            }
+
+            
+            if (!$pregunta[$i]['marcado']==0) {
+                if ($alt[$pregunta[$i]['marcado']-1] == $pregunta[$i]['respuesta']) {
+                    $res=TRUE; //caso q la respuesta es correcta
+                }else{
+                    $res=FALSE;
+                }
+            }
+
+            if($alt[$x]==$pregunta[$i]['respuesta']){
+                $ide=$x+1;
+            }
+            
+        }
+    
+        //echo "p real ".$alt[$pregunta[$i]['marcado']-1]."<br>";
+         //echo "ide ".$ide."<br>";
+        
+    ?>
+
+    <tr <?=($pregunta[$i]['marcado']=="1")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> <?=($ide==1)?" class='alert alert-success'":""?>>
+        <td width="20">a)<input name="respuestae" type="radio" disabled value="1" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
         </td>
         <td width="272">
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-                <?php echo $pregunta[$i]['opcion_aes']?></font>
+            <?php echo $alternativas_sort_es[0]?></font>
         </td>
     </tr>
-    <tr>
-        <td>b)<input type="radio" name="respuesta" disabled value="2" /></td>
+    <tr <?=($pregunta[$i]['marcado']=="2")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?><?=($ide==2)?" class='alert alert-success'":""?>>
+        <td>b)<input type="radio" name="respuestae" disabled value="2" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $pregunta[$i]['opcion_bes'] ?>
-            </font>
+            <?php echo $alternativas_sort_es[1]?></font>
         </td>
     </tr>
-    <tr> 
-        <td>c)<input type="radio" name="respuesta" disabled value="3" /></td>
+    <tr <?=($pregunta[$i]['marcado']=="3")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?><?=($ide==3)?" class='alert alert-success'":""?>> 
+        <td>c)<input type="radio" name="respuestae" disabled value="3" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $pregunta[$i]['opcion_ces']?> </font>
+            <?php echo $alternativas_sort_es[2]?> </font>
     </td>
     </tr>
-    <tr>
-        <td>d)<input type="radio" name="respuesta" disabled value="4" /></td>
+    <tr <?=($pregunta[$i]['marcado']=="4")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?><?=($ide==4)?" class='alert alert-success'":""?>>
+        <td>d)<input type="radio" name="respuestae" disabled value="4" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $pregunta[$i]['opcion_des']?> </font>
+            <?php echo $alternativas_sort_es[3]?> </font>
         </td>
     </tr>
 
+    
+</div>
+
+<div>
     <tr>
         <td colspan="2" bgcolor="#FFFFFF">
             <div align="center">
                 <font color="#FFFFFF" size="2" face="Verdana, Arial, Helvetica, sans-serif">
-                English Questions
+                .
+                <br />
                 </font> 
             </div>
         </td>
     </tr>
-</div>
-    
-    
+
+</div>    
     
 <div>
     <tr>
@@ -119,41 +224,77 @@
             <div align="center">
                 <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
                 <strong> <?php echo $pregunta[$i]['pregunta_us']?> </strong></font>
+                <br />
+                <br />
             </div>
         </td>
     </tr>
-    <tr>
-        <td width="20">a)<input name="respuesta" type="radio" value="A"/>
-
+    <tr <?=($pregunta[$i]['marcado']=="1")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?>>
+        <td width="20">a)<input name="respuesta" type="radio" value="A" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
         </td>
         <td width="272">
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-                <?php echo $pregunta[$i]['opcion_aus'] ?></font>
+                <?php echo $alternativas_sort_us[0] ?></font>
         </td>
     </tr>
-    <tr>
-        <td>b)<input type="radio" name="respuesta" value="B" /></td>
+    <tr <?=($pregunta[$i]['marcado']=="2")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> >
+        <td>b)<input type="radio" name="respuesta" value="B" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $pregunta[$i]['opcion_bus'] ?>
+            <?php echo $alternativas_sort_us[1] ?>
             </font>
         </td>
     </tr>
-    <tr> 
-        <td>c)<input type="radio" name="respuesta" value="C" /></td>
+    <tr <?=($pregunta[$i]['marcado']=="3")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> > 
+        <td>c)<input type="radio" name="respuesta" value="C" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $pregunta[$i]['opcion_cus'] ?> </font>
+            <?php echo $alternativas_sort_us[2] ?> </font>
     </td>
     </tr>
-    <tr>
-        <td>d)<input type="radio" name="respuesta" value="D" /></td>
+    <tr <?=($pregunta[$i]['marcado']=="4")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> >
+        <td>d)<input type="radio" name="respuesta" value="D" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php  echo $pregunta[$i]['opcion_dus'] ?> </font>
+            <?php  echo $alternativas_sort_us[3] ?> </font>
         </td>
     </tr>
    
     </div>
  </table>
- 
+</div><!--Fin de la columna preguntas-->
+
+<div class="col-md-3 col-md-pull-9"><!--Inicio columna resultados-->
+<ul class="list-group">
+  <li class="list-group-item">
+    <span class="badge"><?php echo $totals ?></span>
+    Total Pregutas
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $totalcon ?></span>
+    Respondidas
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $totalrev ?></span>
+    Por revisar
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $perdidos ?></span>
+    En blanco
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $restante ?></span>
+    Restantes
+  </li>
+
+
+</ul>
+<p align="center"><button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>" class="btn btn-danger">Finalizar Simulación</button> </p>
+</div><!--Fin columna resultados-->
+</div><!--Fin div row preguntas-->
+
+<div class="row"><!--Div botonos finales-->
+    <div  class="col-md-3">
+    </div>
+
+    <div class="col-md-9">
  <table width="50%" border="0" align="center" cellpadding="3" cellspacing="" >
    
         <tr><div align="center">
@@ -164,70 +305,28 @@
             </td>
                            
         <td>
+            
+                
                 <input type="hidden" name="pregunta_id" value="<?php echo $pregunta[$i]['pregunta_id'] ?>"/>
                 <input type="hidden" name="simulacion_id" value="<?php echo $pregunta[$i]['simulacion_id'] ?>"/>
                 <input type="hidden" name="controlador" id="controlador" value="Alumno" />
-                <input type="hidden" name="accion" id="accion" value="cambiarCondicionPreguntaRevis" />
-            <input type="submit" name="Submit" value="Siguiente" />
+                <input type="hidden" name="accion" id="accion" value="cambiarCondicionPreguntaRevision" />
+                <input type="submit" name="Submit" value="Siguiente" class="btn btn-primary"/>        
+            
             
           
         </td>
     </tr>
     
-    </div>
+    
     </table>
 </form>
 
-<form name="timeForm">
-<div class="resultados">
-    <table>
-    <thead>
-        <th>Resulstados</th>
-    </thead>
-    <tbody>
-        <tr>
-            <th>Tiempo</th>
-            <td> <input type="text" name="tiempo"> <?php 
-            echo $tiempofin;
 
-            $f=explode("-",$tiempofin);
-            echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
 
-            ?> </td>
-        </tr>
-         <tr>
-            <th>Total Pregutas</th>
-            <td>  <?php echo $totals ?> </td>
-        </tr>
-         <tr>
-            <th>Respondidas</th>
-           <td>  <?php echo $totalcon ?> </td>
-        </tr>
-         <tr>
-            <th>Por revisar</th>
-              <td>  <?php echo $totalrev ?> </td>
-        </tr>
-        <tr>
-            <th>En blanco</th>
-            <td><?php echo $perdidos ?> </td>
-        </tr>
-         <tr>
-            <th>Restantes</th>
-            <td>  <?php echo $restante ?> </td>
-        </tr>
-        
-        
-        <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>">Finalizar Simulación</button> 
-        
-    </tbody>
-</table>
-</div>
-</form>
-        
-   
-    
+
 <?php 
-    $cond=1;
+    $condi=1;
     break;
         }    
 
@@ -235,11 +334,10 @@
      }
      
      }else{
-         echo '<h1> MainRev'.count($pregunta2).'</h1>';
+         echo '<h1> MainRev: '.count($pregunta2).'</h1>';
          if(count($pregunta2)!=0){
              ?>
-             
-             <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasRev&simulacion_id='+<?php echo $simulacion_id ?>+'&opc='+<?php echo 100 ?>">Ver Revisiones</button>   
+             <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasRevision&simulacion_id='+<?php echo $simulacion_id ?>+'&opc='+<?php echo 100 ?>">Ver Revisiones</button>   
     <?php
          }else{
 ?>    
@@ -247,8 +345,11 @@
      <?php 
      
          } 
-     
+        
          }?>    
+   </div>  
+</div><!--Fin div botones finales-->
+</div>  
 </body>
 </html>
 
@@ -267,10 +368,10 @@ function getTime() {
     minutesRound = Math.floor(minutes);
     seconds = (y2k - now) / 1000 - (24 * 60 * 60 * daysRound) - (60 * 60 * hoursRound) - (60 * minutesRound);
     secondsRound = Math.round(seconds);
-    sec = (secondsRound == 1) ? " sec." : " secs.";
-    min = (minutesRound == 1) ? " min." : " mins, ";
-    hr = (hoursRound == 1) ? " hr" : " hrs, ";
-    dy = (daysRound == 1)  ? " day" : " days, ";
+    sec = (secondsRound == 1) ? " sec. " : " secs.";
+    min = (minutesRound == 1) ? " min. " : " mins, ";
+    hr = (hoursRound == 1) ? " hr. " : " hrs, ";
+    dy = (daysRound == 1)  ? " day" : " day,";
 
 
     document.timeForm.tiempo.value =hoursRound + hr + minutesRound + min + secondsRound + sec;

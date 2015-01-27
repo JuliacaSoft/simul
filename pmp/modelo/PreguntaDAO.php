@@ -328,8 +328,7 @@ class PreguntaDAO {
     }
 
     public function reportarPreguntaSimulationRev($simulacion_id) {
-        $sql = "SELECT * FROM (SELECT sim_resultado.sim_resultado_id, revision,respuesta, sim_resultado.simulacion_id, pregunta_id, estado AS condicion , ensayo_id FROM sim_resultado , simulacion WHERE simulacion.simulacion_id=sim_resultado.simulacion_id and  sim_resultado.simulacion_id=? AND estado=0) a INNER JOIN pregunta USING(pregunta_id);";
-
+        $sql = "SELECT * FROM (SELECT sim_resultado.sim_resultado_id, revision,respuesta, sim_resultado.simulacion_id, pregunta_id, estado AS condicion , ensayo_id FROM sim_resultado , simulacion WHERE simulacion.simulacion_id=sim_resultado.simulacion_id and  sim_resultado.simulacion_id=? AND estado=0) a INNER JOIN pregunta USING(pregunta_id)";
 
         try {
             $sqlQuery = new SqlQuery($sql);
@@ -346,6 +345,23 @@ class PreguntaDAO {
             $sqlQuery = new SqlQuery($sql);
             $sqlQuery->setNumber($simulacion_id);
             $tabla = QueryExecutor::execute($sqlQuery);
+            return $tabla;
+        } catch (Exception $e) {
+            throw new Exception("Error :" . $e->getMessage());
+        }
+    }
+
+    public function reportarPreguntasSimulationRevision($simulacion_id) {
+        $sql = "select  sir.sim_resultado_id, sir.revision, sir.respuesta as marcado, sir.simulacion_id,sir.estado,sir.estado AS condicion, si.ensayo_id, sir.ordalt,pr.pregunta_id,pr.pregunta_es,pr.pregunta_us,pr.respuesta,pr.opcion_aes,pr.opcion_bes,pr.opcion_ces,pr.opcion_des,pr.opcion_aus,pr.opcion_bus,pr.opcion_cus,pr.opcion_dus 
+        from sim_resultado sir, simulacion si, pregunta pr 
+        where si.simulacion_id=sir.simulacion_id and pr.pregunta_id=sir.pregunta_id and  sir.simulacion_id=? and sir.estado = 0";
+
+
+        try {
+            $sqlQuery = new SqlQuery($sql);
+            $sqlQuery->setNumber($simulacion_id);
+            $tabla = QueryExecutor::execute($sqlQuery);
+
             return $tabla;
         } catch (Exception $e) {
             throw new Exception("Error :" . $e->getMessage());
