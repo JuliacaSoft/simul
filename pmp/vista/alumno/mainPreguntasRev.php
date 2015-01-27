@@ -165,7 +165,7 @@
         
     ?>
 
-    <tr <?=($pregunta[$i]['marcado']=="1")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> <?=($ide==1)?" class='alert alert-success'":""?>>
+    <tr <?=($pregunta[$i]['marcado']=="1")?>>
         <td width="20">a)<input name="respuestae" type="radio" disabled value="1" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
         </td>
         <td width="272">
@@ -173,19 +173,19 @@
             <?php echo $alternativas_sort_es[0]?></font>
         </td>
     </tr>
-    <tr <?=($pregunta[$i]['marcado']=="2")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?><?=($ide==2)?" class='alert alert-success'":""?>>
+    <tr <?=($pregunta[$i]['marcado']=="2")?>>
         <td>b)<input type="radio" name="respuestae" disabled value="2" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_es[1]?></font>
         </td>
     </tr>
-    <tr <?=($pregunta[$i]['marcado']=="3")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?><?=($ide==3)?" class='alert alert-success'":""?>> 
+    <tr <?=($pregunta[$i]['marcado']=="3")?>> 
         <td>c)<input type="radio" name="respuestae" disabled value="3" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_es[2]?> </font>
     </td>
     </tr>
-    <tr <?=($pregunta[$i]['marcado']=="4")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?><?=($ide==4)?" class='alert alert-success'":""?>>
+    <tr <?=($pregunta[$i]['marcado']=="4")?>>
         <td>d)<input type="radio" name="respuestae" disabled value="4" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_es[3]?> </font>
@@ -229,7 +229,7 @@
             </div>
         </td>
     </tr>
-    <tr <?=($pregunta[$i]['marcado']=="1")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?>>
+    <tr <?=($pregunta[$i]['marcado']=="1")?>>
         <td width="20">a)<input name="respuesta" type="radio" value="A" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
         </td>
         <td width="272">
@@ -237,20 +237,20 @@
                 <?php echo $alternativas_sort_us[0] ?></font>
         </td>
     </tr>
-    <tr <?=($pregunta[$i]['marcado']=="2")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> >
+    <tr <?=($pregunta[$i]['marcado']=="2")?> >
         <td>b)<input type="radio" name="respuesta" value="B" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_us[1] ?>
             </font>
         </td>
     </tr>
-    <tr <?=($pregunta[$i]['marcado']=="3")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> > 
+    <tr <?=($pregunta[$i]['marcado']=="3")?> > 
         <td>c)<input type="radio" name="respuesta" value="C" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_us[2] ?> </font>
     </td>
     </tr>
-    <tr <?=($pregunta[$i]['marcado']=="4")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> >
+    <tr <?=($pregunta[$i]['marcado']=="4")?> >
         <td>d)<input type="radio" name="respuesta" value="D" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php  echo $alternativas_sort_us[3] ?> </font>
