@@ -8,22 +8,15 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>MVC - Modelo, Vista, Controlador</title>
-            
-        <link href="../../../recursos/confir/css/page.css" rel="stylesheet"/>
-        <link href="../../../recursos/confir/alert/css/alert.css" rel="stylesheet"/> <!-- Estilo al popup-->
-        <link href="../../../recursos/confir/alert/themes/default/theme.css" rel="stylesheet"/> <!-- No sale popup-->
-        <script src="../../../recursos/confir/js/jqueryS.js"></script> 
-        <!--<script src="js/jquery-ui.js"></script>-->
-        <script src="../../../recursos/confir/alert/js/alert.js"></script>
-        <script src="../../../recursos/confir/js/page.js"></script>
         
-        <script type="text/javascript" src="../../recursos/js/jquery.js"></script>
+        <script type="text/javascript" src="../../recursos/js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="../../recursos/ajax/grupo.js"></script>
-        <script type="text/javascript" src="../../recursos/js/jquery.autocomplete.js"></script> 
-
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
+        <script type="text/javascript" src="../../recursos/js/jquery.autocomplete.min.js"></script> 
+         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/>    
         <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" />
+        <link rel="stylesheet" href="../../recursos/css/sweet-alert.css"/>
+        <script type="text/javascript" src="../../recursos/js/sweet-alert.min.js"></script>
         
 	<script type="text/javascript">
 
@@ -102,66 +95,28 @@
 </table>
 </body>
     
-<div id="page">
-
-                <button onclick="eliminargrupo(1)" class="button blue">Eliminar</button>
-                <button onclick="eliminargrupo(2)" class="button blue">Boton</button>
-                <a href="#demo-callback_confirm" class="button blue">Ver</a>
-                <button href="#demo-callback_confirm" class="button blue">Ver</button>
-       
-</div>
-    
 </html>  
 
 
 <script type="text/javascript">
     function eliminar(id_grupo){
-          BootstrapDialog.show({
-            title: '¡Información!',
-            message: '<h4>¿Esta seguro que desea eliminar?</h4>',
-            buttons: [   
-             {
-                
-                label: 'Aceptar',
-                cssClass: 'btn-primary',
-                icon:'glyphicon glyphicon-ok',
-                action:function(dialogItself){
-                    location.href='_proxy.php?controlador=Grupo&accion=eliminar&grupoid='+id_grupo;
-                    dialogItself.close();
-                }
-            }, {
-                label: 'Cancelar',
-                cssClass:'btn-danger',
-                icon: 'glyphicon glyphicon-ban-circle',
-                action: function(dialogItself){
-                    dialogItself.close();
-                }
-            }]
-        });
-
-    }
-
-</script>
-<script>
-    function eliminargrupo(dato){
-        if(dato==1){
-               // $.alert.open({ content: 'Lorem ipsum dolor sit amet' }); 
-            $.alert.open('confirm', 'Lorem ipsum dolor sit amet?', function(button) {
-                        if (button == 'yes')
-                            $.alert.open('You pressed the "Yes" button.');
-                        else if (button == 'no')
-                            $.alert.open('You pressed the "No" button.');
-                        else
-                            $.alert.open('Alert was canceled.');
-                    });
-
-        }if (dato==2){
-            alert("I am an alert box!");
-
-        }
+        
+swal({   
+        title: "¿Eliminar?",   
+        text: "Quiere eliminar!",   
+        type: "warning",   
+        showCancelButton: true,   
+        confirmButtonColor: "#DD6B55",   
+        confirmButtonText: "Si, Eliminar!",
+        cancelButtonText: "No, Cancelar!",
+        closeOnConfirm: false }, 
+    function(){   
+        location.href='_proxy.php?controlador=Grupo&accion=eliminar&grupoid='+id_grupo;
+    });
          
     }
-    
+
 </script>
+
         
 
