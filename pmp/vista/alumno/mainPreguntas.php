@@ -181,23 +181,23 @@
 
 
     <tr <?=($pregunta[$i]['marcado']=="1")?>>
-        <td><input name="respuestae" type="radio" disabled value="1" id="rad1" class="css-checkbox" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
-        <label for="rad1" class="css-label radGroup2"><?php echo $alternativas_sort_es[0] ?></label>
+        <td><input name="respuestae" type="radio" disabled value="1" id="rad1" class="css-radio" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
+        <label for="rad1" class="css-label-radio radGroup2"><?php echo $alternativas_sort_es[0] ?></label>
         </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="2")?>>
-        <td><input type="radio" name="respuestae" disabled value="2" id="rad2" class="css-checkbox" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/>
-        <label for="rad2" class="css-label radGroup2"><?php echo $alternativas_sort_es[1] ?></label>
+        <td><input type="radio" name="respuestae" disabled value="2" id="rad2" class="css-radio" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/>
+        <label for="rad2" class="css-label-radio radGroup2"><?php echo $alternativas_sort_es[1] ?></label>
         </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="3")?>> 
-        <td><input type="radio" name="respuestae" disabled value="3" id="rad3" class="css-checkbox"<?=($pregunta[$i]['marcado']=="3")?"checked":""?>/>
-        <label for="rad3" class="css-label radGroup2"><?php echo $alternativas_sort_es[2] ?></label>
+        <td><input type="radio" name="respuestae" disabled value="3" id="rad3" class="css-radio"<?=($pregunta[$i]['marcado']=="3")?"checked":""?>/>
+        <label for="rad3" class="css-label-radio radGroup2"><?php echo $alternativas_sort_es[2] ?></label>
         </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="4")?>>
-        <td><input type="radio" name="respuestae" disabled value="4" id="rad4" class="css-checkbox"<?=($pregunta[$i]['marcado']=="4")?"checked":""?>/>
-        <label for="rad4" class="css-label radGroup2"><?php echo $alternativas_sort_es[3] ?></label>
+        <td><input type="radio" name="respuestae" disabled value="4" id="rad4" class="css-radio"<?=($pregunta[$i]['marcado']=="4")?"checked":""?>/>
+        <label for="rad4" class="css-label-radio radGroup2"><?php echo $alternativas_sort_es[3] ?></label>
         </td>
     </tr>
 
@@ -240,28 +240,28 @@
     </tr>
 
     <tr <?=($pregunta[$i]['marcado']=="1")?>>
-        <td><input name="respuesta" type="radio" value="A" id="radio1" class="css-checkbox" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
-            <label for="radio1" class="css-label radGroup1">
-                <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-                    <?php echo $alternativas_sort_us[0] ?></font>
+        <td><input name="respuesta" type="radio" value="A" id="radio1" class="css-radio" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
+            <label for="radio1" class="css-label-radio radGroup1">
+                
+                    <?php echo $alternativas_sort_us[0] ?>
             </label> 
         </td>
         
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="2")?> >
-        <td><input type="radio" name="respuesta" value="B" id="radio2" class="css-checkbox" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/>
-        <label for="radio2" class="css-label radGroup1"><?php echo $alternativas_sort_us[1] ?></label> 
+        <td><input type="radio" name="respuesta" value="B" id="radio2" class="css-radio" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/>
+        <label for="radio2" class="css-label-radio radGroup1"><?php echo $alternativas_sort_us[1] ?></label> 
         </td>
     </tr>
    
     <tr <?=($pregunta[$i]['marcado']=="3")?> > 
-        <td><input type="radio" name="respuesta" value="C" id="radio3" class="css-checkbox" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/>
-        <label for="radio3" class="css-label radGroup1"><?php echo $alternativas_sort_us[2] ?></label>
+        <td><input type="radio" name="respuesta" value="C" id="radio3" class="css-radio" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/>
+        <label for="radio3" class="css-label-radio radGroup1"><?php echo $alternativas_sort_us[2] ?></label>
         </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="4")?> >
-        <td><input type="radio" name="respuesta" value="D" id="radio4" class="css-checkbox" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/>
-            <label for="radio4" class="css-label radGroup1"><?php echo $alternativas_sort_us[3] ?></label>    
+        <td><input type="radio" name="respuesta" value="D" id="radio4" class="css-radio" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/>
+            <label for="radio4" class="css-label-radio radGroup1"><?php echo $alternativas_sort_us[3] ?></label>    
         </td>
     </tr>
     <br />
@@ -304,8 +304,8 @@
    
         <tr><div align="center">
 
-            <td><input type="checkbox" name="revision" value="R" id="checkbox1" class="css-checkbox-box" />
-                <label for="checkbox1" class="css-label-box">Revisión</label>
+            <td><input type="checkbox" name="revision" value="R" id="checkbox1" class="css-checkbox" />
+                <label for="checkbox1" class="css-label-check">Revisión</label>
                 
             </td>
                            
