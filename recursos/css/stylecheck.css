@@ -1,8 +1,8 @@
-input[type=checkbox].css-checkbox {
+input[type=checkbox].css-checkbox-box {
 							position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
 						}
 
-						input[type=checkbox].css-checkbox + label.css-label {
+						input[type=checkbox].css-checkbox-box + label.css-label-box {
 							padding-left:35px;
 							height:30px; 
 							display:inline-block;
@@ -15,10 +15,10 @@ input[type=checkbox].css-checkbox {
 
 						}
 
-						input[type=checkbox].css-checkbox:checked + label.css-label {
+						input[type=checkbox].css-checkbox-box:checked + label.css-label-box {
 							background-position: 0 -30px;
 						}
-						label.css-label {
+						label.css-label-box {
 				background-image:url(http://csscheckbox.com/checkboxes/u/csscheckbox_5738eb7dea50ebee19022d53c5556781.png);
 				-webkit-touch-callout: none;
 				-webkit-user-select: none;

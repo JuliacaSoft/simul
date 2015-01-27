@@ -44,7 +44,8 @@
         <td><?php  echo $cursos[$i]['simulacion_id'] ?></td>
 		<td>  
                 
-                    <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasTer&simulacion_id='+<?php  echo $cursos[$i]['simulacion_id'] ?>">Ver Examen </button>               
+                    <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=listarPreguntasTer&simulacion_id='+<?php  echo $cursos[$i]['simulacion_id'] ?>">Ver Examen</button>               
+                    <button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=PagReportesSimul&simulacion_id='+<?php  echo $cursos[$i]['simulacion_id'] ?>">Resultado</button>
                     <!--<a href="../web/report/alumno/mainAlumnoPregTerm.php"> Ver Prueba</a>-->
                 </td>
 		

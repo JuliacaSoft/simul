@@ -373,6 +373,28 @@ class AlumnoControlador {
         require_once '../vista/alumno/resultados.php';
     }
 
+    function PagReportesSimul() {
+        $simulacion_id = $_REQUEST['simulacion_id'];
+        $rev = $this->model->totalSimulacionContestadas($simulacion_id, 2);
+        $totalcon = $rev[0]['totalCont'];
+        $rev = $this->model->totalSimulacionRes($simulacion_id);
+        $totals = $rev[0]['totalSim'];
+
+        $totalrest = $totals - $totalcon;
+        $rev = $this->model->puntaje($simulacion_id);
+        $puntaje = $rev;
+
+        $rev = $this->model->validarAprobacion($simulacion_id);
+        $aprobacion = $rev[0]['porc_aprobacion'];
+
+//        regla de 3 simple
+        $porcentaje = ($puntaje * 100) / $totals;
+
+       // $pregunta = $this->model->finSimulacion($simulacion_id, $totalrest, $totalcon, $puntaje, $porcentaje);
+        
+        require_once '../vista/alumno/resultados.php';
+    }
+
 }
 
 ?>
