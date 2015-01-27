@@ -16,7 +16,10 @@
         
         <script type="text/javascript" src="../../recursos/js/bootstrap.min.js"></script>  
         <link type="text/css" href="../../recursos/css/bootstrap.css" rel="stylesheet" />
-       <link type="text/css" href="../../recursos/css/styles.css" rel="stylesheet" />
+        <link type="text/css" href="../../recursos/css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="../../recursos/css/stylecheck.css"/>
+        <link rel="stylesheet" href="../../recursos/css/stylecheckbutton.css"/>
+        
 
 </head>
         
@@ -335,6 +338,15 @@
                 <input type="submit" name="Submit" value="Siguiente" class="btn btn-primary"/>
             
             
+               
+                     <input type="checkbox" name="checkboxG4" id="checkboxG4" class="css-checkbox" />
+                     <label for="checkboxG4" class="css-label">Option 1</label>
+               
+                
+                
+                    <input type="radio" name="radiog_lite" id="radio1" class="css-checkbox" />
+                    <label for="radio1" class="css-label radGroup1">Option 1</label>
+                          
             
           
         </td>
