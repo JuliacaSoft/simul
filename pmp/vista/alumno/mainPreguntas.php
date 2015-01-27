@@ -44,37 +44,7 @@
      
 ?>
 <h2 align="center">Simulador Online PMP - Atenos</h2> 
- 
-<div class="row"><!--Div tiempo-->
-    <div class="col-md-3">
-        <form name="timeForm" role="form" class="form-inline"> 
-        <div class="form-group text-center">
-            <label>Tiempo: </label> <input name="tiempo" type="text" class="form-control" readonly="readonly" style="font-size:14"> 
-            <?php 
-                //echo $tiempofin;
-                $f=explode("-",$tiempofin);
-                //echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
-            ?> 
-        </div>
-        </form>
-    </div>
-
-    <!-- <div class="col-md-1">
-        <label>Tiempo: </label>
-    </div>
-    <div class="col-md-2">
-    	<form name="timeForm" role="form" class="form-inline">
-        <input type="text" name="tiempo" class="form-control" readonly="readonly"> 
-        <?php //echo $tiempofin;
-            $f//=explode("-",$tiempofin);
-            //echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
-        ?>
-        </form>
-    </div> -->
-    <div class="col-md-9">
-    	<h5 align="center"><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><strong><?php echo $intentos[0]['intento'] ?></strong></h5> 
-    </div>
-</div><!--Fin div tiempo-->
+<h5 align="center"><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><strong><?php echo $intentos[0]['intento'] ?></strong></h5>
 
 
 <div class="row"><!--Inicio div preguntas-->
@@ -269,36 +239,6 @@
 
     </div>
  </table>
-</div><!--Fin de la columna preguntas-->
-
-<div class="col-md-3 col-md-pull-9"><!--Inicio columna resultados-->
-<ul class="list-group">
-  <li class="list-group-item">
-    <span class="badge"><?php echo $totals ?></span>
-    Total Pregutas
-  </li>
-  <li class="list-group-item">
-    <span class="badge"><?php echo $totalcon ?></span>
-    Respondidas
-  </li>
-  <li class="list-group-item">
-    <span class="badge"><?php echo $totalrev ?></span>
-    Por revisar
-  </li>
-  <li class="list-group-item">
-    <span class="badge"><?php echo $restante ?></span>
-    Restantes
-  </li>
-</ul>
-<p align="center"><button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>" class="btn btn-danger">Finalizar Simulación</button> </p>
-</div><!--Fin columna resultados-->
-</div><!--Fin div row preguntas-->
-
-<div class="row"><!--Div botonos finales-->
-    <div  class="col-md-3">
-    </div>
-
-	<div class="col-md-9">
  <table width="50%" border="0" align="center" cellpadding="3" cellspacing="" >
    
         <tr><div align="center">
@@ -348,8 +288,44 @@
     
     </table>
 </form>
+</div><!--Fin de la columna preguntas-->
 
 
+<div class="col-md-3 col-md-pull-9"><!--Inicio columna resultados-->
+
+<ul class="list-group">
+  <li class="list-group-item">
+    <form name="timeForm" role="form" class="form-inline"> 
+        <div class="form-group text-center">
+            <input name="tiempo" type="text" class="form-control" readonly="readonly" style="font-size:14"> 
+            <?php 
+                //echo $tiempofin;
+                $f=explode("-",$tiempofin);
+                //echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
+            ?> 
+        </div>
+    </form>
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $totals ?></span>
+    Total Pregutas
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $totalcon ?></span>
+    Respondidas
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $totalrev ?></span>
+    Por revisar
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><?php echo $restante ?></span>
+    Restantes
+  </li>
+</ul>
+<p align="center"><button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>" class="btn btn-danger">Finalizar Simulación</button> </p>
+</div><!--Fin columna resultados-->
+</div><!--Fin div row preguntas-->
 
 
 <?php 

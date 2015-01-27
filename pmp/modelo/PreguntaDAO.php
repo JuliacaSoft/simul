@@ -442,7 +442,7 @@ class PreguntaDAO {
             $sqlQuery->setNumber($cantidad);
             $sqlQuery->setNumber($ensayo_id);
             $sqlQuery->setNumber($usuario_id);
-            $sqlQuery->setNumber($t_dependencia);
+            $sqlQuery->setString($t_dependencia);
             $tabla = QueryExecutor::execute($sqlQuery);
             return $tabla;
         } catch (Exception $e) {
