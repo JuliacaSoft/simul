@@ -23,12 +23,12 @@
                 <label>Descripción
                     <span class="small">Ingrese una descripción</span>
                 </label>
-                <textarea name="descripcion" rows="5" cols="40" id="descripcion" required="required"/>
+                <textarea name="descripcion" rows="5" cols="40" id="descripcion" required="required"></textarea>
                 <div class="spacer"></div>
                 <label>Peso
                     <span class="small">Coloque el peso en %</span>
                 </label>
-                <input type="text" name="peso" id="peso" onblur="validarPeso();" required="required"/>
+                <input type="text" name="peso" id="peso" onkeyup="validarPeso()" required="required"/>
                 <label id="mensaje">
 
                 </label>

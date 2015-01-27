@@ -9,16 +9,15 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>MVC - Modelo, Vista, Controlador</title>
             
-        <script type="text/javascript" src="../../recursos/js/jquery.js"></script>
+        <script type="text/javascript" src="../../recursos/js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="../../recursos/ajax/area.js"></script>
-        <script type="text/javascript" src="../../recursos/js/jquery.autocomplete.js"></script> 
-
+        <script type="text/javascript" src="../../recursos/js/jquery.autocomplete.min.js"></script> 
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/>    
         <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" />
-
+        <link rel="stylesheet" href="../../recursos/css/sweet-alert.css"/>
+        <script type="text/javascript" src="../../recursos/js/sweet-alert.min.js"></script>
         <script type="text/javascript">
-
             $(function() {
             $("#datos").focus();
                 $('#datos').autocomplete("_proxy.php?controlador=Area&accion=formBuscarAreaAuto", {
@@ -91,27 +90,18 @@
 
 <script type="text/javascript">
     function eliminar(idArea){
-          BootstrapDialog.show({
-            message: '<h3>Esta seguro que quiere elimninar el Area! </h3>',
-            buttons: [   
-             {
-                
-                label: 'Aceptar',
-                cssClass: 'btn-primary',
-                icon:'glyphicon glyphicon-ok',
-                action:function(dialogItself){
-                    location.href='_proxy.php?controlador=Area&accion=eliminar&areaid='+idArea;
-                    dialogItself.close();
-                }
-            }, {
-                label: 'Cancelar',
-                cssClass:'btn-danger',
-                icon: 'glyphicon glyphicon-ban-circle',
-                action: function(dialogItself){
-                    dialogItself.close();
-                }
-            }]
-        });
+    swal({   
+        title: "¿Eliminar?",   
+        text: "Quiere eliminar!",   
+        type: "warning",   
+        showCancelButton: true,   
+        confirmButtonColor: "#DD6B55",   
+        confirmButtonText: "Si, Eliminar!",
+        cancelButtonText: "No, Cancelar!",
+        closeOnConfirm: false }, 
+    function(){   
+        location.href='_proxy.php?controlador=Area&accion=eliminar&areaid='+idArea;
+    });
         
     }
   </script>

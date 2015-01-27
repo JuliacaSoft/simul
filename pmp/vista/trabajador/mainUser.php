@@ -9,19 +9,17 @@
 	<title>MVC - Modelo, Vista, Controlador - Jourmoly</title>
             
         <script type="text/javascript" src="../../recursos/js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="../../recursos/js/bootstrap.min.js"></script>
+        
         <script type="text/javascript" src="../../recursos/ajax/usuario.js"></script>
         
-	<script type="text/javascript" src="../../recursos/js/jquery.autocomplete.js"></script>        
+	<script type="text/javascript" src="../../recursos/js/jquery.autocomplete.min.js"></script>  
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/> 
         <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" />
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/bootstrap.min.css"></link>
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/bootstrap-dialog.min.css"></link>
-        <script type="text/javascript" src="../../recursos/js/bootstrap-dialog.min.js"></script>
-
-
-	<script type="text/javascript">
+       <!--para las alertas-->
+        <link rel="stylesheet" href="../../recursos/css/sweet-alert.css"/>
+        <script src="../../recursos/js/sweet-alert.min.js"></script>
+      <script type="text/javascript">
 
             $(function() {
             $("#datos").focus();
@@ -37,9 +35,6 @@
 <body>
 
     <div class="myformBusqueda" id="stylizedBusqueda">
-        
-         
-        
         <form id="form" name="form" method="get" action="_proxy.php">
             <h1>Registro y Administracion de Usuarios</h1>  
             <p> </p>
@@ -56,12 +51,8 @@
             </div>
         </form>
     </div>    
-    
-    
-    
     <table id="table" class="formTable" width="100%">
 	<tr>
-		
                 <th>#</th>
                 <th>Nombre</th>
                 <th>Apellidos</th>
@@ -78,12 +69,9 @@
 		<td><?php  echo $item->getNombre() ?></td>
 		<td><?php  echo $item->getApellidos() ?></td>
 		<td>  
-                
                         <button type="button" class="editar" onclick="javascript:showFormEditUser(<?php echo $item->getUsuario_id()?>)">Editar</button>
-                        <button class="eliminar" onclick="eliminar(<?php echo $item->getUsuario_id()?>)" >Eliminar</button>
-                        <!-- <button type="button" class="eliminar"  onclick="pregunta()">Eliminar</button> -->
-                        
-                </td>
+                       <button class="eliminar" onclick="eliminar(<?php echo $item->getUsuario_id()?>)" >Eliminar</button>
+              </td>
 		
            
 	</tr>
@@ -92,41 +80,21 @@
 	?>
 
 <script language="JavaScript"> 
-function pregunta(){ 
-    if (confirm('¿Estas seguro de Eliminar el Registro?')){ 
-       location.href='_proxy.php?controlador=Usuario&accion=eliminar&usuarioid=<?php echo $item->getUsuario_id()?>';
-    }
-    return false;
-} 
-
-
-</script>
-<script type="text/javascript">
-    function eliminar(id_usuario){
-          BootstrapDialog.show({
-            title: '¡Información!',
-            message: '<h4>¿Esta seguro que desea eliminar?</h4>',
-            buttons: [   
-             {
-                
-                label: 'Aceptar',
-                cssClass: 'btn-primary',
-                icon:'glyphicon glyphicon-ok',
-                action:function(dialogItself){
-                    location.href='_proxy.php?controlador=Usuario&accion=eliminar&usuarioid='+id_usuario;
-                    dialogItself.close();
-                }
-            }, {
-                label: 'Cancelar',
-                cssClass:'btn-danger',
-                icon: 'glyphicon glyphicon-ban-circle',
-                action: function(dialogItself){
-                    dialogItself.close();
-                }
-            }]
-        });
-
-    }
+ 
+function eliminar(id_usuario){
+       swal({   
+        title: "¿Eliminar?",   
+        text: "Quiere eliminar!",   
+        type: "warning",   
+        showCancelButton: true,   
+        confirmButtonColor: "#DD6B55",   
+        confirmButtonText: "Si, Eliminar!",
+        cancelButtonText: "No, Cancelar!",
+        closeOnConfirm: false }, 
+    function(){   
+        location.href='_proxy.php?controlador=Usuario&accion=eliminar&usuarioid='+id_usuario;
+    });
+}
 
 </script>
         
