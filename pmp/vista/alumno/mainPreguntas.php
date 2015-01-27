@@ -101,12 +101,14 @@
     </tr>
 
     <?php //desordenar aleatorialmente las alternativas
+
+    if($pregunta[$i]['revision']== 0 ){
         $plantilla=range(0,3);
         shuffle($plantilla);
         //foreach ($plantilla as $c => $v) {
         //    echo "$c: $v<br>";
         //}
-
+    
 
         $alternativas_es=array($pregunta[$i]['opcion_aes'],$pregunta[$i]['opcion_bes'],$pregunta[$i]['opcion_ces'],$pregunta[$i]['opcion_des']);
         $alternativas_us=array($pregunta[$i]['opcion_aus'],$pregunta[$i]['opcion_bus'],$pregunta[$i]['opcion_cus'],$pregunta[$i]['opcion_dus']);
@@ -118,38 +120,85 @@
             $alternativas_sort_es[$j]=$alternativas_es[$plantilla[$j]];
             $alternativas_sort_us[$j]=$alternativas_us[$plantilla[$j]];
         }
+    //}if($pregunta[$i]['estado']==0 && $pregunta[$i]['revision']==1){
+    }if($pregunta[$i]['revision']==1){
+        $plantilla=array();
+        $plantilla = str_split($pregunta[$i]['ordalt']);
+        $alt = str_split($pregunta[$i]['ordalt']);
+        for($x=0;$x<count($plantilla);$x++){ //convertir las letras a numeros
+            switch ($plantilla[$x]) {
+                case 'A': $plantilla[$x] = 0; break;
+                case 'B': $plantilla[$x] = 1; break;
+                case 'C': $plantilla[$x] = 2; break;
+                case 'D': $plantilla[$x] = 3; break;
+            }
+        }
+    
 
+        $alternativas_es=array($pregunta[$i]['opcion_aes'],$pregunta[$i]['opcion_bes'],$pregunta[$i]['opcion_ces'],$pregunta[$i]['opcion_des']);
+        $alternativas_us=array($pregunta[$i]['opcion_aus'],$pregunta[$i]['opcion_bus'],$pregunta[$i]['opcion_cus'],$pregunta[$i]['opcion_dus']);
+        
+        $alternativas_sort_es=array();
+        $alternativas_sort_us=array();
+
+        for($j=0;$j<count($alternativas_es);$j++){
+            $alternativas_sort_es[$j]=$alternativas_es[$plantilla[$j]];
+            $alternativas_sort_us[$j]=$alternativas_us[$plantilla[$j]];
+        }
+    
+        for($x=0;$x<count($alt);$x++){ //convertir las letras a numeros
+            switch ($pregunta[$i]['marcado']) {
+                case 'A': $pregunta[$i]['marcado'] = 1; break;
+                case 'B': $pregunta[$i]['marcado'] = 2; break;
+                case 'C': $pregunta[$i]['marcado'] = 3; break;
+                case 'D': $pregunta[$i]['marcado'] = 4; break;
+            }
+
+            
+            if (!$pregunta[$i]['marcado']==0) {
+                if ($alt[$pregunta[$i]['marcado']-1] == $pregunta[$i]['respuesta']) {
+                    $res=TRUE; //caso q la respuesta es correcta
+                }else{
+                    $res=FALSE;
+                }
+            }
+
+            if($alt[$x]==$pregunta[$i]['respuesta']){
+                $ide=$x+1;
+            }
+            
+        }
+    }
         //foreach ($alternativas_sort_es as $clave => $valor) {
         //    echo "$clave: $valor<br>";
         //}
-
         
     ?>
 
 
 
-    <tr>
-        <td width="20">a)<input name="respuesta" type="radio" disabled value="1" />
+    <tr <?=($pregunta[$i]['marcado']=="1")?>>
+        <td width="20">a)<input name="respuestae" type="radio" disabled value="1" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
         </td>
         <td width="272">
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_es[0]?></font>
         </td>
     </tr>
-    <tr>
-        <td>b)<input type="radio" name="respuesta" disabled value="2" /></td>
+    <tr <?=($pregunta[$i]['marcado']=="2")?>>
+        <td>b)<input type="radio" name="respuestae" disabled value="2" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_es[1]?></font>
         </td>
     </tr>
-    <tr> 
-        <td>c)<input type="radio" name="respuesta" disabled value="3" /></td>
+    <tr <?=($pregunta[$i]['marcado']=="3")?>> 
+        <td>c)<input type="radio" name="respuestae" disabled value="3" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_es[2]?> </font>
     </td>
     </tr>
-    <tr>
-        <td>d)<input type="radio" name="respuesta" disabled value="4" /></td>
+    <tr <?=($pregunta[$i]['marcado']=="4")?>>
+        <td>d)<input type="radio" name="respuestae" disabled value="4" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_es[3]?> </font>
         </td>
@@ -192,36 +241,36 @@
             </div>
         </td>
     </tr>
-    <tr>
-        <td width="20">a)<input name="respuesta" type="radio" value="A" class="css-checkbox"/>
+
+    <tr <?=($pregunta[$i]['marcado']=="1")?>>
+        <td width="20">a)<input name="respuesta" type="radio" value="A" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
         </td>
         <td width="272">
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
                 <?php echo $alternativas_sort_us[0] ?></font>
         </td>
     </tr>
-    <tr>
-        <td>b)<input type="radio" name="respuesta" value="B" /></td>
+    <tr <?=($pregunta[$i]['marcado']=="2")?> >
+        <td>b)<input type="radio" name="respuesta" value="B" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_us[1] ?>
             </font>
         </td>
     </tr>
-    <tr> 
-        <td>c)<input type="radio" name="respuesta" value="C" /></td>
+    <tr <?=($pregunta[$i]['marcado']=="3")?> > 
+        <td>c)<input type="radio" name="respuesta" value="C" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_us[2] ?> </font>
     </td>
     </tr>
-    <tr>
-        <td>d)<input type="radio" name="respuesta" value="D" /></td>
+    <tr <?=($pregunta[$i]['marcado']=="4")?> >
+        <td>d)<input type="radio" name="respuesta" value="D" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php  echo $alternativas_sort_us[3] ?> </font>
-            <br />
-            <br />
         </td>
     </tr>
-   
+    <br />
+    <br />
     </div>
  </table>
 </div><!--Fin de la columna preguntas-->

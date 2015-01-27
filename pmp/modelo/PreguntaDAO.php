@@ -294,7 +294,7 @@ class PreguntaDAO {
     }
 
     public function reportarPreguntaSimulation($simulacion_id) {
-        $sql = "SELECT * FROM (SELECT sim_resultado.sim_resultado_id, revision,respuesta, sim_resultado.simulacion_id, pregunta_id, estado AS condicion , ensayo_id FROM sim_resultado , simulacion WHERE simulacion.simulacion_id=sim_resultado.simulacion_id and  sim_resultado.simulacion_id=? AND estado=0) a INNER JOIN pregunta USING(pregunta_id)  ";
+        $sql = "SELECT * FROM (SELECT sim_resultado.sim_resultado_id, sim_resultado.ordalt, revision,sim_resultado.respuesta as marcado, sim_resultado.simulacion_id, pregunta_id, estado AS condicion , ensayo_id FROM sim_resultado , simulacion WHERE simulacion.simulacion_id=sim_resultado.simulacion_id and  sim_resultado.simulacion_id=? AND estado=0) a INNER JOIN pregunta USING(pregunta_id)  ";
 
 
         try {

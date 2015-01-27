@@ -85,6 +85,7 @@ class AlumnoControlador {
     function listarPreguntas() {
         $simulacion_id = $_REQUEST['simulacion_id'];
         $pregunta = $this->model->reportarPreguntaSimulation($simulacion_id);
+        //$pregunta = $this->model->reportarPreguntasSimulationRevision($simulacion_id);  //En revisión
 
         $pregunta2=$this->model->reportarPreguntaSimulationRev2($simulacion_id);
         $datos = 0;
