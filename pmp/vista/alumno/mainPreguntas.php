@@ -26,6 +26,7 @@
 
     
  <!--<div id="" class="myform">-->
+ </br>
   <div id="central"> 
 
 
@@ -43,10 +44,12 @@
  
      
 ?>
-      <div class="header">
-          <h2 align="center">Simulador Online PMP - Atenos</h2> 
+<div class="header">
+<h2 align="center">Simulador Online PMP - Atenos</h2> 
 <h5 align="center"><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><strong><?php echo $intentos[0]['intento'] ?></strong></h5>
-      </div>
+</div>
+
+
 
 <div class="row"><!--Inicio div preguntas-->
 <div class="col-md-9 col-md-push-3 "> <!--inicio columna preguntas-->
@@ -149,8 +152,6 @@
         
     ?>
 
-
-
     <tr <?=($pregunta[$i]['marcado']=="1")?>>
         <td><input name="respuestae" type="radio" disabled value="1" id="rad1" class="css-radio" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
         <label for="rad1" class="css-label-radio radGroup2"><?php echo $alternativas_sort_es[0] ?></label>
@@ -212,10 +213,7 @@
 
     <tr <?=($pregunta[$i]['marcado']=="1")?>>
         <td><input name="respuesta" type="radio" value="A" id="radio1" class="css-radio" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
-            <label for="radio1" class="css-label-radio radGroup1">
-                
-                    <?php echo $alternativas_sort_us[0] ?>
-            </label> 
+        <label for="radio1" class="css-label-radio radGroup1"><?php echo $alternativas_sort_us[0] ?></label> 
         </td>
         
     </tr>
@@ -247,7 +245,6 @@
 
             <td><input type="checkbox" name="revision" value="R" id="checkbox1" class="css-checkbox" />
                 <label for="checkbox1" class="css-label-check">Revisión</label>
-                
             </td>
                            
         <td>
@@ -283,19 +280,18 @@
                     <label for="radio1" class="css-label radGroup1">Option 1</label>
                      -->      
             
-          
-        </td>
-    </tr>
-    
-    
-    </table>
+            </td>
+        </div>
+    </tr>    
+</table>
 </form>
 </div>
 </div><!--Fin de la columna preguntas-->
 
 
 <div class="col-md-3 col-md-pull-9"><!--Inicio columna resultados-->
-
+</br>
+</br>
 <ul class="list-group">
   <li class="list-group-item">
     <form name="timeForm" role="form" class="form-inline"> 
@@ -353,8 +349,7 @@
          } 
         
          }?>    
-   </div>  
-</div><!--Fin div botones finales-->
+
 </div>  
 </body>
 </html>

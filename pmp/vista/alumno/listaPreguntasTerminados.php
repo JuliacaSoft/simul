@@ -23,8 +23,9 @@
 <body>  
 
     
- <div id="" class="myform">
-
+<!--<div id="" class="myform">-->
+</br>
+<div id="central"> 
 
 
 <?php
@@ -33,13 +34,18 @@ if(count($pregunta)!=0){
          
 for ($i = 0; $i < count($pregunta); $i++) {   
 ?>
-<h2 align="center">Simulador Online PMP - Atenos</h2>
-</br> 
+
+<div class="header">
+<h2 align="center">Simulador Online PMP - Atenos</h2> 
+</div>
+
 
 <div class="row"><!--Inicio div preguntas-->
 <div class="col-md-9 col-md-push-3"> <!--inicio columna preguntas-->
+    <div class="barra-preguntas">
 <form name="form" method="post" action="_proxy.php">
 <table width="95%" border="0" align="center" cellpadding="3" cellspacing="0" bgcolor="#CCCCCC">
+</br>
 <div>
     <tr>
         <td colspan="2" bgcolor="#3b5998">
@@ -160,7 +166,7 @@ for ($i = 0; $i < count($pregunta); $i++) {
 
 
     <tr <?=($pregunta[$i]['marcado']=="1")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> <?=($ide==1)?" class='alert alert-success'":""?>>
-        <td width="20">a)<input name="respuestae" type="radio" disabled value="1" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
+        <td width="10">a) <input name="respuestae" type="radio" disabled value="1" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
         </td>
         <td width="272">
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
@@ -168,36 +174,39 @@ for ($i = 0; $i < count($pregunta); $i++) {
         </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="2")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?><?=($ide==2)?" class='alert alert-success'":""?>>
-        <td>b)<input type="radio" name="respuestae" disabled value="2" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/></td>
+        <td>b) <input type="radio" name="respuestae" disabled value="2" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_es[1]?></font>
         </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="3")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?><?=($ide==3)?" class='alert alert-success'":""?>> 
-        <td>c)<input type="radio" name="respuestae" disabled value="3" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/></td>
+        <td>c) <input type="radio" name="respuestae" disabled value="3" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_es[2]?> </font>
     </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="4")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?><?=($ide==4)?" class='alert alert-success'":""?>>
-        <td>d)<input type="radio" name="respuestae" disabled value="4" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/></td>
+        <td>d) <input type="radio" name="respuestae" disabled value="4" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_es[3]?> </font>
         </td>
     </tr>
 
+</div>
+
+<div>
     <tr>
         <td colspan="2" bgcolor="#FFFFFF">
             <div align="center">
                 <font color="#FFFFFF" size="2" face="Verdana, Arial, Helvetica, sans-serif">
-                English Questions
+                .
+                <br />
                 </font> 
             </div>
         </td>
     </tr>
+
 </div>
-    
-    
     
 <div>
     <tr>
@@ -218,7 +227,7 @@ for ($i = 0; $i < count($pregunta); $i++) {
         </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="1")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> <?=($ide==1)?" class='alert alert-success'":""?>>
-        <td width="20">a)<input name="respuesta" type="radio" value="1" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
+        <td width="10">a) <input name="respuesta" type="radio" value="1" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
         </td>
         <td width="272">
             <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
@@ -226,20 +235,20 @@ for ($i = 0; $i < count($pregunta); $i++) {
         </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="2")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> <?=($ide==2)?" class='alert alert-success'":""?>>
-        <td>b)<input type="radio" name="respuesta" value="B" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/></td>
+        <td>b) <input type="radio" name="respuesta" value="B" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_us[1] ?>
             </font>
         </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="3")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> <?=($ide==3)?" class='alert alert-success'":""?>> 
-        <td>c)<input type="radio" name="respuesta" value="C" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/></td>
+        <td>c) <input type="radio" name="respuesta" value="C" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php echo $alternativas_sort_us[2] ?> </font>
     </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="4")? ($res)?" class='alert alert-success'":" class='alert alert-danger'":""?> <?=($ide==4)?" class='alert alert-success'":""?>>
-        <td>d)<input type="radio" name="respuesta" value="D" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/></td>
+        <td>d) <input type="radio" name="respuesta" value="D" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/></td>
         <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
             <?php  echo $alternativas_sort_us[3] ?> </font>
         </td>
@@ -247,27 +256,30 @@ for ($i = 0; $i < count($pregunta); $i++) {
    
     </div>
  </table>
+</form>
+</div> 
 </div><!--Fin de la columna preguntas-->
 
 <div class="col-md-3 col-md-pull-9"><!--Inicio columna resultados-->
-<ul class="list-group">
-  <li class="list-group-item">
-    <span class="badge"><?php echo $totals ?></span>
-    Total Pregutas
-  </li>
-  <li class="list-group-item">
-    <span class="badge"><?php echo $totalcon ?></span>
-    Respondidas
-  </li>
-  <li class="list-group-item">
-    <span class="badge"><?php echo $totalrev ?></span>
-    Por revisar
-  </li>
-  <li class="list-group-item">
-    <span class="badge"><?php echo $restante ?></span>
-    Restantes
-  </li>
-</ul>
+</br>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <span class="badge"><?php echo $totals ?></span>
+        Total Pregutas
+      </li>
+      <li class="list-group-item">
+        <span class="badge"><?php echo $totalcon ?></span>
+        Respondidas
+      </li>
+      <li class="list-group-item">
+        <span class="badge"><?php echo $totalrev ?></span>
+        Por revisar
+      </li>
+      <li class="list-group-item">
+        <span class="badge"><?php echo $restante ?></span>
+        Restantes
+      </li>
+    </ul>
 
 </div><!--Fin columna resultados-->
 </div><!--Fin div row preguntas-->
@@ -275,6 +287,7 @@ for ($i = 0; $i < count($pregunta); $i++) {
 <div class="row"><!--Div botonos finales-->
 
     <div class="col-md-9 col-md-push-4">
+    </br>
     <?php 
         if($pregunta[$i]['revision']==1 && $pregunta[$i]['marcado']==0){
             echo "Ud. Dejo esta pregunta en revisión sin respuesta...";
@@ -286,14 +299,12 @@ for ($i = 0; $i < count($pregunta); $i++) {
     ?>
 
     <?php  echo "<br>Aqui sacar comentario...." ?>
-          
-</form>
-   
-   </div>  
+            
 </div><!--Fin div botones finales-->
 
 <div class="row text-center">
     <div class="col-md-9 col-md-push-3">
+       </br>
         <ul class="pagination">
         <?php if($ini>=1){ ?>
           <li><a href="_proxy.php?controlador=Alumno&accion=listarPreguntasTer&simulacion_id=<?=$pregunta[$i]['simulacion_id'] ?>&ini=<?=$ini-1?>">&laquo;</a></li>
@@ -312,6 +323,7 @@ for ($i = 0; $i < count($pregunta); $i++) {
         </ul>
     </div>
 </div>
+
 <?php   } //fin for?> 
 <?php } //fin if?> 
 </div> 

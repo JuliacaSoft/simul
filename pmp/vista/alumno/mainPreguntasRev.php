@@ -22,8 +22,9 @@
         
 <body> 
 
- <div id="" class="myform">
- <!-- <div id="central"> -->
+ <!-- <div id="" class="myform"> -->
+</br>
+<div id="central"> 
 
 
 <?php
@@ -40,42 +41,15 @@
  
      
 ?>
+<div class="header">
 <h2 align="center">Simulador Online PMP - Atenos</h2> 
-
-<div class="row"><!--Div tiempo-->
-    <div class="col-md-3">
-        <form name="timeForm" role="form" class="form-inline"> 
-        <div class="form-group text-center">
-            <label>Tiempo: </label> <input name="tiempo" type="text" class="form-control" readonly="readonly" style="font-size:14"> 
-            <?php 
-                //echo $tiempofin;
-                $f=explode("-",$tiempofin);
-                //echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
-            ?> 
-        </div>
-        </form>
-    </div>
-
-    <!-- <div class="col-md-1">
-        <label>Tiempo: </label>
-    </div>
-    <div class="col-md-2">
-        <form name="timeForm" role="form" class="form-inline">
-        <input type="text" name="tiempo" class="form-control" readonly="readonly"> 
-        <?php //echo $tiempofin;
-            $f//=explode("-",$tiempofin);
-            //echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
-        ?>
-        </form>
-    </div> -->
-    <div class="col-md-9">
-        <h5 align="center"><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><strong><?php echo $intentos[0]['intento'] ?></strong></h5> 
-    </div>
-</div><!--Fin div tiempo-->
+<h5 align="center"><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><strong><?php echo $intentos[0]['intento'] ?></strong></h5>
+</div>
 
 
 <div class="row"><!--Inicio div preguntas-->
 <div class="col-md-9 col-md-push-3"> <!--inicio columna preguntas-->
+<div class="barra-preguntas">
 <form name="form" method="post" action="_proxy.php">
 <table width="95%" border="0" align="center" cellpadding="3" cellspacing="0" bgcolor="#CCCCCC">
 <div>
@@ -166,32 +140,25 @@
     ?>
 
     <tr <?=($pregunta[$i]['marcado']=="1")?>>
-        <td width="20">a)<input name="respuestae" type="radio" disabled value="1" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
-        </td>
-        <td width="272">
-            <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $alternativas_sort_es[0]?></font>
+        <td><input name="respuestae" type="radio" disabled value="1" id="rad1" class="css-radio" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
+        <label for="rad1" class="css-label-radio radGroup2"><?php echo $alternativas_sort_es[0] ?></label>
         </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="2")?>>
-        <td>b)<input type="radio" name="respuestae" disabled value="2" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/></td>
-        <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $alternativas_sort_es[1]?></font>
+        <td><input type="radio" name="respuestae" disabled value="2" id="rad2" class="css-radio" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/>
+        <label for="rad2" class="css-label-radio radGroup2"><?php echo $alternativas_sort_es[1] ?></label>
         </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="3")?>> 
-        <td>c)<input type="radio" name="respuestae" disabled value="3" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/></td>
-        <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $alternativas_sort_es[2]?> </font>
-    </td>
-    </tr>
-    <tr <?=($pregunta[$i]['marcado']=="4")?>>
-        <td>d)<input type="radio" name="respuestae" disabled value="4" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/></td>
-        <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $alternativas_sort_es[3]?> </font>
+        <td><input type="radio" name="respuestae" disabled value="3" id="rad3" class="css-radio"<?=($pregunta[$i]['marcado']=="3")?"checked":""?>/>
+        <label for="rad3" class="css-label-radio radGroup2"><?php echo $alternativas_sort_es[2] ?></label>
         </td>
     </tr>
-
+    <tr <?=($pregunta[$i]['marcado']=="4")?>>
+        <td><input type="radio" name="respuestae" disabled value="4" id="rad4" class="css-radio"<?=($pregunta[$i]['marcado']=="4")?"checked":""?>/>
+        <label for="rad4" class="css-label-radio radGroup2"><?php echo $alternativas_sort_es[3] ?></label>
+        </td>
+    </tr>
     
 </div>
 
@@ -230,39 +197,75 @@
         </td>
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="1")?>>
-        <td width="20">a)<input name="respuesta" type="radio" value="A" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
+        <td><input name="respuesta" type="radio" value="A" id="radio1" class="css-radio" <?=($pregunta[$i]['marcado']=="1")?"checked":""?> >
+        <label for="radio1" class="css-label-radio radGroup1"><?php echo $alternativas_sort_us[0] ?></label> 
         </td>
-        <td width="272">
-            <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-                <?php echo $alternativas_sort_us[0] ?></font>
-        </td>
+        
     </tr>
     <tr <?=($pregunta[$i]['marcado']=="2")?> >
-        <td>b)<input type="radio" name="respuesta" value="B" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/></td>
-        <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $alternativas_sort_us[1] ?>
-            </font>
-        </td>
-    </tr>
-    <tr <?=($pregunta[$i]['marcado']=="3")?> > 
-        <td>c)<input type="radio" name="respuesta" value="C" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/></td>
-        <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php echo $alternativas_sort_us[2] ?> </font>
-    </td>
-    </tr>
-    <tr <?=($pregunta[$i]['marcado']=="4")?> >
-        <td>d)<input type="radio" name="respuesta" value="D" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/></td>
-        <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-            <?php  echo $alternativas_sort_us[3] ?> </font>
+        <td><input type="radio" name="respuesta" value="B" id="radio2" class="css-radio" <?=($pregunta[$i]['marcado']=="2")?"checked":""?>/>
+        <label for="radio2" class="css-label-radio radGroup1"><?php echo $alternativas_sort_us[1] ?></label> 
         </td>
     </tr>
    
+    <tr <?=($pregunta[$i]['marcado']=="3")?> > 
+        <td><input type="radio" name="respuesta" value="C" id="radio3" class="css-radio" <?=($pregunta[$i]['marcado']=="3")?"checked":""?>/>
+        <label for="radio3" class="css-label-radio radGroup1"><?php echo $alternativas_sort_us[2] ?></label>
+        </td>
+    </tr>
+    <tr <?=($pregunta[$i]['marcado']=="4")?> >
+        <td><input type="radio" name="respuesta" value="D" id="radio4" class="css-radio" <?=($pregunta[$i]['marcado']=="4")?"checked":""?>/>
+            <label for="radio4" class="css-label-radio radGroup1"><?php echo $alternativas_sort_us[3] ?></label>    
+        </td>
+    </tr>
+    </br>
+    </br>
+   
     </div>
- </table>
+</table>
+
+<table width="50%" border="0" align="center" cellpadding="3" cellspacing="" >
+   
+    <tr>
+        <div align="center">
+
+            <td><input type="checkbox" name="revision" value="R" id="checkbox1" class="css-checkbox" />
+                <label for="checkbox1" class="css-label-check">Revisión</label>
+            </td>
+                           
+            <td>
+                <input type="hidden" name="pregunta_id" value="<?php echo $pregunta[$i]['pregunta_id'] ?>"/>
+                <input type="hidden" name="simulacion_id" value="<?php echo $pregunta[$i]['simulacion_id'] ?>"/>
+                <input type="hidden" name="controlador" id="controlador" value="Alumno" />
+                <input type="hidden" name="accion" id="accion" value="cambiarCondicionPreguntaRevision" />
+                <input type="submit" name="Submit" value="Siguiente" class="btn btn-primary"/>        
+            
+            </td>
+        </div>
+    </tr>
+</table>
+
+</form>
+</div>
 </div><!--Fin de la columna preguntas-->
 
+
 <div class="col-md-3 col-md-pull-9"><!--Inicio columna resultados-->
+</br>
+</br>
 <ul class="list-group">
+  <li class="list-group-item">
+    <form name="timeForm" role="form" class="form-inline"> 
+        <div class="form-group text-center">
+            <input name="tiempo" type="text" class="form-control" readonly="readonly" style="font-size:14"> 
+            <?php 
+                //echo $tiempofin;
+                $f=explode("-",$tiempofin);
+                //echo mesLetrasNum($f[1])." ".substr($f[2],0,2)." ".$f[0]." ".substr($f[2],-8);
+            ?> 
+        </div>
+    </form>
+  </li>
   <li class="list-group-item">
     <span class="badge"><?php echo $totals ?></span>
     Total Pregutas
@@ -283,45 +286,11 @@
     <span class="badge"><?php echo $restante ?></span>
     Restantes
   </li>
-
-
 </ul>
+
 <p align="center"><button type="button" onclick="location.href='_proxy.php?controlador=Alumno&accion=finalizarSimul&simulacion_id='+<?php echo $simulacion_id ?>" class="btn btn-danger">Finalizar Simulación</button> </p>
 </div><!--Fin columna resultados-->
 </div><!--Fin div row preguntas-->
-
-<div class="row"><!--Div botonos finales-->
-    <div  class="col-md-3">
-    </div>
-
-    <div class="col-md-9">
- <table width="50%" border="0" align="center" cellpadding="3" cellspacing="" >
-   
-        <tr><div align="center">
-
-            <td>r)<input type="checkbox" name="revision" value="R" />
-            <font size="2" face="Verdana, Arial, Helvetica, sans-serif">
-                <?php  echo "Revision" ?> </font>
-            </td>
-                           
-        <td>
-            
-                
-                <input type="hidden" name="pregunta_id" value="<?php echo $pregunta[$i]['pregunta_id'] ?>"/>
-                <input type="hidden" name="simulacion_id" value="<?php echo $pregunta[$i]['simulacion_id'] ?>"/>
-                <input type="hidden" name="controlador" id="controlador" value="Alumno" />
-                <input type="hidden" name="accion" id="accion" value="cambiarCondicionPreguntaRevision" />
-                <input type="submit" name="Submit" value="Siguiente" class="btn btn-primary"/>        
-            
-            
-          
-        </td>
-    </tr>
-    
-    
-    </table>
-</form>
-
 
 
 
@@ -347,8 +316,7 @@
          } 
         
          }?>    
-   </div>  
-</div><!--Fin div botones finales-->
+
 </div>  
 </body>
 </html>
