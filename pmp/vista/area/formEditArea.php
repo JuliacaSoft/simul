@@ -12,6 +12,8 @@
     </head>
     <body>
 
+        
+        
         <div id="stylized" class="myform">
             <form id="form" name="formInsert" method="post" action="_proxy.php">
                 <h1>Formulario de registro de Áreas de Conocimientos</h1>
