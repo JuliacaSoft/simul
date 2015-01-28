@@ -20,6 +20,7 @@ class AlumnoControlador {
         $usuario_id = $_SESSION['UserAct'][0]['usuario_id'];
         $cursos = $this->model->listarCursosEnsayo($usuario_id);
         $simulacion = $this->model->ultimasimulacionUsuario($usuario_id);
+        $estadosim = $this->model->estadoSimulacion($usuario_id);
 
         require_once '../vista/alumno/mainAlumno.php';
         $estadoTiempo=$this->model->verificarTiempoCurso(); //metodo para verificar examnes con tiempo terminado

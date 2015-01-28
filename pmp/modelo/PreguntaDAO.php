@@ -410,10 +410,26 @@ class PreguntaDAO {
         }
     }
 
-    public function listarCursosEnsayo($usuario_id) {
-        $sql = "SELECT e.ensayo_id, c.nombre AS curso, e.nombre,  e.tipo, e.t_dependencia, e.tiempo, e.intento, e.cant_preg, (select count(si.simulacion_id) from simulacion si where si.estado_sim=1 and si.ensayo_id=e.ensayo_id and si.usuario_id=? ) as ensreal  FROM ensayo e, curso c WHERE e.curso_id=c.curso_id   ";
+    public function estadoSimulacion($usuario_id){
+        $sql="select max(si.simulacion_id) as estadosim from simulacion si , usuario us WHERE us.usuario_id=si.usuario_id and si.estado_sim=0 and us.usuario_id=?";
+        
         try {
             $sqlQuery = new SqlQuery($sql);
+            $sqlQuery->set($usuario_id);
+            $tabla = QueryExecutor::execute($sqlQuery);
+            return $tabla;
+        } catch (Exception $e) {
+            throw new Exception("Error :" . $e->getMessage());
+        }
+        
+    }
+    
+    public function listarCursosEnsayo($usuario_id) {
+        $sql = "SELECT e.ensayo_id, c.nombre AS curso, e.nombre,  e.tipo, e.t_dependencia, e.tiempo, e.intento, e.cant_preg, (select count(si.simulacion_id) from simulacion si where si.estado_sim=1 and si.ensayo_id=e.ensayo_id and si.usuario_id=? ) as ensreal ,(select max(si.simulacion_id) from simulacion si, usuario us where si.estado_sim=0 and us.usuario_id=si.usuario_id and si.ensayo_id=e.ensayo_id and us.usuario_id=? ) idsim  FROM ensayo e, curso c WHERE e.curso_id=c.curso_id ;
+ ";
+        try {
+            $sqlQuery = new SqlQuery($sql);
+            $sqlQuery->set($usuario_id);
             $sqlQuery->set($usuario_id);
             $tabla = QueryExecutor::execute($sqlQuery);
             return $tabla;

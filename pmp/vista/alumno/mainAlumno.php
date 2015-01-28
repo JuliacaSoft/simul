@@ -31,8 +31,9 @@
         </tr>
 	<?php
         $r=0;
+        if ($estadosim[0]['estadosim']!=null){
 	for ($i = 0; $i < count($cursos); $i++) {
-	
+        if($cursos[$i]['idsim']!=null){
 	?>
 	<tr>
 		<td><?php  echo ++$r;?></td>
@@ -40,24 +41,51 @@
 		<td><?php  echo $cursos[$i]['nombre'] ?></td>
 		<td><?php  echo $cursos[$i]['tiempo'] ?> Min.</td>
 		<td><?php  echo $cursos[$i]['cant_preg'] ?></td>
-		<td><?php  echo $cursos[$i]['intento'] ?></td>
+                <td><?php  echo $cursos[$i]['intento'] ?> <h1><?php  echo $cursos[$i]['idsim'] ?></h1></td>
 		<td>  
-                    
-			<?php 
-         		//if($cursos[$i]['intento']>$cursos[$i]['ensreal']or$simulacion[0]['estado_sim']==0  ){
-				if($cursos[$i]['intento']>$cursos[$i]['ensreal']){
-         	?>
-         		<button  type="button" class="editar" id="darexamen" onclick="continuar(<?php echo $cursos[$i]['tipo']?>, <?php echo $cursos[$i]['cant_preg']?>, <?php echo $cursos[$i]['ensayo_id']?>, <?php echo $usuario_id  ?>, '<?php echo $cursos[$i]['t_dependencia']?>', <?php  echo $cursos[$i]['intento'] ?>,<?php  echo $cursos[$i]['tiempo'] ?>  )">Dar Examen </button> 
+                <?php if($cursos[$i]['idsim']!=null) {?> 	
          
-         	   <?php } else{ ?>
-         	   <strong>Intentos Completados</strong>
-         	   <?php } ?>
+             <button  type="button" class="editar" id="darexamen" onclick="javascript:showFormSimulator(<?php echo $cursos[$i]['tipo']?>, <?php echo $cursos[$i]['cant_preg']?>, <?php echo $cursos[$i]['ensayo_id']?>, <?php echo $usuario_id  ?>, '<?php echo $cursos[$i]['t_dependencia']?>', <?php  echo $cursos[$i]['intento'] ?>)">Continuar </button> 
+                    
+                <?php }else{ ?>   
+             <p>Examen en curso</p>
+         	<?php } ?>    
+         	   
       </td>
          
 	</tr>
-	
+         <!--no hay examen-->
+       <?php } else{?> 
+            <tr>
+		<td><?php  echo ++$r;?></td>
+		<td><?php  echo $cursos[$i]['curso'] ?></td>
+		<td><?php  echo $cursos[$i]['nombre'] ?></td>
+		<td><?php  echo $cursos[$i]['tiempo'] ?> Min.</td>
+		<td><?php  echo $cursos[$i]['cant_preg'] ?></td>
+                <td><?php  echo $cursos[$i]['intento'] ?> <h1><?php  echo $cursos[$i]['idsim'] ?></h1></td>
+		<td>  
+                    
+	<?php 
+         if($cursos[$i]['intento']>$cursos[$i]['ensreal']){
+         ?>          
+         		
+         <button  type="button" class="editar" id="darexamen" onclick="nuevosim(<?php echo $cursos[$i]['tipo']?>, <?php echo $cursos[$i]['cant_preg']?>, <?php echo $cursos[$i]['ensayo_id']?>, <?php echo $usuario_id  ?>, '<?php echo $cursos[$i]['t_dependencia']?>', <?php  echo $cursos[$i]['intento'] ?>,<?php  echo $cursos[$i]['tiempo'] ?>  )">Dar Examen </button> 
+        <?php }else{ ?>
+             <strong>Intentos Completados</strong>
+       <?php } ?>
+      </td>
+         
+	</tr>
+    <?php }?>
 	<?php
-	}
+        }}else{
+        
+	?>
+        
+         
+         
+         <?php
+        }
 	?>
         
 
@@ -66,7 +94,7 @@
       <script type="text/javascript" src="../../recursos/js/sweet-alert.min.js"></script>
       <script type="text/javascript">
  
-    function continuar(tipo, cant_preg, ensato_id, usuario_id, t_dependencia, intento, tiempo){
+    function nuevosim(tipo, cant_preg, ensato_id, usuario_id, t_dependencia, intento, tiempo){
         
          swal({   
         title: "¿Desea Continuar?",   
