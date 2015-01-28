@@ -47,7 +47,7 @@
          		//if($cursos[$i]['intento']>$cursos[$i]['ensreal']or$simulacion[0]['estado_sim']==0  ){
 				if($cursos[$i]['intento']>$cursos[$i]['ensreal']){
          	?>
-         		<button  type="button" class="editar" id="darexamen" onclick="continuar(<?php echo $cursos[$i]['tipo']?>, <?php echo $cursos[$i]['cant_preg']?>, <?php echo $cursos[$i]['ensayo_id']?>, <?php echo $usuario_id  ?>, '<?php echo $cursos[$i]['t_dependencia']?>', <?php  echo $cursos[$i]['intento'] ?> )">Dar Examen </button> 
+         		<button  type="button" class="editar" id="darexamen" onclick="continuar(<?php echo $cursos[$i]['tipo']?>, <?php echo $cursos[$i]['cant_preg']?>, <?php echo $cursos[$i]['ensayo_id']?>, <?php echo $usuario_id  ?>, '<?php echo $cursos[$i]['t_dependencia']?>', <?php  echo $cursos[$i]['intento'] ?>,<?php  echo $cursos[$i]['tiempo'] ?>  )">Dar Examen </button> 
          
          	   <?php } else{ ?>
          	   <strong>Intentos Completados</strong>
@@ -66,16 +66,16 @@
       <script type="text/javascript" src="../../recursos/js/sweet-alert.min.js"></script>
       <script type="text/javascript">
  
-    function continuar(tipo, cant_preg, ensato_id, usuario_id, t_dependencia, intento){
+    function continuar(tipo, cant_preg, ensato_id, usuario_id, t_dependencia, intento, tiempo){
         
          swal({   
-        title: "¿Continuar?",   
-        text: "Recuerde que cada intento se le cobra",   
+        title: "¿Desea Continuar?",   
+        text: "la simulacin es de " +cant_preg+"  preguntas y de duración  "+tiempo+"  minutos",   
         type: "warning",   
         showCancelButton: true,   
         confirmButtonColor: "#4fc64b", 
         cancelButtonColor:"#00ff00",
-        confirmButtonText: "Si, Eliminar!",
+        confirmButtonText: "Si, Continuar!",
         cancelButtonText: "No, Cancelar!",
         closeOnConfirm: false }, 
     function(){   
