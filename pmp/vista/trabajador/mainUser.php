@@ -87,10 +87,13 @@ function eliminar(id_usuario){
         text: "Quiere eliminar!",   
         type: "warning",   
         showCancelButton: true,   
-        confirmButtonColor: "#DD6B55",   
+        confirmButtonColor: "#c90119",
+        
+        // showSweetAlert: true,
         confirmButtonText: "Si, Eliminar!",
         cancelButtonText: "No, Cancelar!",
-        closeOnConfirm: false }, 
+        closeOnConfirm: false 
+    }, 
     function(){   
         location.href='_proxy.php?controlador=Usuario&accion=eliminar&usuarioid='+id_usuario;
     });

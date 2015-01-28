@@ -95,7 +95,7 @@
         text: "Quiere eliminar!",   
         type: "warning",   
         showCancelButton: true,   
-        confirmButtonColor: "#DD6B55",   
+        confirmButtonColor: "#c90119",   
         confirmButtonText: "Si, Eliminar!",
         cancelButtonText: "No, Cancelar!",
         closeOnConfirm: false }, 
