@@ -46,7 +46,6 @@
       <div class="header">
           <h2 align="center">Simulador Online PMP - Atenos</h2> 
 <h5 align="center"><strong><?php echo $intentos[0]['contar'] ?></strong> <em> intentos de </em><strong><?php echo $intentos[0]['intento'] ?></strong></h5>
-
       </div>
 
 <div class="row"><!--Inicio div preguntas-->
