@@ -16,7 +16,7 @@
     <body>
 
         <div id="stylized" class="myform">
-            <form id="form" name="formInsert" method="post" action="_proxy.php">
+            <form id="formEnsayo" name="formInsert" method="post" action="_proxy.php">
                 <h1>Formulario de registro de Ensayo</h1>
                 <p>Por favor complete los campos que se requiere </p>
 
@@ -24,19 +24,20 @@
                 <label>Nombre
                     <span class="small"></span>
                 </label>
-                <input type="text" name="nombre" id="nombre" required="required" />
+                <input type="text" name="nombre" id="nombre"  />
                 <div class="spacer"></div>
                 
                 <label>Descripción
                     <span class="small">Coloque descripción</span>
                 </label>
-                <textarea name="descripcion" rows="5" cols="40" id="descripcion" required="required"></textarea>
+                <textarea name="descripcion" rows="5" cols="40" id="descripcion" ></textarea>
                 <div class="spacer"></div>
                 
                 <label>Tipo Ensayo
                     <span class="small">Seleccione un tipo</span>
                 </label>
                 <select name="tipo" id="tipo" onchange="validarTipoEnsayo()">
+                    <option value></option>
                     <option value="1">Global</option>
                     <option value="2">Área de Conocimiento</option>
                     <option value="3">Grupo de Procesos</option>
@@ -67,18 +68,18 @@
                  <label>Tiempo
                     <span class="small">Tiempo</span>
                 </label>
-                <input type="text"  name="tiempo" value="30" id="tiempo" readonly required="required"/>
+                <input type="text"  name="tiempo" value="30" id="tiempo" readonly />
                 <div class="spacer"></div>
                 
                 <label>% de Aprobación
                     <span class="small">Coloque % Aprob.</span>
                 </label>
-                <input type="number" name="porc_aprobacion" id="porc_aprobacion" required="required"/>
+                <input type="number" name="porc_aprobacion" id="porc_aprobacion" />
                 
                 <label>Límite de intentos
                     <span class="small">Coloque Intento</span>
                 </label>
-                <input type="number" name="intento" id="intento" required="required"/>
+                <input type="number" name="intento" id="intento" />
                 <div class="spacer"></div>
                 
                 <label>Curso
@@ -137,3 +138,35 @@
     }
     </script>
 </html>
+
+<script src="../../recursos/js/jquery_validate.js"></script>
+<script>
+    
+    $(function(){
+       $('#formEnsayo').validate({
+           rules: {
+           'tipo': 'required',
+           't_dependencia': 'required',
+           'nombre': 'required',
+           'porc_aprobacion': 'required',
+           'intento': 'required',
+           
+           
+           },
+       messages: {
+           'tipo': 'Debe seleccionar el un Tipo',
+           't_dependencia': 'Debe seleccionar una opcion',
+           'nombre': 'Ingrese nombre',
+           'porc_aprobacion': 'Ingrese % Aprobación',
+           'intento': 'Ingrese límite de intentos',
+           
+           
+       },
+       debug: true,
+       /*errorElement: 'div',*/
+       //errorContainer: $('#errores'),
+       submitHandler: function(form){
+           form.submit();
+       }
+    });
+});

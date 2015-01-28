@@ -12,7 +12,7 @@
         
         <script type="text/javascript" src="../../recursos/ajax/usuario.js"></script>
         
-	<script type="text/javascript" src="../../recursos/js/jquery.autocomplete.min.js"></script>  
+	    <script type="text/javascript" src="../../recursos/js/jquery.autocomplete.min.js"></script>  
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/> 
         <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" />
@@ -70,7 +70,7 @@
 		<td><?php  echo $item->getApellidos() ?></td>
 		<td>  
                         <button type="button" class="editar" onclick="javascript:showFormEditUser(<?php echo $item->getUsuario_id()?>)">Editar</button>
-                       <button class="eliminar" onclick="eliminar(<?php echo $item->getUsuario_id()?>)" >Eliminar</button>
+                        <button class="eliminar" onclick="eliminar(<?php echo $item->getUsuario_id()?>)" >Eliminar</button>
               </td>
 		
            

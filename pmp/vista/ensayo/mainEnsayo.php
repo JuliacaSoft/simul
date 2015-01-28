@@ -9,10 +9,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>MVC - Modelo, Vista, Controlador</title>
             
-        <script type="text/javascript" src="../../recursos/js/jquery.js"></script>
+        <script type="text/javascript" src="../../recursos/js/jquery-1.9.1.min.js"></script>
+
         <script type="text/javascript" src="../../recursos/ajax/ensayo.js"></script>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/>          
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/> 
+        <link rel="stylesheet" href="../../recursos/css/sweet-alert.css"/>
+        <script src="../../recursos/js/sweet-alert.min.js"></script>         
         
 </head>
 <body>
@@ -75,7 +78,8 @@
 		<td>  
                 
                         <button type="button" class="editar" onclick="javascript:showFormEditEnsayo(<?php echo $item['ensayo_id'] ?>,<?php  echo $item['tipo'] ?>)">Editar</button>
-                        <button type="button" class="eliminar"  onclick="location.href='_proxy.php?controlador=Ensayo&accion=eliminar&ensayoid=<?php echo $item['ensayo_id']?>'" >Eliminar</button>
+                        <button class="eliminar" onclick="eliminar(<?php echo $item['ensayo_id']?>)" >Eliminar</button>
+                        
                         
                 </td>
 		
@@ -84,6 +88,28 @@
 	<?php
 	}
 	?>
+
+<script language="JavaScript"> 
+ 
+function eliminar(id_ensayo){
+       swal({   
+        title: "¿Eliminar?",   
+        text: "Quiere eliminar!",   
+        type: "warning",   
+        showCancelButton: true,   
+        confirmButtonColor: "#c90119",
+        
+        // showSweetAlert: true,
+        confirmButtonText: "Si, Eliminar!",
+        cancelButtonText: "No, Cancelar!",
+        closeOnConfirm: false 
+    }, 
+    function(){   
+        location.href='_proxy.php?controlador=Ensayo&accion=eliminar&ensayoid='+id_ensayo;
+    });
+}
+
+</script>
 </table>
 </body>
 </html>

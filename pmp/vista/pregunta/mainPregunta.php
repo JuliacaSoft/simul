@@ -10,13 +10,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>Preguntas - Simulador PMP</title>
             
-        <script type="text/javascript" src="../../recursos/js/jquery.js"></script>
+        <script type="text/javascript" src="../../recursos/js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="../../recursos/ajax/pregunta.js"></script>
         <script type="text/javascript" src="../../recursos/js/jquery.autocomplete.js"></script> 
 
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/>    
-        <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" /> 
+        <link rel="stylesheet" type="text/css" href="../../recursos/css/jquery.autocomplete.css" />
+
+        <link rel="stylesheet" href="../../recursos/css/sweet-alert.css"/>
+        <script src="../../recursos/js/sweet-alert.min.js"></script>  
         
         <script type="text/javascript">
 
@@ -88,39 +91,33 @@
                 
                         <button type="button" class="editar" onclick="javascript:showFormEditPregunta(<?php echo $item['pregunta_id']?>)">Editar</button>
                         <!-- <button class="eliminar" onclick="eliminar(<?php echo $item['pregunta_id'] ?>)" >Eliminar</button> -->
-                        <button type="button" class="eliminar"  onclick="location.href='_proxy.php?controlador=Pregunta&accion=eliminar&preguntaid=<?php echo $item['pregunta_id']?>'" >Eliminar</button>
+                        <button class="eliminar" onclick="eliminar(<?php echo $item['pregunta_id']?>)" >Eliminar</button>
+                        <!-- <button type="button" class="eliminar"  onclick="location.href='_proxy.php?controlador=Pregunta&accion=eliminar&preguntaid=<?php echo $item['pregunta_id']?>'" >Eliminar</button> -->
                 </td>
 	
     </tr>
 	<?php
 	}
 	?>
-<script type="text/javascript">
-    function eliminar(id_pregunta){
-          BootstrapDialog.show({
-            title: '¡Información!',
-            message: '<h4>¿Esta seguro que desea eliminar?</h4>',
-            buttons: [   
-             {
-                
-                label: 'Aceptar',
-                cssClass: 'btn-primary',
-                icon:'glyphicon glyphicon-ok',
-                action:function(dialogItself){
-                    location.href='_proxy.php?controlador=Pregunta&accion=eliminar&preguntaid='+id_pregunta;
-                    dialogItself.close();
-                }
-            }, {
-                label: 'Cancelar',
-                cssClass:'btn-danger',
-                icon: 'glyphicon glyphicon-ban-circle',
-                action: function(dialogItself){
-                    dialogItself.close();
-                }
-            }]
-        });
-
-    }
+<script language="JavaScript"> 
+ 
+function eliminar(id_pregunta){
+       swal({   
+        title: "¿Eliminar?",   
+        text: "Quiere eliminar!",   
+        type: "warning",   
+        showCancelButton: true,   
+        confirmButtonColor: "#c90119",
+        
+        // showSweetAlert: true,
+        confirmButtonText: "Si, Eliminar!",
+        cancelButtonText: "No, Cancelar!",
+        closeOnConfirm: false 
+    }, 
+    function(){   
+        location.href='_proxy.php?controlador=Pregunta&accion=eliminar&preguntaid='+id_pregunta;
+    });
+}
 
 </script>
         
