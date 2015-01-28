@@ -7,11 +7,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>MVC - Modelo, Vista, Controlador - Jourmoly</title>
             
-        <script type="text/javascript" src="../../recursos/js/jquery.js"></script>
+        <script type="text/javascript" src="../../recursos/js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="../../recursos/ajax/simulador.js"></script>
         
         <link rel="stylesheet" type="text/css" href="../../recursos/css/formsSearch.css"/>
         <link rel="stylesheet" type="text/css" href="../../recursos/css/listas.css"/> 
+        <link rel="stylesheet" href="../../recursos/css/sweet-alert.css"/>
 </head>
         
 <body>  
@@ -46,7 +47,8 @@
          		//if($cursos[$i]['intento']>$cursos[$i]['ensreal']or$simulacion[0]['estado_sim']==0  ){
 				if($cursos[$i]['intento']>$cursos[$i]['ensreal']){
          	?>
-         		<button  type="button" class="editar" id="darexamen" onclick="javascript:showFormSimulator(<?php echo $cursos[$i]['tipo']?>, <?php echo $cursos[$i]['cant_preg']?>, <?php echo $cursos[$i]['ensayo_id']?>, <?php echo $usuario_id  ?>, '<?php echo $cursos[$i]['t_dependencia']?>', <?php  echo $cursos[$i]['intento'] ?> )">Dar Examen </button> 
+         		<button  type="button" class="editar" id="darexamen" onclick="continuar(<?php echo $cursos[$i]['tipo']?>, <?php echo $cursos[$i]['cant_preg']?>, <?php echo $cursos[$i]['ensayo_id']?>, <?php echo $usuario_id  ?>, '<?php echo $cursos[$i]['t_dependencia']?>', <?php  echo $cursos[$i]['intento'] ?> )">Dar Examen </button> 
+         
          	   <?php } else{ ?>
          	   <strong>Intentos Completados</strong>
          	   <?php } ?>
@@ -60,7 +62,28 @@
         
 
         
-</table>    
+</table>
+      <script type="text/javascript" src="../../recursos/js/sweet-alert.min.js"></script>
+      <script type="text/javascript">
+ 
+    function continuar(tipo, cant_preg, ensato_id, usuario_id, t_dependencia, intento){
+        
+         swal({   
+        title: "¿Continuar?",   
+        text: "Recuerde que cada intento se le cobra",   
+        type: "warning",   
+        showCancelButton: true,   
+        confirmButtonColor: "#4fc64b", 
+        cancelButtonColor:"#00ff00",
+        confirmButtonText: "Si, Eliminar!",
+        cancelButtonText: "No, Cancelar!",
+        closeOnConfirm: false }, 
+    function(){   
+        javascript:showFormSimulator(tipo, cant_preg, ensato_id, usuario_id, t_dependencia, intento);
+    });
+    }
+  </script> 
+    
  
 </body>
 </html>
