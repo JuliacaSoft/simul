@@ -15,7 +15,7 @@
         
         
         <div id="stylized" class="myform">
-            <form id="form" name="formInsert" method="post" action="_proxy.php">
+            <form id="formEditArea" name="formInsert" method="post" action="_proxy.php">
                 <h1>Formulario de registro de Áreas de Conocimientos</h1>
                 <p>Por favor complete los campos que se requiere </p>
 
@@ -23,7 +23,7 @@
                 <label>Nombre
                     <span class="small"></span>
                 </label>
-                <input type="text" name="nombre" id="nombre" required="required" value="<?php echo $ar->getNombre() ?>" />
+                <input type="text" name="nombre" id="nombre" value="<?php echo $ar->getNombre() ?>" />
                 <div class="spacer"></div>
                 <label>Descripción
                     <span class="small">Coloque una descripción</span>
@@ -34,10 +34,10 @@
                 <label>Peso
                     <span class="small">Coloque el peso en %</span>
                 </label>
-                <input type="text" name="peso" id="peso" onblur="validarPeso();" required="required" value="<?php echo $ar->getPeso() ?>"/>
-                <label id="mensaje">
+                <input type="text" name="peso" id="peso" onkeyup="validarPeso();"  value="<?php echo $ar->getPeso() ?>"/>
+                <div id="mensaje" class="error">
 
-                </label>
+                </div>
                 <div class="spacer"></div>
                                 
                 <label>Estado
@@ -54,14 +54,14 @@
                 <input type="hidden" name="controlador" id="controlador" value="Area"/>
                 <input type="hidden" name="accion" id="accion" value="actualizaArea"/>
                 <input type="hidden" name="areaid" id="areaid" value="<?php echo $ar->getArea_id() ?>"/>
-                <button  id="enviars"  disabled type="submit">Guardar</button>
+                <button  id="enviars"  type="submit">Guardar</button>
                 <!--<button type="submit">Guardar</button>-->
                
                 <?php }?>
                  
             </form>
         </div>
-        
+        <script src="../../recursos/js/jquery_validate.js"></script>
         <script>
 
             function validarPeso() {
@@ -83,6 +83,35 @@
                     }
                 });
             }
+            
+            $(function(){
+       $('#formEditArea').validate({
+           rules: {
+           'nombre': 'required',
+           'descripcion': 'required',
+           'peso': 'number required',
+           
+           
+           
+           },
+       messages: {
+           'nombre': 'Debe ingresar el Nombre',
+           'descripcion': 'Debe seleccionar una opcion',
+           'peso': 'Debe ser numero y este dato es requerido',
+           
+           
+           
+       },
+       debug: true,
+       /*errorElement: 'div',*/
+       //errorContainer: $('#errores'),
+       submitHandler: function(form){
+           form.submit();
+       }
+    });
+});
+            
+            
         </script>
     </body>
 </html>

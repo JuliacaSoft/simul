@@ -30,7 +30,7 @@
                 <label>Descripción
                     <span class="small">Coloque descripción</span>
                 </label>
-                <textarea name="descripcion" rows="5" cols="40" id="descripcion" required="required"/>
+                <textarea name="descripcion" rows="5" cols="40" id="descripcion" required="required"></textarea>
                 <div class="spacer"></div>
                 
                 <label>Tipo Ensayo

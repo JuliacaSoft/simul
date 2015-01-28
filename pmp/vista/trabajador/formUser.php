@@ -14,35 +14,33 @@
     <body>
 
         <div id="stylized" class="myform">
-            <form id="form" name="formInsert" method="post" action="_proxy.php">
+            <form id="formUsuario" name="formInsert" method="post" action="_proxy.php">
                 <h1>Formulario de registro de Usuarios</h1>
                 <p>Por favor complete los campos que se requiere </p>
-
-
-                <label>Nombre
+                <label for="nombre">Nombre: 
                     <span class="small"></span>
                 </label>
-                <input type="text" name="nombre" id="nombre" required="required" />
+                <input type="text" name="nombre" id="nombre"  />
                 <div class="spacer"></div>
-                <label>Apellidos
+                <label for="apellidos">Apellidos
                     <span class="small">Coloque ambos apellidos</span>
                 </label>
-                <input type="text" name="apellidos" id="apellidos" required="required"/>
+                <input type="text" name="apellidos" id="apellidos" />
                 <div class="spacer"></div>
-                <label>Username
+                <label for="usuario">Username
                     <span class="small">Coloque su usuario</span>
                 </label>
-                <input type="text" name="usuario" id="usuario" required="required"/>
+                <input type="text" name="usuario" id="usuario" />
                 <div class="spacer"></div>
                 <label>Clave
                     <span class="small">Coloque su clave de acceso al sistema</span>
                 </label>
-                <input type="password" name="clave" id="clave" required="required"/>
+                <input type="password" name="clave" id="clave" />
                 
-                <label>Nuevamente Clave
+                <label for="newclave">Nuevamente Clave
                     <span class="small">Coloque su clave anterior</span>
                 </label>
-                <input type="password" name="newclave" id="newclave" required="required"/>                                
+                <input type="password" name="newclave" id="newclave"/>                                
                 <div class="spacer"></div>                
                 
                 <label>Rol
@@ -74,5 +72,34 @@
                 <button type="submit">Guardar</button>
             </form>
         </div>
+        
+         <script src="../../recursos/js/jquery_validate.js"></script>
+        <script>
+         $(function(){
+       $('#formUsuario').validate({
+           rules: {
+           'nombre': 'required',
+           'apellidos': 'required',
+           'usuario': 'required',
+           'clave': 'required',
+           'newclave': 'required',
+           
+           
+           },
+       messages: {
+          'nombre': 'wewew',
+           'apellidos': 'reqwewuired',
+           'usuario': 'wew',
+           'clave': 'wew',
+           'newclave': 'rwwewequired',     
+       },
+       debug: true,
+       /*errorElement: 'div',*/
+       //errorContainer: $('#errores'),
+       submitHandler: function(form){
+           form.submit();
+       }
+    });
+});
     </body>
 </html>
